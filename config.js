@@ -6,7 +6,7 @@ var appId;
 var appSecret;
 var fbUrl;
 
-if (typeof(NODE_ENV) !== 'undefined') 
+if (process.env.NODE_ENV == 'production') 
 	{
 		appId = '513729218671638';
 		appSecret = '7e5317d985ebb4a9222b21477ffaf9f3';
