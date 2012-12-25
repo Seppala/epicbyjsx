@@ -10,6 +10,7 @@
     "jade": "*",
     "mongoose": "~3.5.2",
     "passport": "~0.1.15",
-    "passport-facebook": "~0.1.4"
+    "passport-facebook": "~0.1.4",
+	"mongodb" : "1.1.11"
   }
 }
