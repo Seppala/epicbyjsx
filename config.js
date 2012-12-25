@@ -19,6 +19,8 @@ else
 		fbUrl = 'http://localhost:5000/';
 	}
 
+console.log('appId: ' + appId + ' appSecret: ' + appSecret);
+
 module.exports = {
 	development: {
 		fb: {
