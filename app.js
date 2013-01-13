@@ -145,8 +145,13 @@ app.get('/api/users', function (req, res){
 
 app.put('/api/user/:id', function (req, res){
   return User.findById(req.params.id, function (err, user) {
+	console.log(user);
     if (req.body.upfo) {
-		user.upfo = req.body.upfo; }
+		console.log("req.body.upfo:" + req.body.upfo)
+		console.log("user.upfo:" + user.upfo)
+		user.upfo = JSON.parse(req.body.upfo);
+		console.log("user.upfo updated:" + user.upfo)
+		
     return user.save(function (err) {
       if (!err) {
         console.log("updated");
@@ -155,7 +160,8 @@ app.put('/api/user/:id', function (req, res){
       }
       return res.send(user);
     });
-  });
+  };
+});
 });
 
 app.delete('/api/users/:id', function (req, res){

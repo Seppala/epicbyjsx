@@ -7,11 +7,17 @@ function makeUpfo() {
 	
 	$.ajax({
 	  	type: "PUT",
-	  	url: "http://agile-plateau-5423.herokuapp.com/api/user/" + fbId,
+	  	url: "/api/user/" + fbId,
 		datatype: "json",
-	  	data: { upfo: "true", fbId: fbId }
+	  	data: { upfo: "true"},
+		success: function (data, textStatus, jqXHR) {
+			console.log('Post response:');
+			console.dir(data);
+	        console.log(textStatus);
+	        console.dir(jqXHR);
+		}
 		}).done(function( msg ) {
-	  		alert( "Data Saved: " + msg );
+	  		console.log( "Data Saved: " + msg );
 	});
 	
 	
