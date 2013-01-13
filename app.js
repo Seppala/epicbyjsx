@@ -19,14 +19,14 @@ var mongoose = require('mongoose');
 
 //DB CONNECTION
 
-mongoose.connect(config.development.dbUrl);
+mongoose.connect(config.dbUrl);
 
 //PASSPORT STUFF
 
 var passport = require('passport'),
   	FacebookStrategy = require('passport-facebook').Strategy;
 
-// Passport seliarization and deserialization
+// Passport serialzation and deserialization
 
 passport.serializeUser(function(user, done){
 	done(null, user.id)
@@ -41,9 +41,9 @@ passport.deserializeUser(function(id, done){
 //Setting up passport
 
 passport.use(new FacebookStrategy({
-	clientID: config.development.fb.appId,
-	clientSecret: config.development.fb.appSecret,
-	callbackURL: config.development.fb.url + 'fbauthed'
+	clientID: config.fb.appId,
+	clientSecret: config.fb.appSecret,
+	callbackURL: config.fb.url + 'fbauthed'
 	},
 	function(accessToken, refreshToken, profile, done) {
 		process.nextTick( function(){
@@ -68,6 +68,8 @@ passport.use(new FacebookStrategy({
 	}
 ));
 
+// Configuration of the app
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   //app.set('views', __dirname + '/views');
@@ -88,7 +90,6 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
 
 
 // MODELS
@@ -114,7 +115,12 @@ upfo = function (req, res) {
 	fbId
 }
 
+//FUNCTIONS
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}
 //URLs
 
 // app.get('/', index);
@@ -137,11 +143,10 @@ app.get('/api/users', function (req, res){
   });
 });
 
-app.put('/api/users/:id', function (req, res){
+app.put('/api/user/:id', function (req, res){
   return User.findById(req.params.id, function (err, user) {
     if (req.body.upfo) {
 		user.upfo = req.body.upfo; }
-	user.friends_list = req.body.friends_list;
     return user.save(function (err) {
       if (!err) {
         console.log("updated");
@@ -174,6 +179,11 @@ app.post('/api/upfo', function (req, res){
 });
 // app.get('/users', user.list);
 
+//SERVER
+
+// Creating the actual server
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+//FUNCTIONS

@@ -22,12 +22,10 @@ else
 console.log('appId: ' + appId + ' appSecret: ' + appSecret);
 
 module.exports = {
-	development: {
-		fb: {
-			appId: appId,
-			appSecret: appSecret,
-			url: fbUrl 
-		},
-		dbUrl: dbUrl
-	}
+	fb: {
+		appId: appId,
+		appSecret: appSecret,
+		url: fbUrl 
+	},
+	dbUrl: dbUrl
 }
