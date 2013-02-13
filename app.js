@@ -92,6 +92,17 @@ app.configure('development', function(){
 });
 
 
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login')
+}
+
+
 // MODELS
 
 var userSchema = new mongoose.Schema({
@@ -125,7 +136,7 @@ function ensureAuthenticated(req, res, next) {
 
 // app.get('/', index);
 app.get('/fbauth', passport.authenticate('facebook'));
-app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/'}));
+app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/app.html', failureRedirect: '/'}));
 app.get('/logout', function(req, res){
 	req.logOut();
 	res.redirect('/');
@@ -143,8 +154,9 @@ app.get('/api/users', function (req, res){
   });
 });
 
-app.put('/api/user/:id', function (req, res){
-  return User.findById(req.params.id, function (err, user) {
+app.put('/api/user/:fbid', function (req, res){
+
+  return User.findOne({ fbId: req.params.fbid }, function (err, user) {
 	console.log(user);
     if (req.body.upfo) {
 		console.log("req.body.upfo:" + req.body.upfo)
@@ -157,6 +169,7 @@ app.put('/api/user/:id', function (req, res){
         console.log("updated");
       } else {
         console.log(err);
+		res.send("no user found for you.")
       }
       return res.send(user);
     });
