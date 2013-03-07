@@ -8,6 +8,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
   //, api = require('./routes/api');
+var request = require('request');
 
 var app = express();
 
@@ -16,6 +17,7 @@ var config = require('./config');
 var User = require('./models/user');
 
 var mongoose = require('mongoose');
+var fburl = 'https://graph.facebook.com/'
 
 //DB CONNECTION
 
@@ -92,15 +94,6 @@ app.configure('development', function(){
 });
 
 
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
 
 
 // MODELS
@@ -109,8 +102,9 @@ var userSchema = new mongoose.Schema({
 	fbId: String,
 	name: String,
 	friends_list: [Number],
-	geo: {type: [Number], index: '2d'},
-	upfo: Boolean
+	location: {type: [Number], index: '2d'},
+	upfo: Boolean,
+	message: String
 });
 
 var User = mongoose.model('User', userSchema);
@@ -128,19 +122,46 @@ upfo = function (req, res) {
 
 //FUNCTIONS
 
+
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/')
 }
+
+//Fetch a list of friends from facebook based on the uid given
+function fetchFriends(uid, next) {
+	var url = fburl + uid + '?fields=friends'
+	//
+}
+
 //URLs
 
-// app.get('/', index);
+//Authenication
 app.get('/fbauth', passport.authenticate('facebook'));
 app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/app.html', failureRedirect: '/'}));
 app.get('/logout', function(req, res){
 	req.logOut();
 	res.redirect('/');
 });
+
+//Facebook
+
+//Return the list of friends for the current user.
+app.get('/api/friends', function (req, res){
+	
+	//get the current user from the request
+	fbId = req.user.uid;
+	//based on the fbId get the list of friends from facebook.
+	
+	
+	//return the list of friends
+	return res.send(listOfFriends);
+}); 
 
 app.get('/api', api);
 app.post('/api', upfo); 
