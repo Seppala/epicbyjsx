@@ -17,7 +17,7 @@
 				<h1>Welcome to Epicby</h1>
 			</div>
 		</div>
-		<div class="row-fluid" id="button"></div
+		<div class="row-fluid" id="button"></div>
 		<div class="row-fluid" id="main"></div>
 		</div>
 	</div><!-- container-->
@@ -51,13 +51,33 @@ unused, cant get the } to work?:
 		
 		// The user represents the current user that is fetched from the database...
 		var User = Backbone.Model.extend({
+			urlRoot: '/users',
 			defaults: {
 				name: "Riku",
 				location: "Helsinki",
 				upfo: false,
 				message: "",
 				friends: {}
-			}
+			},
+			/*
+			initialize: function() {
+				this.user = new User();
+				this.user.url = '/users/' + req.fbid
+			},*/
+			
+			toggleUpfo: function() {
+				var upfor = user.get('upfo');
+				if (upfor === true) {
+					user.set({upfo : false});
+					user.save();
+					console.log('upfo set to false'); }
+				else {
+					user.set({upfo : true});
+					user.save();
+					console.log('upfo set to true');
+				};
+				console.log(user.get('name'));
+			},
 		});
 		
 		// The friendmodel represents one friend fetched from the database
@@ -104,29 +124,24 @@ unused, cant get the } to work?:
 			
 			initialize: function() {
 				_.bindAll(this, 'render');
+				this.model.on('change', this.replace, this);
 				this.render(this);
 				return this;
 			},
 			
 			render: function() {
-				
 				var attributes = user.toJSON();
-				this.$el.append(this.template(attributes));
-				//$(this.el).append("<button id='yes'>go with it</button>");	
+				this.$el.append(this.template(attributes));	
+			},
+			replace: function() {
+				var attributes = user.toJSON();
+				$('button#upfo').replaceWith(this.template(attributes));
 			},
 			
 			toggleUpfo: function() {
-				var upfor = user.get('upfo');
-				if (upfor === true) {
-					user.set({upfo : false});
-					console.log('upfo set to false'); }
-				else {
-					user.set({upfo : true});
-					console.log('upfo set to true');
-				};
-				console.log(user.get('name'));
-			},
-			
+				console.log(this.model);
+				this.model.toggleUpfo();
+			},	
 		});
 		
 		var MainView = Backbone.View.extend({
@@ -166,7 +181,7 @@ unused, cant get the } to work?:
 		});
 		var mainView = new MainView();
 		var user = new User();
-		var upfoView = new UpfoView( {model: User} );
+		var upfoView = new UpfoView( {model: user} );
 	});
 	  
 </script>

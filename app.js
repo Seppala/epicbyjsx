@@ -28,7 +28,7 @@ mongoose.connect(config.dbUrl);
 var passport = require('passport'),
   	FacebookStrategy = require('passport-facebook').Strategy;
 
-// Passport serialzation and deserialization
+// Passport serialization and deserialization
 
 passport.serializeUser(function(user, done){
 	done(null, user.id)
@@ -73,9 +73,9 @@ passport.use(new FacebookStrategy({
 // Configuration of the app
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  //app.set('views', __dirname + '/views');
-  //app.set('view engine', 'jade');
+  app.set('port', process.env.PORT || 5000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
   //app.use
   //app.use(express.favicon());
   app.use(express.logger('dev'));
@@ -92,9 +92,6 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
-
-
-
 
 // MODELS
 
@@ -113,11 +110,10 @@ var User = mongoose.model('User', userSchema);
 //ROUTES
 
 api = function (req, res) {
-	res.send({ upfo:req.params.upfo, success: "YesOrNo"});
-}
-
-upfo = function (req, res) {
-	fbId
+	var upfo = req.params.fbId;
+	console.log(req);
+	console.log(req.params);
+	res.send({ upfo: 'upfo', success: "YesOrNo"});
 }
 
 //FUNCTIONS
@@ -151,23 +147,33 @@ app.get('/logout', function(req, res){
 
 //Facebook
 
+
 //Return the list of friends for the current user.
 app.get('/api/friends', function (req, res){
 	
 	//get the current user from the request
-	fbId = req.user.uid;
+	fbId = req.user;
+	console.log(req.user);
 	//based on the fbId get the list of friends from facebook.
 	
 	
 	//return the list of friends
-	return res.send(listOfFriends);
+	return res.send(fbId);
 }); 
 
 app.get('/api', api);
-app.post('/api', upfo); 
+
+app.get('/account', ensureAuthenticated, function(req, res){
+    
+	//res.render('loggedin', { user: req.user });
+	console.log(req.user);  
+	res.send({ user: req.user });
+ });
+
 app.get('/api/users', function (req, res){
   return User.find(function (err, users) {
     if (!err) {
+	  //console.log(req.session);
       return res.send(users);
     } else {
       return console.log(err);
@@ -175,7 +181,7 @@ app.get('/api/users', function (req, res){
   });
 });
 
-app.put('/api/user/:fbid', function (req, res){
+app.put('/api/users/:fbid', function (req, res){
 
   return User.findOne({ fbId: req.params.fbid }, function (err, user) {
 	console.log(user);
