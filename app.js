@@ -49,15 +49,32 @@ passport.use(new FacebookStrategy({
 	},
 	function(accessToken, refreshToken, profile, done) {
 		process.nextTick( function(){
+			// Look up in database whether user already exists
+			// If not, create the new user and save him to the database
 			var query = User.findOne({'fbId': profile.id });
 			query.exec(function(err, oldUser){
 				if (oldUser) {
 					console.log('Existing User: ' + oldUser.name + ' found and logged in!');
-					done(null, oldUser);
+					// This is maybe not needing, but for testing it prevents me from
+					// cleaning the database everytime
+					// Checks wether the access token from facebook (for the api)
+					// is still the same like in the database
+					if(oldUser.fbaccessToken !== accessToken) {
+						oldUser.fbaccessToken = accessToken;
+						oldUser.save(function(err) {
+							if (err) throw err;
+							console.log('Refreshed Facebook access Token for ' + oldUser.name);
+							done(null, oldUser);
+						});
+					} else {
+						done(null, oldUser);				
+					}
+
 				} else {
 					var newUser = new User();
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
+					newUser.fbaccessToken = accessToken;
 					
 					newUser.save(function(err){
 						if (err) throw err;
@@ -101,7 +118,8 @@ var userSchema = new mongoose.Schema({
 	friends_list: [Number],
 	location: {type: [Number], index: '2d'},
 	upfo: Boolean,
-	message: String
+	message: String,
+	fbaccessToken: String
 });
 
 var User = mongoose.model('User', userSchema);
@@ -152,13 +170,26 @@ app.get('/logout', function(req, res){
 app.get('/api/friends', function (req, res){
 	
 	//get the current user from the request
-	fbId = req.user;
+	var fbId = req.user.fbId;
 	console.log(req.user);
 	//based on the fbId get the list of friends from facebook.
 	
-	
-	//return the list of friends
-	return res.send(fbId);
+	// Build url for the facebook endpoint 
+	var friendsUrl = 'https://graph.facebook.com/';
+	friendsUrl += req.user.fbId;
+	friendsUrl += '/friends';
+	friendsUrl += '?access_token=' + req.user.fbaccessToken; 
+
+	// Make the request to the facebook graph api
+	request(friendsUrl, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log('Received friends list for ' + req.user.name);
+			// Reading the JSON from facebook
+			json = JSON.parse(body);
+			// Put it back to JSON and send the JSON friends
+			return res.send(JSON.stringify(json.data));
+		}
+	});
 }); 
 
 app.get('/api', api);
