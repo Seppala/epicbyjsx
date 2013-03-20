@@ -61,7 +61,7 @@ passport.use(new FacebookStrategy({
 					
 					newUser.save(function(err){
 						if (err) throw err;
-						console.log('new user created: ' + newUser.name + ' and logged in...');
+						console.log('New user created: ' + newUser.name + ' and logged in...');
 						done(null, newUser);
 					});
 				}
