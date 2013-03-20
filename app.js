@@ -17,7 +17,7 @@ var config = require('./config');
 var User = require('./models/user');
 
 var mongoose = require('mongoose');
-var fburl = 'https://graph.facebook.com/'
+var FBURL = 'https://graph.facebook.com/'
 
 //DB CONNECTION
 
@@ -57,7 +57,7 @@ passport.use(new FacebookStrategy({
 					console.log('Existing User: ' + oldUser.name + ' found and logged in!');
 					// This is maybe not needing, but for testing it prevents me from
 					// cleaning the database everytime
-					// Checks wether the access token from facebook (for the api)
+					// Checks weather the access token from facebook (for the api)
 					// is still the same like in the database
 					if(oldUser.fbaccessToken !== accessToken) {
 						oldUser.fbaccessToken = accessToken;
@@ -127,7 +127,7 @@ var User = mongoose.model('User', userSchema);
 
 //ROUTES
 
-api = function (req, res) {
+var api = function (req, res) {
 	var upfo = req.params.fbId;
 	console.log(req);
 	console.log(req.params);
@@ -142,15 +142,9 @@ api = function (req, res) {
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
-function ensureAuthenticated(req, res, next) {
+var ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/')
-}
-
-//Fetch a list of friends from facebook based on the uid given
-function fetchFriends(uid, next) {
-	var url = fburl + uid + '?fields=friends'
-	//
 }
 
 //URLs
@@ -167,16 +161,11 @@ app.get('/logout', function(req, res){
 
 
 //Return the list of friends for the current user.
-app.get('/api/friends', function (req, res){
-	
-	//get the current user from the request
-	var fbId = req.user.fbId;
-	console.log(req.user);
-	//based on the fbId get the list of friends from facebook.
+app.get('/api/friends', ensureAuthenticated, function (req, res){
 	
 	// Build url for the facebook endpoint 
-	var friendsUrl = 'https://graph.facebook.com/';
-	friendsUrl += req.user.fbId;
+	var friendsUrl = FBURL;
+	friendsUrl += req.user.fbId; // facebook user id
 	friendsUrl += '/friends';
 	friendsUrl += '?access_token=' + req.user.fbaccessToken; 
 
