@@ -54,7 +54,7 @@ passport.use(new FacebookStrategy({
 			var query = User.findOne({'fbId': profile.id });
 			query.exec(function(err, oldUser){
 				if (oldUser) {
-					console.log('Existing User: ' + oldUser.name + ' found and logged in!');
+					console.log('Existing User: ' + oldUser.name + ' (fbid:' + oldUser.fbId +')found and logged in!');
 					// This is maybe not needing, but for testing it prevents me from
 					// cleaning the database everytime
 					// Checks weather the access token from facebook (for the api)
@@ -202,7 +202,9 @@ app.get('/api/users', function (req, res){
 });
 
 app.put('/api/users/:fbid', function (req, res){
-
+  // This console.log never happens, why? Chrome Inspector says "pending"
+  req.send('Test'); // This doesn't respond
+  console.log('Trying to save user with fbId: ' + req.params.fbid);
   return User.findOne({ fbId: req.params.fbid }, function (err, user) {
 	console.log(user);
     if (req.body.upfo) {

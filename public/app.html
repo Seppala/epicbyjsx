@@ -51,12 +51,16 @@ unused, cant get the } to work?:
 		
 		// The user represents the current user that is fetched from the database...
 		var User = Backbone.Model.extend({
-			urlRoot: '/users',
+			urlRoot: '/api/users',
+			// This idAttribute should set the identifier id
+			// to the field facebook id
+			idAttribute: 'fbId',
 			defaults: {
-				name: "Riku",
-				location: "Helsinki",
+				fbId: '1389375499',
+				name: 'Finn',
+				location: 'Helsinki',
 				upfo: false,
-				message: "",
+				message: '',
 				friends: {}
 			},
 			/*
