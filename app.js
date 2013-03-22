@@ -101,9 +101,9 @@ app.configure(function(){
   app.use(passport.initialize());
   app.use(passport.session());  
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
+  // app.use(express.methodOverride());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -202,27 +202,25 @@ app.get('/api/users', function (req, res){
 });
 
 app.put('/api/users/:fbid', function (req, res){
-  // This console.log never happens, why? Chrome Inspector says "pending"
-  req.send('Test'); // This doesn't respond
   console.log('Trying to save user with fbId: ' + req.params.fbid);
-  return User.findOne({ fbId: req.params.fbid }, function (err, user) {
-	console.log(user);
-    if (req.body.upfo) {
-		console.log("req.body.upfo:" + req.body.upfo)
-		console.log("user.upfo:" + user.upfo)
-		user.upfo = JSON.parse(req.body.upfo);
-		console.log("user.upfo updated:" + user.upfo)
-		
-    return user.save(function (err) {
-      if (!err) {
-        console.log("updated");
-      } else {
-        console.log(err);
-		res.send("no user found for you.")
-      }
-      return res.send(user);
-    });
-  };
+  User.findOne({ fbId: req.params.fbid }, function (err, user) {
+  	if(!err) {
+	    if (req.body.upfo) {
+			user.upfo = req.body.upfo;
+			user.save(function (err) {
+		     if (!err) {
+		     	res.send('ok');
+		        console.log("updated");
+		     } else {
+		     	res.send('error');
+		     	console.log('error');
+		     }
+	    	});
+	  	};
+	  } else {
+	  	console.log('Error getting user.');
+	  	res.send('error');
+	  }
 });
 });
 
