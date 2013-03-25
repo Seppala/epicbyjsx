@@ -17,7 +17,7 @@ var config = require('./config');
 var User = require('./models/user');
 
 var mongoose = require('mongoose');
-var fburl = 'https://graph.facebook.com/'
+var FBURL = 'https://graph.facebook.com/'
 
 //DB CONNECTION
 
@@ -49,19 +49,36 @@ passport.use(new FacebookStrategy({
 	},
 	function(accessToken, refreshToken, profile, done) {
 		process.nextTick( function(){
+			// Look up in database whether user already exists
+			// If not, create the new user and save him to the database
 			var query = User.findOne({'fbId': profile.id });
 			query.exec(function(err, oldUser){
 				if (oldUser) {
-					console.log('Existing User: ' + oldUser.name + ' found and logged in!');
-					done(null, oldUser);
+					console.log('Existing User: ' + oldUser.name + ' (fbid:' + oldUser.fbId +')found and logged in!');
+					// This is maybe not needing, but for testing it prevents me from
+					// cleaning the database everytime
+					// Checks weather the access token from facebook (for the api)
+					// is still the same like in the database
+					if(oldUser.fbaccessToken !== accessToken) {
+						oldUser.fbaccessToken = accessToken;
+						oldUser.save(function(err) {
+							if (err) throw err;
+							console.log('Refreshed Facebook access Token for ' + oldUser.name);
+							done(null, oldUser);
+						});
+					} else {
+						done(null, oldUser);				
+					}
+
 				} else {
 					var newUser = new User();
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
+					newUser.fbaccessToken = accessToken;
 					
 					newUser.save(function(err){
 						if (err) throw err;
-						console.log('new user created: ' + newUser.name + ' and logged in...');
+						console.log('New user created: ' + newUser.name + ' and logged in...');
 						done(null, newUser);
 					});
 				}
@@ -84,9 +101,9 @@ app.configure(function(){
   app.use(passport.initialize());
   app.use(passport.session());  
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
+  // app.use(express.methodOverride());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -101,7 +118,8 @@ var userSchema = new mongoose.Schema({
 	friends_list: [Number],
 	location: {type: [Number], index: '2d'},
 	upfo: Boolean,
-	message: String
+	message: String,
+	fbaccessToken: String
 });
 
 var User = mongoose.model('User', userSchema);
@@ -109,7 +127,7 @@ var User = mongoose.model('User', userSchema);
 
 //ROUTES
 
-api = function (req, res) {
+var api = function (req, res) {
 	var upfo = req.params.fbId;
 	console.log(req);
 	console.log(req.params);
@@ -124,15 +142,9 @@ api = function (req, res) {
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
-function ensureAuthenticated(req, res, next) {
+var ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/')
-}
-
-//Fetch a list of friends from facebook based on the uid given
-function fetchFriends(uid, next) {
-	var url = fburl + uid + '?fields=friends'
-	//
 }
 
 //URLs
@@ -149,16 +161,24 @@ app.get('/logout', function(req, res){
 
 
 //Return the list of friends for the current user.
-app.get('/api/friends', function (req, res){
+app.get('/api/friends', ensureAuthenticated, function (req, res){
 	
-	//get the current user from the request
-	fbId = req.user;
-	console.log(req.user);
-	//based on the fbId get the list of friends from facebook.
-	
-	
-	//return the list of friends
-	return res.send(fbId);
+	// Build url for the facebook endpoint 
+	var friendsUrl = FBURL;
+	friendsUrl += req.user.fbId; // facebook user id
+	friendsUrl += '/friends';
+	friendsUrl += '?access_token=' + req.user.fbaccessToken; 
+
+	// Make the request to the facebook graph api
+	request(friendsUrl, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log('Received friends list for ' + req.user.name);
+			// Reading the JSON from facebook
+			json = JSON.parse(body);
+			// Put it back to JSON and send the JSON friends
+			return res.send(JSON.stringify(json.data));
+		}
+	});
 }); 
 
 app.get('/api', api);
@@ -182,25 +202,25 @@ app.get('/api/users', function (req, res){
 });
 
 app.put('/api/users/:fbid', function (req, res){
-
-  return User.findOne({ fbId: req.params.fbid }, function (err, user) {
-	console.log(user);
-    if (req.body.upfo) {
-		console.log("req.body.upfo:" + req.body.upfo)
-		console.log("user.upfo:" + user.upfo)
-		user.upfo = JSON.parse(req.body.upfo);
-		console.log("user.upfo updated:" + user.upfo)
-		
-    return user.save(function (err) {
-      if (!err) {
-        console.log("updated");
-      } else {
-        console.log(err);
-		res.send("no user found for you.")
-      }
-      return res.send(user);
-    });
-  };
+  console.log('Trying to save user with fbId: ' + req.params.fbid);
+  User.findOne({ fbId: req.params.fbid }, function (err, user) {
+  	if(!err) {
+	    if (req.body.upfo) {
+			user.upfo = req.body.upfo;
+			user.save(function (err) {
+		     if (!err) {
+		     	res.send('ok');
+		        console.log("updated");
+		     } else {
+		     	res.send('error');
+		     	console.log('error');
+		     }
+	    	});
+	  	};
+	  } else {
+	  	console.log('Error getting user.');
+	  	res.send('error');
+	  }
 });
 });
 
