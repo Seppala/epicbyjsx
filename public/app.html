@@ -14,27 +14,29 @@
 	<div class="container">
 		<div class="row-fluid">
 			<div class="span12">
-				<h1>Welcome to Epicby</h1>
+				<h1>Welcome</h1>
 			</div>
 		</div>
 		<div class="row-fluid" id="button"></div>
-		<div class="row-fluid" id="main"></div>
+		<div class="row-fluid" id="main">
+			<ul id="friends"></ul>
+		</div>
 		</div>
 	</div><!-- container-->
 </body>
 <!--
 unused, cant get the } to work?:
 
-<% if (upfo === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
+<% if (active === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
 <% } %> Chill
 
-<% if (upfo === false) { %> See whos up for something <% } %> <% else { %>Cancel <% } %>
+<% if (active === false) { %> See whos up for something <% } %> <% else { %>Cancel <% } %>
 -->
 
 <!-- TEMPLATES!!!! -->
 <script type="text/template" id="button_t">
-    <button id='upfo' <% if (upfo === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
-		<% if (upfo === false) %> YES! <% else %> naa naa na na<% %>
+    <button id='active' <% if (active === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
+		<% if (active === false) %> YES! <% else %> naa naa na na<% %>
 	</button>
 
 	
@@ -45,6 +47,7 @@ unused, cant get the } to work?:
 <script>
 	$(function($){	
 		
+		var friendsData = [{name: "Finn", location: "Sydney", active: true},{name: "Jonne", location: "Stockholm", active: false}];
 		/*
 		 * MODELS
 		 */
@@ -55,7 +58,7 @@ unused, cant get the } to work?:
 			defaults: {
 				name: "Riku",
 				location: "Helsinki",
-				upfo: false,
+				active: false,
 				message: "",
 				friends: {}
 			},
@@ -65,16 +68,17 @@ unused, cant get the } to work?:
 				this.user.url = '/users/' + req.fbid
 			},*/
 			
-			toggleUpfo: function() {
-				var upfor = user.get('upfo');
-				if (upfor === true) {
-					user.set({upfo : false});
+			toggleactive: function() {
+				var activer = user.get('active');
+				if (activer === true) {
+					user.set({active : false});
+					//active: false could be passed in save()
 					user.save();
-					console.log('upfo set to false'); }
+					console.log('active set to false'); }
 				else {
-					user.set({upfo : true});
+					user.set({active : true});
 					user.save();
-					console.log('upfo set to true');
+					console.log('active set to true');
 				};
 				console.log(user.get('name'));
 			},
@@ -85,7 +89,7 @@ unused, cant get the } to work?:
 			defaults: {
 				name: "John",
 				location: "Helsinki",
-				upfo: true,
+				active: true,
 				message: "Golf at Pickala at 6ish?"
 			}
 		});
@@ -96,7 +100,7 @@ unused, cant get the } to work?:
 		 */
 		
 		//The FriendList is a collection of all friends the user has.
-		var FriendList = Backbone.Collection.extend({
+		var FriendsList = Backbone.Collection.extend({
 			model: Friend
 		});
 
@@ -116,72 +120,66 @@ unused, cant get the } to work?:
 			
 		});
 		
-		var UpfoView = Backbone.View.extend({
-			el: $("#button"),
+		var ActiveView = Backbone.View.extend({
+			el: "#button",
 			template: _.template( $('#button_t').html()),
 			
-			events: {"click button#upfo" : 'toggleUpfo'},
+			events: {"click button#active" : 'toggleactive'},
 			
 			initialize: function() {
-				_.bindAll(this, 'render');
 				this.model.on('change', this.replace, this);
 				this.render(this);
-				return this;
+			
 			},
 			
 			render: function() {
 				var attributes = user.toJSON();
 				this.$el.append(this.template(attributes));	
+				return this;
 			},
 			replace: function() {
 				var attributes = user.toJSON();
-				$('button#upfo').replaceWith(this.template(attributes));
+				$('button#active').replaceWith(this.template(attributes));
 			},
 			
-			toggleUpfo: function() {
+			toggleactive: function() {
 				console.log(this.model);
-				this.model.toggleUpfo();
+				this.model.toggleactive();
 			},	
 		});
 		
-		var MainView = Backbone.View.extend({
-			el: $("#main"),
-			events: {"click button#upfo" : 'addFriend'},
+		
+		var FriendsView = Backbone.View.extend({
+			el: "#friends",
 			
+			//events: {"click button#active" : 'addFriend'},
 			
 			initialize: function() {
-				_.bindAll(this, 'render', 'addFriend', 'appendFriend');
-				this.collection = new FriendList();
-				this.collection.bind('add', this.appendFriend);
-				this.render(this);
-				return this;},
-
-			render: function() {
-				var self = this;
-				$(this.el).append("<ul></ul>");
-				_(this.collection.models).each(function(friend){ // in case collection is not empty
-				        self.appendFriend(friend);
-					}, this);
-				},
-				
-			// When the button is clicked, the user should be updated.. So it should be in that view?
-				
-			addFriend: function() { 
-				var friend = new Friend();
-				this.collection.add(friend);
-				},
+	
+				this.collection.on('reset', this.render, this);
+				this.model.on('change', this.render, this);
+			},
 			
-			appendFriend: function(friend) {
-				var friendView = new FriendView({
-					model: friend
-				});
-				$('ul', this.el).append(friendView.render().el);
+			render: function() {
+				
+				var self = this;
+				this.$el.html("");
+				if (this.model.get("active")) {
+					_.each(this.collection.models, function(friend){
+						self.$el.append(new FriendView({model:friend}).render().el);
+					});
 				}
+				return this; //It's good to always return this from render() 
+			}
 				
 		});
-		var mainView = new MainView();
+		
+		//var mainView = new MainView();
 		var user = new User();
-		var upfoView = new UpfoView( {model: user} );
+		var friendsList = new FriendsList();
+		var activeView = new ActiveView( {model: user} );
+		var friendsView = new FriendsView({collection: friendsList, model: user});
+		friendsList.reset(friendsData);
 	});
 	  
 </script>
