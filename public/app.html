@@ -19,7 +19,10 @@
 		</div>
 		<div class="row-fluid" id="button"></div>
 		<div class="row-fluid" id="main">
-			<ul id="friends"></ul>
+			<p>Upfo:</p>
+			<ul id="upfo"></ul>
+			<p>Not upfo:</p>
+			<ul id="notupfo">
 		</div>
 		</div>
 	</div><!-- container-->
@@ -47,7 +50,7 @@ unused, cant get the } to work?:
 <script>
 	$(function($){	
 		
-		var friendsData = [{name: "Finn", location: "Sydney", active: true},{name: "Jonne", location: "Stockholm", active: false}];
+		var friendsData = [{name: "Juha", location: "Sydney", active: true},{name: "Jonne", location: "Stockholm", active: false},{name: "Jarkko", location: "Turku", active: false},{name: "Jesse", location: "London", active: true}];
 		/*
 		 * MODELS
 		 */
@@ -154,7 +157,7 @@ unused, cant get the } to work?:
 		
 		
 		var FriendsView = Backbone.View.extend({
-			el: "#friends",
+			el: "#upfo",
 			
 			//events: {"click button#active" : 'addFriend'},
 			
