@@ -203,6 +203,7 @@ app.get('/api/users', function (req, res){
 
 app.put('/api/users/:fbid', function (req, res){
   console.log('Trying to save user with fbId: ' + req.params.fbid);
+
   User.findOne({ fbId: req.params.fbid }, function (err, user) {
   	if(!err) {
 	    if (req.body.upfo) {
