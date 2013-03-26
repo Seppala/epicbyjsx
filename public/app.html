@@ -78,13 +78,10 @@ unused, cant get the } to work?:
 			toggleactive: function() {
 				var activer = user.get('active');
 				if (activer === true) {
-					user.set({active : false});
-					//active: false could be passed in save()
-					user.save();
+					user.save({active : false});
 					console.log('active set to false'); }
 				else {
-					user.set({active : true});
-					user.save();
+					user.save({active : true});
 					console.log('active set to true');
 				};
 				console.log(user.get('name'));
@@ -118,7 +115,6 @@ unused, cant get the } to work?:
 		var FriendView = Backbone.View.extend({
 			tagName: "li",
 			initalize: function() {
-				_.bindAll(this, 'render'); //every function that uses 'this' as the current object has to be in here.	
 			},
 			render: function() {
 				$(this.el).html('<span>' + this.model.get('name') + ', ' + this.model.get('location') + ', ' + this.model.get('message') + '</span>');
@@ -155,8 +151,8 @@ unused, cant get the } to work?:
 			},	
 		});
 		
-		
-		var FriendsView = Backbone.View.extend({
+		//IsupfoView is the view that renders the friends that are upfo.
+		var IsupfoView = Backbone.View.extend({
 			el: "#upfo",
 			
 			//events: {"click button#active" : 'addFriend'},
@@ -170,9 +166,11 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
+				var isUpfo = this.collection.where({active: true});
+				
 				this.$el.html("");
 				if (this.model.get("active")) {
-					_.each(this.collection.models, function(friend){
+					_.each(isUpfo, function(friend){
 						self.$el.append(new FriendView({model:friend}).render().el);
 					});
 				}
@@ -181,11 +179,41 @@ unused, cant get the } to work?:
 				
 		});
 		
+		//NotupfoView is the view that renders the friends that are NOT upfo.
+		var NotupfoView = Backbone.View.extend({
+			el: "#notupfo",
+			
+			//events: {"click button#active" : 'addFriend'},
+			
+			initialize: function() {
+	
+				this.collection.on('reset', this.render, this);
+				this.model.on('change', this.render, this);
+			},
+			
+			render: function() {
+				
+				var self = this;
+				var notUpfo = this.collection.where({active: false});
+				
+				this.$el.html("");
+				if (this.model.get("active")) {
+					_.each(notUpfo, function(friend){
+						self.$el.append(new FriendView({model:friend}).render().el);
+					});
+				}
+				return this; //It's good to always return this from render() 
+			}
+				
+		});
+		
+		
 		//var mainView = new MainView();
 		var user = new User();
 		var friendsList = new FriendsList();
 		var activeView = new ActiveView( {model: user} );
-		var friendsView = new FriendsView({collection: friendsList, model: user});
+		var isupfoView = new IsupfoView({collection: friendsList, model: user});
+		var notupfoView = new NotupfoView({collection: friendsList, model: user});
 		friendsList.reset(friendsData);
 	});
 	  
