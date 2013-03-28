@@ -177,6 +177,7 @@ var getFriendsFromFacebook = function(user, next) {
 
 //Return the list of friends for the current user.
 app.get('/api/friends', ensureAuthenticated, function (req, res){
+	var countCalls = 0;
 	var fbFriends = getFriendsFromFacebook(req.user, function(fbFriends) {
 		fbFriends.forEach(function(friend) {
 			// Change id to fbId
@@ -184,8 +185,29 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 			delete friend.id
 			// Default no user
 			friend.user = false;
+			// Count the number of findOnes used.
+			countCalls++;
+			// Lookup whether the friend is in the database
+			User.findOne({fbId: friend.fbId}, function(err, user){
+
+				if(!err) {
+					// User should be null of nothing is found
+					if(user) {
+						console.log('Friend found in database: ' + user.name);
+						friend.user = true;
+					}
+				} else {
+					// No Error Handling yet :)
+				}
+				// Call finished, set calls one less
+				countCalls--;
+				// If there are no calls left, send to server
+				if(countCalls < 1) {
+					console.log("Sending to server");
+					res.send(JSON.stringify(fbFriends));
+				}
+			});
 		});
-		res.send(JSON.stringify(fbFriends));
 	});
 
 }); 
