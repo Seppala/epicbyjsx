@@ -158,27 +158,58 @@ app.get('/logout', function(req, res){
 });
 
 //Facebook
-
-
-//Return the list of friends for the current user.
-app.get('/api/friends', ensureAuthenticated, function (req, res){
-	
+var getFriendsFromFacebook = function(user, next) {
 	// Build url for the facebook endpoint 
 	var friendsUrl = FBURL;
-	friendsUrl += req.user.fbId; // facebook user id
+	friendsUrl += user.fbId // facebook user id
 	friendsUrl += '/friends';
-	friendsUrl += '?access_token=' + req.user.fbaccessToken; 
+	friendsUrl += '?access_token=' + user.fbaccessToken; 
 
 	// Make the request to the facebook graph api
 	request(friendsUrl, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			console.log('Received friends list for ' + req.user.name);
-			// Reading the JSON from facebook
-			json = JSON.parse(body);
-			// Put it back to JSON and send the JSON friends
-			return res.send(JSON.stringify(json.data));
+			console.log('Received friends list for ' + user.name);
+			next(JSON.parse(body).data);
 		}
 	});
+}
+
+
+//Return the list of friends for the current user.
+app.get('/api/friends', ensureAuthenticated, function (req, res){
+	var countCalls = 0;
+	var fbFriends = getFriendsFromFacebook(req.user, function(fbFriends) {
+		fbFriends.forEach(function(friend) {
+			// Change id to fbId
+			friend.fbId = friend.id;
+			delete friend.id
+			// Default no user
+			friend.user = false;
+			// Count the number of findOnes used.
+			countCalls++;
+			// Lookup whether the friend is in the database
+			User.findOne({fbId: friend.fbId}, function(err, user){
+
+				if(!err) {
+					// User should be null of nothing is found
+					if(user) {
+						console.log('Friend found in database: ' + user.name);
+						friend.user = true;
+					}
+				} else {
+					// No Error Handling yet :)
+				}
+				// Call finished, set calls one less
+				countCalls--;
+				// If there are no calls left, send to server
+				if(countCalls < 1) {
+					console.log("Sending to server");
+					res.send(JSON.stringify(fbFriends));
+				}
+			});
+		});
+	});
+
 }); 
 
 app.get('/api', api);
@@ -203,7 +234,6 @@ app.get('/api/users', function (req, res){
 
 app.put('/api/users/:fbid', function (req, res){
   console.log('Trying to save user with fbId: ' + req.params.fbid);
-
   User.findOne({ fbId: req.params.fbid }, function (err, user) {
   	if(!err) {
 	    if (req.body.upfo) {
@@ -217,6 +247,9 @@ app.put('/api/users/:fbid', function (req, res){
 		     	console.log('error');
 		     }
 	    	});
+	  	} else {
+	  		res.send('error');
+	  		console.log("The person isn't up for anything");
 	  	};
 	  } else {
 	  	console.log('Error getting user.');
