@@ -11,6 +11,24 @@
 
 </head>
 <body>
+	<body>
+	    <div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+	          <a class="brand" href="#">Piazzo</a>
+	          <div class="navbar-content">
+	            <ul class="nav  pull-right">
+	              <li class="active">
+	                <a href="#">Settings</a> 
+	              </li>
+	              <li>
+	                <a href="#">Home</a> 
+	              </li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 	<div class="container">
 		<div class="row-fluid">
 			<div class="span12">
@@ -22,7 +40,9 @@
 			<p>Upfo:</p>
 			<ul id="upfo"></ul>
 			<p>Not upfo:</p>
-			<ul id="notupfo">
+			<ul id="notupfo"></ul>
+			<p>Not on Piazzo:</p>
+			<ul id="nonuser">
 		</div>
 		</div>
 	</div><!-- container-->
@@ -50,7 +70,11 @@ unused, cant get the } to work?:
 <script>
 	$(function($){	
 		
-		var friendsData = [{name: "Juha", location: "Sydney", active: true},{name: "Jonne", location: "Stockholm", active: false},{name: "Jarkko", location: "Turku", active: false},{name: "Jesse", location: "London", active: true}];
+		var friendsData = [{name: "Juha", location: "Sydney", active: true, user: false},
+		{name: "Jonne", location: "Stockholm", active: false, user: false},
+		{name: "Jarkko", location: "Turku", active: false, user: true},
+		{name: "Jesse", location: "London", active: true, user: false},
+		{name: "Janina", location: "Tallinn", active: true, user: true}];
 		/*
 		 * MODELS
 		 */
@@ -105,7 +129,8 @@ unused, cant get the } to work?:
 		
 		//The FriendList is a collection of all friends the user has.
 		var FriendsList = Backbone.Collection.extend({
-			model: Friend
+			model: Friend,
+			url: 'api/friends'
 		});
 
 		/*
@@ -154,9 +179,7 @@ unused, cant get the } to work?:
 		//IsupfoView is the view that renders the friends that are upfo.
 		var IsupfoView = Backbone.View.extend({
 			el: "#upfo",
-			
-			//events: {"click button#active" : 'addFriend'},
-			
+
 			initialize: function() {
 	
 				this.collection.on('reset', this.render, this);
@@ -166,7 +189,7 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
-				var isUpfo = this.collection.where({active: true});
+				var isUpfo = this.collection.where({active: true, user: true});
 				
 				this.$el.html("");
 				if (this.model.get("active")) {
@@ -182,11 +205,10 @@ unused, cant get the } to work?:
 		//NotupfoView is the view that renders the friends that are NOT upfo.
 		var NotupfoView = Backbone.View.extend({
 			el: "#notupfo",
-			
-			//events: {"click button#active" : 'addFriend'},
-			
+
 			initialize: function() {
-	
+				
+				this.collection.fetch();
 				this.collection.on('reset', this.render, this);
 				this.model.on('change', this.render, this);
 			},
@@ -194,11 +216,38 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
-				var notUpfo = this.collection.where({active: false});
+				var notUpfo = this.collection.where({user: true, active: false});
 				
 				this.$el.html("");
 				if (this.model.get("active")) {
 					_.each(notUpfo, function(friend){
+						self.$el.append(new FriendView({model:friend}).render().el);
+					});
+				}
+				return this; //It's good to always return this from render() 
+			}
+				
+		});
+		
+		//NonuserView is the view that renders the friends that are users of the app
+		var NonuserView = Backbone.View.extend({
+			el: "#nonuser",
+
+			initialize: function() {
+				this.collection.fetch();
+				this.collection.on('reset', this.render, this);
+				this.model.on('change', this.render, this);
+			},
+			
+			render: function() {
+				
+				var self = this;
+				var nonUser = this.collection.where({user: false});
+				
+				this.$el.html("");
+				
+				if (this.model.get("active")) {
+					_.each(nonUser, function(friend){
 						self.$el.append(new FriendView({model:friend}).render().el);
 					});
 				}
@@ -214,7 +263,9 @@ unused, cant get the } to work?:
 		var activeView = new ActiveView( {model: user} );
 		var isupfoView = new IsupfoView({collection: friendsList, model: user});
 		var notupfoView = new NotupfoView({collection: friendsList, model: user});
-		friendsList.reset(friendsData);
+		var nonuserView = new NonuserView({collection: friendsList, model: user});
+		//friendsList.reset(friendsData);
+		friendsList.fetch()
 	});
 	  
 </script>
