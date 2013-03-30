@@ -191,11 +191,10 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 			User.findOne({fbId: friend.fbId}, function(err, user){
 
 				if(!err) {
-					// User should be null of nothing is found
+					// If the friend is found, flag user as true.
 					if(user) {
 						console.log('Friend found in database: ' + user.name);
 						friend.user = true;
-						// 
 					}
 				} else {
 						friend.user = false;
@@ -257,6 +256,7 @@ app.put('/api/users/:fbid', function (req, res){
 	  	console.log('Error getting user.');
 	  	res.send('error');
 	  }
+
 });
 });
 

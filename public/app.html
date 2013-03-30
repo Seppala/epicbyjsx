@@ -58,8 +58,8 @@ unused, cant get the } to work?:
 
 <!-- TEMPLATES!!!! -->
 <script type="text/template" id="button_t">
-    <button id='active' <% if (active === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
-		<% if (active === false) %> YES! <% else %> naa naa na na<% %>
+    <button id='active' <% if (upfo === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
+		<% if (upfo === false) %> YES! <% else %> naa naa na na<% %>
 	</button>
 
 	
@@ -89,7 +89,7 @@ unused, cant get the } to work?:
 				fbId: '761506933',
 				name: 'Riku',
 				location: 'Helsinki',
-				active: false,
+				upfo: false,
 				message: '',
 				friends: {}
 			},
@@ -100,13 +100,15 @@ unused, cant get the } to work?:
 			},*/
 			
 			toggleactive: function() {
-				var activer = user.get('active');
-				if (activer === true) {
-					user.save({active : false});
-					console.log('active set to false'); }
+				var upfor = user.get('upfo');
+				if (upfor === true) {
+					user.save({upfo : false});
+					console.log('upfo set to false'); }
 				else {
-					user.save({active : true});
-					console.log('active set to true');
+					user.save({upfo : true});
+					//friendsList.reset();
+					friendsList.fetch();
+					console.log('upfo set to true');
 				};
 				console.log(user.get('name'));
 			},
@@ -130,7 +132,8 @@ unused, cant get the } to work?:
 		//The FriendList is a collection of all friends the user has.
 		var FriendsList = Backbone.Collection.extend({
 			model: Friend,
-			url: 'api/friends'
+			url: 'api/friends',
+		
 		});
 
 		/*
@@ -171,7 +174,7 @@ unused, cant get the } to work?:
 			},
 			
 			toggleactive: function() {
-				console.log(this.model);
+				console.log('I\'m in toggleactive' + this.model + ' collection:' + this.collection);
 				this.model.toggleactive();
 			},	
 		});
@@ -181,7 +184,7 @@ unused, cant get the } to work?:
 			el: "#upfo",
 
 			initialize: function() {
-	
+				this.collection.fetch();
 				this.collection.on('reset', this.render, this);
 				this.model.on('change', this.render, this);
 			},
@@ -189,7 +192,7 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
-				var isUpfo = this.collection.where({active: true, user: true});
+				var isUpfo = this.collection.where({upfo: true, user: true});
 				
 				this.$el.html("");
 				if (this.model.get("active")) {
@@ -216,7 +219,7 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
-				var notUpfo = this.collection.where({user: true, active: false});
+				var notUpfo = this.collection.where({user: true, upfo: false});
 				
 				this.$el.html("");
 				if (this.model.get("active")) {
@@ -246,7 +249,7 @@ unused, cant get the } to work?:
 				
 				this.$el.html("");
 				
-				if (this.model.get("active")) {
+				if (this.model.get("upfo")) {
 					_.each(nonUser, function(friend){
 						self.$el.append(new FriendView({model:friend}).render().el);
 					});
@@ -265,7 +268,7 @@ unused, cant get the } to work?:
 		var notupfoView = new NotupfoView({collection: friendsList, model: user});
 		var nonuserView = new NonuserView({collection: friendsList, model: user});
 		//friendsList.reset(friendsData);
-		friendsList.fetch()
+		friendsList.fetch();
 	});
 	  
 </script>
