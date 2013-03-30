@@ -195,15 +195,17 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 					if(user) {
 						console.log('Friend found in database: ' + user.name);
 						friend.user = true;
+						// 
 					}
 				} else {
+						friend.user = false;
 					// No Error Handling yet :)
 				}
 				// Call finished, set calls one less
 				countCalls--;
-				// If there are no calls left, send to server
+				// If there are no calls left, send to server (isn't this actually sending to client?)
 				if(countCalls < 1) {
-					console.log("Sending to server");
+					console.log("Sending to server"); //isn't this actually sending to client?
 					res.send(JSON.stringify(fbFriends));
 				}
 			});
