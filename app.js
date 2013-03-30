@@ -35,7 +35,7 @@ passport.serializeUser(function(user, done){
 });
 
 passport.deserializeUser(function(id, done){
-	User.findOne(id, function(err, user){
+	UserModel.findOne(id, function(err, user){
 		done(err, user);
 	});
 });
@@ -51,7 +51,7 @@ passport.use(new FacebookStrategy({
 		process.nextTick( function(){
 			// Look up in database whether user already exists
 			// If not, create the new user and save him to the database
-			var query = User.findOne({'fbId': profile.id });
+			var query = UserModel.findOne({'fbId': profile.id });
 			query.exec(function(err, oldUser){
 				if (oldUser) {
 					console.log('Existing User: ' + oldUser.name + ' (fbid:' + oldUser.fbId +')found and logged in!');
@@ -122,7 +122,7 @@ var userSchema = new mongoose.Schema({
 	fbaccessToken: String
 });
 
-var User = mongoose.model('User', userSchema);
+var UserModel = mongoose.model('User', userSchema);
 // export this model if done form another file: module.exports = mongoose.model('User', userSchema);
 
 //ROUTES
@@ -189,7 +189,7 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 			// Count the number of findOnes used.
 			countCalls++;
 			// Lookup whether the friend is in the database
-			User.findOne({fbId: friend.fbId}, function(err, user){
+			UserModel.findOne({fbId: friend.fbId}, function(err, user){
 
 				if(!err) {
 					// If the friend is found, flag user as true.
@@ -235,7 +235,7 @@ app.get('/account', ensureAuthenticated, function(req, res){
  });
 
 app.get('/api/users', function (req, res){
-  return User.find(function (err, users) {
+  return UserModel.find(function (err, users) {
     if (!err) {
 	  //console.log(req.session);
       return res.send(users);
@@ -245,35 +245,56 @@ app.get('/api/users', function (req, res){
   });
 });
 
-app.put('/api/users/:fbid', function (req, res){
-  console.log('Trying to save user with fbId: ' + req.params.fbid);
-  User.findOne({ fbId: req.params.fbid }, function (err, user) {
-  	if(!err) {
-	    if (req.body.upfo) {
-			user.upfo = req.body.upfo;
-			user.save(function (err) {
-		     if (!err) {
-		     	res.send('ok');
-		        console.log("updated");
-		     } else {
-		     	res.send('error');
-		     	console.log('error');
-		     }
-	    	});
-	  	} else {
-	  		res.send('error');
-	  		console.log("The person isn't up for anything");
-	  	};
-	  } else {
-	  	console.log('Error getting user.');
-	  	res.send('error');
-	  }
+//OK, now this put request works. 
+app.put( '/api/users/:id', function( request, response ) {
+    console.log( 'Updating user ' + request.body.name + ' fbid:' + request.body.fbId);
+    return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
+        console.log('user that was found :' + user)
+		user.upfo = request.body.upfo;
 
+        return user.save( function( err ) {
+            if( !err ) {
+                console.log( 'user updated' );
+            } else {
+                console.log( err );
+            }
+            return response.send( user );
+        });
+    });
 });
+
+//This was the old put API that didn't work... Can be removed but I left it here to see. So it seems req.params doesn't work, you have to use req.body.
+app.put('/api/userss/:fbId', ensureAuthenticated, function (req, res){
+	console.log('Trying to save user with fbId: ' + req.params.fbid);
+	UserModel.findOne({ fbId: req.params.fbid }, function (err, user) {
+	  	if(!err) {
+		    if (req.body.upfo) {
+				user.upfo = req.body.upfo;
+				user.save(function (err) {
+			     if (!err) {
+			     	res.send('ok');
+			        console.log("updated");
+			     } else {
+			     	res.send('error');
+			     	console.log('error');
+			     }
+		    	});
+		  	} else {
+		  		res.send('error');
+		  		console.log("The person isn't up for anything");
+		  	};
+		  } else {
+		  	console.log('Error getting user.');
+		  	res.send('error');
+		  }
+		res.send('No user');
+
+	});
+
 });
 
 app.delete('/api/users/:id', function (req, res){
-  return User.findById(req.params.id, function (err, user) {
+  return UserModel.findById(req.params.id, function (err, user) {
     return user.remove(function (err) {
       if (!err) {
         console.log("removed");
