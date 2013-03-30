@@ -227,18 +227,10 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 
 app.get('/api', api);
 
-//testing if i can access the user in a GET request
-app.get('/account1', function(req, res){
-    
-	//res.render('loggedin', { user: req.user });
-	console.log('account1 req.user:' + req.user);  
-	res.send({ user: req.user });
- });
-
 app.get('/account', ensureAuthenticated, function(req, res){
     
 	//res.render('loggedin', { user: req.user });
-	console.log('account req.user:' + req.user);  
+	console.log(req.user);  
 	res.send({ user: req.user });
  });
 
@@ -273,7 +265,7 @@ app.put( '/api/users/:fbId', function( request, response ) {
 });
 
 //This was the old put API that didn't work... Can be removed but I left it here to see. So it seems req.params doesn't work, you have to use req.body.
-app.put('/api/userss/:fbId', function (req, res){
+app.put('/api/userss/:fbId', ensureAuthenticated, function (req, res){
 	console.log('Trying to save user with fbId: ' + req.params.fbid);
 	UserModel.findOne({ fbId: req.params.fbid }, function (err, user) {
 	  	if(!err) {
