@@ -247,7 +247,7 @@ app.get('/api/users', function (req, res){
 
 //OK, now this put request works. Nope, just sometimes, argh!
 app.put( '/api/users/:fbId', function( request, response ) {
-    console.log( 'Updating user ' + request.body.name + ' fbid:' + request.body.fbId);
+    console.log( 'Updating user ' + request.user + ' fbid:' + request.body.fbId);
     
 	return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
         console.log('user that was found :' + user)
