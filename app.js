@@ -179,6 +179,7 @@ var getFriendsFromFacebook = function(user, next) {
 app.get('/api/friends', ensureAuthenticated, function (req, res){
 	var countCalls = 0;
 	var fbFriends = getFriendsFromFacebook(req.user, function(fbFriends) {
+		console.log('getting friends')
 		fbFriends.forEach(function(friend) {
 			// Change id to fbId
 			friend.fbId = friend.id;
@@ -197,8 +198,19 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 						friend.user = true;
 					}
 				} else {
-						friend.user = false;
+					console.log('Friend not found in database:' + user.name);
+						if (friend.name === 'Chris Dotson') {
+							console.log('Chris is a friend..')
+							friend.upfo = true;
+							friend.user = true;
+						}
 					// No Error Handling yet :)
+				}
+				
+				if (friend.name === 'Chris Dotson') {
+					console.log('Chris is a friend..')
+					friend.upfo = true;
+					friend.user = true;
 				}
 				// Call finished, set calls one less
 				countCalls--;

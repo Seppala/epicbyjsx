@@ -47,14 +47,7 @@
 		</div>
 	</div><!-- container-->
 </body>
-<!--
-unused, cant get the } to work?:
 
-<% if (active === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
-<% } %> Chill
-
-<% if (active === false) { %> See whos up for something <% } %> <% else { %>Cancel <% } %>
--->
 
 <!-- TEMPLATES!!!! -->
 <script type="text/template" id="button_t">
@@ -70,11 +63,11 @@ unused, cant get the } to work?:
 <script>
 	$(function($){	
 		
-		var friendsData = [{name: "Juha", location: "Sydney", active: true, user: false},
-		{name: "Jonne", location: "Stockholm", active: false, user: false},
-		{name: "Jarkko", location: "Turku", active: false, user: true},
-		{name: "Jesse", location: "London", active: true, user: false},
-		{name: "Janina", location: "Tallinn", active: true, user: true}];
+		var friendsData = [{name: "Juha", location: "Sydney", upfo: true, user: false},
+		{name: "Jonne", location: "Stockholm", upfo: false, user: false},
+		{name: "Jarkko", location: "Turku", upfo: false, user: true},
+		{name: "Jesse", location: "London", upfo: true, user: false},
+		{name: "Janina", location: "Tallinn", upfo: true, user: true}];
 		/*
 		 * MODELS
 		 */
@@ -184,7 +177,7 @@ unused, cant get the } to work?:
 			el: "#upfo",
 
 			initialize: function() {
-				this.collection.fetch();
+				//this.collection.fetch();
 				this.collection.on('reset', this.render, this);
 				this.model.on('change', this.render, this);
 			},
@@ -192,10 +185,10 @@ unused, cant get the } to work?:
 			render: function() {
 				
 				var self = this;
-				var isUpfo = this.collection.where({upfo: true, user: true});
+				var isUpfo = this.collection.where({user: true, upfo: true});
 				
 				this.$el.html("");
-				if (this.model.get("active")) {
+				if (this.model.get("upfo")) {
 					_.each(isUpfo, function(friend){
 						self.$el.append(new FriendView({model:friend}).render().el);
 					});
@@ -211,7 +204,7 @@ unused, cant get the } to work?:
 
 			initialize: function() {
 				
-				this.collection.fetch();
+				//this.collection.fetch();
 				this.collection.on('reset', this.render, this);
 				this.model.on('change', this.render, this);
 			},
@@ -222,7 +215,7 @@ unused, cant get the } to work?:
 				var notUpfo = this.collection.where({user: true, upfo: false});
 				
 				this.$el.html("");
-				if (this.model.get("active")) {
+				if (this.model.get("upfo")) {
 					_.each(notUpfo, function(friend){
 						self.$el.append(new FriendView({model:friend}).render().el);
 					});
@@ -237,7 +230,7 @@ unused, cant get the } to work?:
 			el: "#nonuser",
 
 			initialize: function() {
-				this.collection.fetch();
+				//this.collection.fetch();
 				this.collection.on('reset', this.render, this);
 				this.model.on('change', this.render, this);
 			},
