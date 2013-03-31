@@ -184,8 +184,6 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 			// Change id to fbId
 			friend.fbId = friend.id;
 			delete friend.id
-			// Default no user
-			friend.user = false;
 			// Count the number of findOnes used.
 			countCalls++;
 			// Lookup whether the friend is in the database
@@ -194,29 +192,22 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 				if(!err) {
 					// If the friend is found, flag user as true.
 					if(user) {
-						console.log('Friend found in database: ' + user.name);
+						console.log('Friend found in database: ' + friend.name);
 						friend.user = true;
+						// Specify data that should be transferred to the client
+						friend.upfo = friend.upfo;
+					} else {
+						console.log('Friend not found in database: ' + friend.name);
+						friend.user = false;
 					}
 				} else {
-					console.log('Friend not found in database:' + user.name);
-						if (friend.name === 'Chris Dotson') {
-							console.log('Chris is a friend..')
-							friend.upfo = true;
-							friend.user = true;
-						}
 					// No Error Handling yet :)
-				}
-				
-				if (friend.name === 'Chris Dotson') {
-					console.log('Chris is a friend..')
-					friend.upfo = true;
-					friend.user = true;
 				}
 				// Call finished, set calls one less
 				countCalls--;
-				// If there are no calls left, send to server (isn't this actually sending to client?)
+				// If there are no calls left, send to client
 				if(countCalls < 1) {
-					console.log("Sending to server"); //isn't this actually sending to client?
+					console.log("Sending to client.");
 					res.send(JSON.stringify(fbFriends));
 				}
 			});
