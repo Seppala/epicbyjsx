@@ -249,13 +249,10 @@ app.get('/api/users', function (req, res){
 app.put( '/api/users/:fbId', function( request, response ) {
     console.log( 'Updating user ' + request.body + ' fbid:' + request.body.fbId);
 	return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
-        console.log('user that was found :' + user)
-		console.log('upfo in request (body)' + request.body.upfo);
-		console.log('upfo in req (upfo)' + request.upfo);
-		console.log('user upfo before' + user.upfo);
+        
+		//set users upfo status to what is given in the request
 		user.upfo = JSON.parse(request.body.upfo);
-		console.log('user upfo after' + user.upfo);
-
+		//save user
         return user.save( function( err ) {
             if( !err ) {
                 console.log( 'user updated' );
