@@ -71,7 +71,7 @@ passport.use(new FacebookStrategy({
 					}
 
 				} else {
-					var newUser = new User();
+					var newUser = new UserModel();
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
@@ -165,11 +165,15 @@ var getFriendsFromFacebook = function(user, next) {
 	friendsUrl += '/friends';
 	friendsUrl += '?access_token=' + user.fbaccessToken; 
 
+	console.log("Requesting facebook: " + friendsUrl);
 	// Make the request to the facebook graph api
 	request(friendsUrl, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			console.log('Received friends list for ' + user.name);
-			next(JSON.parse(body).data);
+			next(false, JSON.parse(body).data);
+		} else {
+			// Error with the facebook request
+			next(true, null);
 		}
 	});
 }
@@ -184,41 +188,47 @@ app.get('/api-test/friends', function(req, res){
 
 //Return the list of friends for the current user.
 app.get('/api/friends', ensureAuthenticated, function (req, res){
+	console.log('Request to api/friends.');
+	console.log('req.user = ' + req.user);
 	var countCalls = 0;
-	var fbFriends = getFriendsFromFacebook(req.user, function(fbFriends) {
-		console.log('getting friends')
-		fbFriends.forEach(function(friend) {
-			// Change id to fbId
-			friend.fbId = friend.id;
-			delete friend.id
-			// Count the number of findOnes used.
-			countCalls++;
-			// Lookup whether the friend is in the database
-			UserModel.findOne({fbId: friend.fbId}, function(err, user){
+	var fbFriends = getFriendsFromFacebook(req.user, function(err, fbFriends) {
+		if(!err) {
+			console.log('Received friends from facebook.')
+			fbFriends.forEach(function(friend) {
+				// Change id to fbId
+				friend.fbId = friend.id;
+				delete friend.id
+				// Count the number of findOnes used.
+				countCalls++;
+				// Lookup whether the friend is in the database
+				UserModel.findOne({fbId: friend.fbId}, function(err, user){
 
-				if(!err) {
-					// If the friend is found, flag user as true.
-					if(user) {
-						console.log('Friend found in database: ' + friend.name);
-						friend.user = true;
-						// Specify data that should be transferred to the client
-						friend.upfo = user.upfo;
+					if(!err) {
+						// If the friend is found, flag user as true.
+						if(user) {
+							console.log('Friend found in database: ' + friend.name);
+							friend.user = true;
+							// Specify data that should be transferred to the client
+							friend.upfo = user.upfo;
+						} else {
+							console.log('Friend not found in database: ' + friend.name);
+							friend.user = false;
+						}
 					} else {
-						console.log('Friend not found in database: ' + friend.name);
-						friend.user = false;
+						// No Error Handling yet :)
 					}
-				} else {
-					// No Error Handling yet :)
-				}
-				// Call finished, set calls one less
-				countCalls--;
-				// If there are no calls left, send to client
-				if(countCalls < 1) {
-					console.log("Sending to client.");
-					res.send(JSON.stringify(fbFriends));
-				}
-			});
-		});
+					// Call finished, set calls one less
+					countCalls--;
+					// If there are no calls left, send to client
+					if(countCalls < 1) {
+						console.log("Sending to client.");
+						res.send(JSON.stringify(fbFriends));
+					}
+				});
+			}); 
+		} else {
+			res.send(500, "{error: 'Facebookproblem'}");
+		}
 	});
 
 }); 
