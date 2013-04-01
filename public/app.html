@@ -18,7 +18,10 @@
 	          <a class="brand" href="#">Piazzo</a>
 	          <div class="navbar-content">
 	            <ul class="nav  pull-right">
-	              <li class="active">
+				  <li>
+					<a href="/logout">Logout</a>
+				  </li>
+	              <li>
 	                <a href="#">Settings</a> 
 	              </li>
 	              <li>
@@ -122,19 +125,19 @@
 <script type="text/template" id="button_t">
 	<% if (upfo === false) { %>
 		<p class="lead text-info">Tell your friends you're up for something:</p>
-		<form class="form-vertical" id="active">
+		<!-- <form class="form-vertical" id="active">-->
     	<span class="help-inline">Message (Optional):</span>
 		<input type="text" class="input-medium input-block-level">
 		<button class="btn btn-primary" id="active">Im up for something!</button>
 		<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>You have to be up for something to see who else is!</div>
-	</form>
+	<!-- </form> -->
 	<% } else { %>
 	<p class="lead text-info">You're up for something!</p>
-		<form class="form-vertical" id="active">
+	<!--	<form class="form-vertical" id="active"> -->
         <input type="text" class="input-medium input-block-level inputtext" value="Running anyone?"
         onclick="this.value=''" <="" form=""> 
 	<button class="btn btn-warning" id="active">Cancel</button>
-	</form>
+	<!-- </form> -->
 	<% } %>	
 </script>
 
