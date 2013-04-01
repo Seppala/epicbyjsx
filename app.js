@@ -174,6 +174,13 @@ var getFriendsFromFacebook = function(user, next) {
 	});
 }
 
+app.get('/api-test/friends', function(req, res){
+	res.send({name: "Juha", location: "Sydney", upfo: true, user: false},
+	{name: "Jonne", location: "Stockholm", upfo: false, user: false},
+	{name: "Jarkko", location: "Turku", upfo: false, user: true},
+	{name: "Jesse", location: "London", upfo: true, user: false},
+	{name: "Janina", location: "Tallinn", upfo: true, user: true})
+});
 
 //Return the list of friends for the current user.
 app.get('/api/friends', ensureAuthenticated, function (req, res){

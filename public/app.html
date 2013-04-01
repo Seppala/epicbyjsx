@@ -33,8 +33,8 @@
 	<div class="container">
 	<div id="check"></div>
     <p class="text-info">Your friends that are up for something:</p>
-	<div class="alert">
-        <button type="button" class="close" data-dismiss="alert">×</button>You have to be up for something to see who else is!</div>
+        
+	
       <table class="table table-condensed" id="upfo"><tbody></tbody></table>
 <p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
 	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
@@ -126,6 +126,7 @@
     	<span class="help-inline">Message (Optional):</span>
 		<input type="text" class="input-medium input-block-level">
 		<button class="btn btn-primary" id="active">Im up for something!</button>
+		<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>You have to be up for something to see who else is!</div>
 	</form>
 	<% } else { %>
 	<p class="lead text-info">You're up for something!</p>
