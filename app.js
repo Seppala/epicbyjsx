@@ -244,7 +244,7 @@ app.get('/api/users', function (req, res){
 });
 
 //OK, now this put request works.
-app.put( '/api/users/:fbId', function( req, res ) {
+app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
 	// It works now correctly, I think it uses the request cookie.
 	// The think is that the fbId in the url is actually not needed at all.
     console.log( 'Updating user with fbid:' + req.user.fbId);
@@ -252,7 +252,7 @@ app.put( '/api/users/:fbId', function( req, res ) {
         // Was the user found on the server?
         if(user) {
 			//set users upfo status to what is given in the req
-			user.upfo = JSON.parse(req.user.upfo);
+			user.upfo = JSON.parse(req.body.upfo);
 			//save user
 			return user.save( function( err ) {
 			    if( !err ) {
