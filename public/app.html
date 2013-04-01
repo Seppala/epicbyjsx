@@ -29,36 +29,129 @@
 	        </div>
 	      </div>
 	    </div>
+	<div class="page-header"></div>
 	<div class="container">
-		<div class="row-fluid">
-			<div class="span12">
-				<h1>Welcome</h1>
-			</div>
-		</div>
-		<div class="row-fluid" id="button"></div>
-		<div class="row-fluid" id="main">
-			<p>Upfo:</p>
-			<ul id="upfo"></ul>
-			<p>Not upfo:</p>
-			<ul id="notupfo"></ul>
-			<p>Not on Piazzo:</p>
-			<ul id="nonuser">
-		</div>
-		</div>
+	<div id="check"></div>
+    <p class="text-info">Your friends that are up for something:</p>
+	<div class="alert">
+        <button type="button" class="close" data-dismiss="alert">×</button>You have to be up for something to see who else is!</div>
+      <table class="table table-condensed" id="upfo"><tbody></tbody></table>
+<p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
+	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
+	<p class="text-info">Your friends that are not on Piazzo yet:</p>
+	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
+	
+      <p
+      class="text-info">12 of your friends are using Piazzo:&nbsp;</p>
+        <div class="row">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30"> 
+        </div>
+        <br>
+        <p>You can
+          <a>invite many at the same time using the Facebook Widget</a>
+          <br> or one by one:</p>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <td width="60">
+                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
+                width="50"> 
+              </td>
+              <td>Michael Huffenburg</td>
+              <td>
+                <a class="btn">Invite</a> 
+              </td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td width="60">
+                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
+                width="50"> 
+              </td>
+              <td>Michael Huffenburg</td>
+              <td>
+                <a class="btn">Invite</a> 
+              </td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td width="60">
+                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
+                width="50"> 
+              </td>
+              <td>Michael Huffenburg</td>
+              <td>
+                <a class="btn">Invite</a> 
+              </td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td width="60">
+                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
+                width="50"> 
+              </td>
+              <td>Michael Huffenburg</td>
+              <td>
+                <a class="btn">Invite</a> 
+              </td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td width="60">
+                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
+                width="50"> 
+              </td>
+              <td>Michael Huffenburg</td>
+              <td>
+                <a class="btn">Invite</a> 
+              </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+          </tbody>
+        </table>
 	</div><!-- container-->
 </body>
 
 
 <!-- TEMPLATES!!!! -->
 <script type="text/template" id="button_t">
-    <button id='active' <% if (upfo === false) %> class="btn btn-primary"> <% else %> class="btn btn-warning">
-		<% if (upfo === false) %> YES! <% else %> naa naa na na<% %>
-	</button>
-
-	
+	<% if (upfo === false) { %>
+		<p class="lead text-info">Tell your friends you're up for something:</p>
+		<form class="form-vertical" id="active">
+    	<span class="help-inline">Message (Optional):</span>
+		<input type="text" class="input-medium input-block-level">
+		<button class="btn btn-primary" id="active">Im up for something!</button>
+	</form>
+	<% } else { %>
+	<p class="lead text-info">You're up for something!</p>
+		<form class="form-vertical" id="active">
+        <input type="text" class="input-medium input-block-level inputtext" value="Running anyone?"
+        onclick="this.value=''" <="" form=""> 
+	<button class="btn btn-warning" id="active">Cancel</button>
+	</form>
+	<% } %>	
 </script>
+
 <script type="text/template" id="friend_t">
-    <tr><td><%= 'name' %></td><td><% 'location' %></td><td><% 'message' %></td></tr>
+        <td width="60 ">
+          <img src="//app.divshot.com/img/placeholder-100x100.gif
+" class="img-rounded " width="50 "> 
+        </td>
+        <td><%= name %></td>
+        <td>
+          <a class="btn btn-success">Join (3)</a> 
+        </td>
+        <td>
+          <a class="btn ">Chat (2)</a> 
+        </td>
+        <td>
+          <a class="btn ">Call</a> 
+        </td>
 </script>
 <script>
 	$(function($){	
@@ -135,36 +228,35 @@
 		 */
 		
 		var FriendView = Backbone.View.extend({
-			tagName: "li",
+			tagName: "tr",
+			template: _.template( $('#friend_t').html()),
 			initalize: function() {
 			},
 			render: function() {
-				$(this.el).html('<span>' + this.model.get('name') + ', ' + this.model.get('location') + ', ' + this.model.get('message') + '</span>');
+				var attributes = this.model.toJSON();
+				$(this.el).append(this.template(attributes));
 				return this; 
 			}
 			
 		});
 		
 		var ActiveView = Backbone.View.extend({
-			el: "#button",
+			el: "#check",
 			template: _.template( $('#button_t').html()),
 			
 			events: {"click button#active" : 'toggleactive'},
 			
 			initialize: function() {
-				this.model.on('change', this.replace, this);
+				this.model.on('change', this.render, this);
 				this.render(this);
 			
 			},
 			
 			render: function() {
+				this.$el.html("");
 				var attributes = user.toJSON();
 				this.$el.append(this.template(attributes));	
 				return this;
-			},
-			replace: function() {
-				var attributes = user.toJSON();
-				$('button#active').replaceWith(this.template(attributes));
 			},
 			
 			toggleactive: function() {
