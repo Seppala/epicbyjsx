@@ -202,7 +202,7 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 						console.log('Friend found in database: ' + friend.name);
 						friend.user = true;
 						// Specify data that should be transferred to the client
-						friend.upfo = friend.upfo;
+						friend.upfo = user.upfo;
 					} else {
 						console.log('Friend not found in database: ' + friend.name);
 						friend.user = false;
