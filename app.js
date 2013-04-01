@@ -243,22 +243,30 @@ app.get('/api/users', function (req, res){
   });
 });
 
-//OK, now this put request works. Nope, just sometimes, argh!
-app.put( '/api/users/:fbId', function( request, response ) {
-    console.log( 'Updating user ' + request.body + ' fbid:' + request.body.fbId);
-	return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
-        
-		//set users upfo status to what is given in the request
-		user.upfo = JSON.parse(request.body.upfo);
-		//save user
-        return user.save( function( err ) {
-            if( !err ) {
-                console.log( 'user updated' );
-            } else {
-                console.log( err );
-            }
-            return response.send( user );
-        });
+//OK, now this put request works.
+app.put( '/api/users/:fbId', function( req, res ) {
+	// It works now correctly, I think it uses the request cookie.
+	// The think is that the fbId in the url is actually not needed at all.
+    console.log( 'Updating user with fbid:' + req.user.fbId);
+	return UserModel.findOne({ fbId: req.user.fbId }, function( err, user ) {
+        // Was the user found on the server?
+        if(user) {
+			//set users upfo status to what is given in the req
+			user.upfo = JSON.parse(req.user.upfo);
+			//save user
+			return user.save( function( err ) {
+			    if( !err ) {
+			        console.log( 'user updated' );
+			    } else {
+			        console.log( err );
+			    }
+			    return res.send( user );
+			});
+        } else {
+        	// No user found respond with some kind of error
+        	console.log("The user was not found.");
+        	res.send("{'error': 'no user found'}");
+        }
     });
 });
 
