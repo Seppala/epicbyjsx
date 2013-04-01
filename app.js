@@ -262,7 +262,8 @@ app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
         // Was the user found on the server?
         if(user) {
 			//set users upfo status to what is given in the req
-			user.upfo = JSON.parse(req.body.upfo);
+			user.upfo = req.body.upfo;
+			user.message = req.body.message;
 			//save user
 			return user.save( function( err ) {
 			    if( !err ) {
