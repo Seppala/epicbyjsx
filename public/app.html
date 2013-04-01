@@ -147,15 +147,23 @@
 " class="img-rounded " width="50 "> 
         </td>
         <td><%= name %></td>
-        <td>
-          <a class="btn btn-success">Join (3)</a> 
-        </td>
+        <% if(user) { %>
+	    <td>
+        <% if(upfo) { %>
+	          <a class="btn btn-success">Join (3)</a> 
+        <% } %>
+	    </td>
         <td>
           <a class="btn ">Chat (2)</a> 
         </td>
         <td>
           <a class="btn ">Call</a> 
         </td>
+        <% } else { %>
+        <td>
+          <a class="btn ">Invite</a> 
+        </td>
+        <% } %>
 </script>
 <script>
 	$(function($){	
@@ -238,6 +246,7 @@
 			},
 			render: function() {
 				var attributes = this.model.toJSON();
+				console.log(attributes);
 				$(this.el).append(this.template(attributes));
 				return this; 
 			}
