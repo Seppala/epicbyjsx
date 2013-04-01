@@ -135,8 +135,7 @@
 	<p class="lead text-info">Youre up for something!</p>
 	<!--	<form class="form-vertical" id="active"> -->
 	    	<span class="help-inline">Your message:</span>
-        <input id="user-message" type="text" class="input-medium input-block-level inputtext"
-        onclick="this.value=''" <="" form=""> 
+        <input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>" disabled> 
 	<button class="btn btn-warning" id="active">Cancel</button>
 	<!-- </form> -->
 	<% } %>	
@@ -201,11 +200,12 @@
 			
 			toggleactive: function() {
 				var upfor = this.get('upfo');
-				this.set('message', $('#user-message').val());
 				if (upfor === true) {
+					this.set('message', '');
 					this.save({upfo : false});
 					console.log('upfo set to false'); }
 				else {
+					this.set('message', $('#user-message').val());
 					this.save({upfo : true});
 					//friendsList.reset();
 					friendsList.fetch();
