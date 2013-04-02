@@ -36,7 +36,8 @@ passport.serializeUser(function(user, done){
 });
 
 passport.deserializeUser(function(id, done){
-	UserModel.findOne(id, function(err, user){
+	console.log("Deserialize: " + id);
+	UserModel.findById(id, function(err, user){
 		done(err, user);
 	});
 });
@@ -72,7 +73,7 @@ passport.use(new FacebookStrategy({
 					}
 
 				} else {
-					var newUser = new User();
+					var newUser = new UserModel();
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
@@ -128,6 +129,12 @@ var UserModel = mongoose.model('User', userSchema);
 
 //ROUTES
 
+var api = function (req, res) {
+	var upfo = req.params.fbId;
+	console.log(req);
+	console.log(req.params);
+	res.send({ upfo: 'upfo', success: "YesOrNo"});
+}
 
 //FUNCTIONS
 
@@ -160,17 +167,23 @@ var getFriendsFromFacebook = function(user, next) {
 	friendsUrl += '/friends';
 	friendsUrl += '?access_token=' + user.fbaccessToken; 
 
+	console.log("Requesting facebook: " + friendsUrl);
 	// Make the request to the facebook graph api
 	request(friendsUrl, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			console.log('Received friends list for ' + user.name);
-			next(JSON.parse(body).data);
+			next(false, JSON.parse(body).data);
+		} else {
+			// Error with the facebook request
+			next(true, null);
 		}
 	});
 }
 
 //Return the list of friends for the current user.
 app.get('/api/friends', ensureAuthenticated, function (req, res){
+	console.log('Request to api/friends.');
+	console.log('req.user = ' + req.user);
 	var countCalls = 0;
 	var fbFriends = getFriendsFromFacebook(req.user, function(fbFriends) {
 		console.log('getting friends')
@@ -193,18 +206,18 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 					} else {
 						friend.user = false;
 					}
-				} else {
-					// No Error Handling yet :)
-				}
-				// Call finished, set calls one less
-				countCalls--;
-				// If there are no calls left, send to client
-				if(countCalls < 1) {
-					console.log("Sending to client.");
-					res.send(JSON.stringify(fbFriends));
-				}
-			});
-		});
+					// Call finished, set calls one less
+					countCalls--;
+					// If there are no calls left, send to client
+					if(countCalls < 1) {
+						console.log("Sending to client.");
+						res.send(JSON.stringify(fbFriends));
+					}
+				});
+			}); 
+		} else {
+			res.send(500, "{error: 'Facebookproblem'}");
+		}
 	});
 
 }); 
@@ -228,22 +241,31 @@ app.get('/api/users', function (req, res){
   });
 });
 
-//OK, now this put request works. Nope, just sometimes, argh!
-app.put( '/api/users/:fbId', ensureAuthenticated, function( request, response ) {
-    console.log( 'Updating user ' + request.body + ' fbid:' + request.body.fbId);
-	return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
-        
-		//set users upfo status to what is given in the request
-		user.upfo = JSON.parse(request.body.upfo);
-		//save user
-        return user.save( function( err ) {
-            if( !err ) {
-                console.log( 'user updated' );
-            } else {
-                console.log( err );
-            }
-            return response.send( user );
-        });
+//OK, now this put request works.
+app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
+	// It works now correctly, I think it uses the request cookie.
+	// The think is that the fbId in the url is actually not needed at all.
+    console.log( 'Updating user with fbid:' + req.user.fbId);
+	return UserModel.findOne({ fbId: req.user.fbId }, function( err, user ) {
+        // Was the user found on the server?
+        if(user) {
+			//set users upfo status to what is given in the req
+			user.upfo = req.body.upfo;
+			user.message = req.body.message;
+			//save user
+			return user.save( function( err ) {
+			    if( !err ) {
+			        console.log( 'user updated' );
+			    } else {
+			        console.log( err );
+			    }
+			    return res.send( user );
+			});
+        } else {
+        	// No user found respond with some kind of error
+        	console.log("The user was not found.");
+        	res.send("{'error': 'no user found'}");
+        }
     });
 });
 
