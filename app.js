@@ -1,4 +1,5 @@
 
+
 /**
  * Module dependencies.
  */
@@ -127,12 +128,6 @@ var UserModel = mongoose.model('User', userSchema);
 
 //ROUTES
 
-var api = function (req, res) {
-	var upfo = req.params.fbId;
-	console.log(req);
-	console.log(req.params);
-	res.send({ upfo: 'upfo', success: "YesOrNo"});
-}
 
 //FUNCTIONS
 
@@ -174,14 +169,6 @@ var getFriendsFromFacebook = function(user, next) {
 	});
 }
 
-app.get('/api-test/friends', function(req, res){
-	res.send({name: "Juha", location: "Sydney", upfo: true, user: false},
-	{name: "Jonne", location: "Stockholm", upfo: false, user: false},
-	{name: "Jarkko", location: "Turku", upfo: false, user: true},
-	{name: "Jesse", location: "London", upfo: true, user: false},
-	{name: "Janina", location: "Tallinn", upfo: true, user: true})
-});
-
 //Return the list of friends for the current user.
 app.get('/api/friends', ensureAuthenticated, function (req, res){
 	var countCalls = 0;
@@ -204,7 +191,6 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 						// Specify data that should be transferred to the client
 						friend.upfo = friend.upfo;
 					} else {
-						console.log('Friend not found in database: ' + friend.name);
 						friend.user = false;
 					}
 				} else {
@@ -223,13 +209,12 @@ app.get('/api/friends', ensureAuthenticated, function (req, res){
 
 }); 
 
-app.get('/api', api);
-
 app.get('/account', ensureAuthenticated, function(req, res){
-    
+    var newUser = createFbUsers(req.user);
+	//console.log('data' + data);
 	//res.render('loggedin', { user: req.user });
-	console.log(req.user);  
-	res.send({ user: req.user });
+	console.log(req.user + newUser);  
+	res.send({ user: req.user, newUser: newUser });
  });
 
 app.get('/api/users', function (req, res){
@@ -244,7 +229,7 @@ app.get('/api/users', function (req, res){
 });
 
 //OK, now this put request works. Nope, just sometimes, argh!
-app.put( '/api/users/:fbId', function( request, response ) {
+app.put( '/api/users/:fbId', ensureAuthenticated, function( request, response ) {
     console.log( 'Updating user ' + request.body + ' fbid:' + request.body.fbId);
 	return UserModel.findOne({ fbId: request.body.fbId }, function( err, user ) {
         
@@ -260,36 +245,6 @@ app.put( '/api/users/:fbId', function( request, response ) {
             return response.send( user );
         });
     });
-});
-
-//This was the old put API that didn't work... Can be removed but I left it here to see. So it seems req.params doesn't work, you have to use req.body.
-app.put('/api/userss/:fbId', ensureAuthenticated, function (req, res){
-	console.log('Trying to save user with fbId: ' + req.params.fbid);
-	UserModel.findOne({ fbId: req.params.fbid }, function (err, user) {
-	  	if(!err) {
-		    if (req.body.upfo) {
-				user.upfo = req.body.upfo;
-				user.save(function (err) {
-			     if (!err) {
-			     	res.send('ok');
-			        console.log("updated");
-			     } else {
-			     	res.send('error');
-			     	console.log('error');
-			     }
-		    	});
-		  	} else {
-		  		res.send('error');
-		  		console.log("The person isn't up for anything");
-		  	};
-		  } else {
-		  	console.log('Error getting user.');
-		  	res.send('error');
-		  }
-		res.send('No user');
-
-	});
-
 });
 
 app.delete('/api/users/:id', function (req, res){
@@ -312,6 +267,45 @@ app.post('/api/upfo', function (req, res){
   return res.send(product);         
 });
 // app.get('/users', user.list);
+
+//Create fake fbusers
+
+
+
+var FbTestUrl = 'https://graph.facebook.com/' + config.fb.appId +'/accounts/test-users?'
+
+/*
+var url
+https://graph.facebook.com/APP_ID/accounts/test-users?
+  installed=true
+  &name=FULL_NAME
+  &locale=en_US
+  &permissions=read_stream
+  &method=post
+  &access_token=APP_ACCESS_TOKEN
+*/
+
+var createFbUsers = function(user) {
+	// Build url for the facebook endpoint 
+	console.log('in createFbUsers');
+	var url = FbTestUrl;
+	FbTestUrl += 'installed=true'; // facebook user id
+	FbTestUrl += '&name="Jeppe Jarvi"&method=post';
+	FbTestUrl += '&access_token=' + config.fb.appSecret; 
+	
+	console.log('fbtesturl' + FbTestUrl);
+	// Make the request to the facebook graph api
+	request(FbTestUrl, function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+			console.log('Response:' + response.data);
+			return JSON.parse(body).data;
+		}
+		else {
+			console.log(error + 'response' + response.statusCode);
+		}
+	});
+}
+
 
 //SERVER
 
