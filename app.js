@@ -14,7 +14,7 @@ var app = express();
 
 var config = require('./config');
 
-var User = require('./models/user');
+//var User = require('./models/user');
 
 var mongoose = require('mongoose');
 var FBURL = 'https://graph.facebook.com/'
@@ -343,3 +343,5 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 //FUNCTIONS
+var tests = require('./fb_testusers');
+
