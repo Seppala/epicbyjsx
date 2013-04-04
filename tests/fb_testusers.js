@@ -1,11 +1,11 @@
-var config = require('./config'),
+var config = require('../config'),
 request = require('request');
 
 var FbTestUrl = 'https://graph.facebook.com/' + config.fb.appId +'/accounts/test-users?';
 
 var token = config.fb.appId + '|' + config.fb.appSecret;
 
-var createFbUsers = function() {
+exports.createFbUsers = function() {
 	// Build url for the facebook endpoint 
 	console.log('in createFbUsers');
 	var url = FbTestUrl;
@@ -26,4 +26,14 @@ var createFbUsers = function() {
 	});
 }
 
-createFbUsers();
+// just call by going: createFbUsers();
+
+//Could be useful, you could create FBusers in the same way?
+
+app.get('/api-test/friends', function(req, res){
+	res.send({name: "Juha", location: "Sydney", upfo: true, user: false},
+	{name: "Jonne", location: "Stockholm", upfo: false, user: false},
+	{name: "Jarkko", location: "Turku", upfo: false, user: true},
+	{name: "Jesse", location: "London", upfo: true, user: false},
+	{name: "Janina", location: "Tallinn", upfo: true, user: true})
+});

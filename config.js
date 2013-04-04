@@ -5,6 +5,7 @@ var dbUrl = process.env.MONGOLAB_URI ||
 var appId;
 var appSecret;
 var fbUrl;
+var FBURL = 'https://graph.facebook.com/';
 
 if (process.env.NODE_ENV == 'production') 
 	{
@@ -27,5 +28,6 @@ module.exports = {
 		appSecret: appSecret,
 		url: fbUrl 
 	},
-	dbUrl: dbUrl
+	dbUrl: dbUrl,
+	FBURL: FBURL
 }
