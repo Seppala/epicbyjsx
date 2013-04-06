@@ -37,8 +37,6 @@ $(function($){
 			else {
 				this.set('message', $('#user-message').val());
 				this.save({upfo : true});
-				//friendsList.reset();
-				friendsList.fetch();
 				console.log('upfo set to true');
 			};
 			console.log(this.get('name'));
