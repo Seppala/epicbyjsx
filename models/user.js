@@ -9,7 +9,8 @@ var userSchema = new mongoose.Schema({
 	location: {type: [Number], index: '2d'},
 	upfo: Boolean,
 	message: String,
-	fbaccessToken: String
+	fbaccessToken: String,
+	phoneNumber: String
 });
 
 exports.UserModel = mongoose.model('User', userSchema);

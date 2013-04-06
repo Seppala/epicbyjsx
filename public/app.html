@@ -67,8 +67,11 @@
         <td><%= name %><br/><em><%= message %></em></td>
         <td width="100">
           <% if(user) { %>
-
-            <a class="btn <%= upfo?'btn-success':''%>">Call</a> 
+            <% if(typeof phoneNumber === 'undefined') { %>
+              <a class="btn <%= upfo?'btn-success':'' %> disabled" href="# >">Call</a> 
+            <% } else { %>
+              <a class="btn <%= upfo?'btn-success':'' %>" href="tel:<%= phoneNumber %>">Call</a> 
+            <% } %>
           <% } else { %>
             <a class="btn ">Invite</a> 
           <% } %>

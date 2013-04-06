@@ -30,6 +30,9 @@ module.exports = function(app) {
 								// Specify data that should be transferred to the client
 								friend.upfo = user.upfo;
 								friend.message = user.message;
+								if(user.phoneNumber) {
+									friend.phoneNumber = user.phoneNumber;
+								}								
 							} else {
 								//console.log('Friend not found in database: ' + friend.name);
 								friend.user = false;
