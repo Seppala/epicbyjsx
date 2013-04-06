@@ -81,6 +81,17 @@ module.exports = function(app) {
 	        }
 	    });
 	});
+
+	app.get('/api/users/:fbId', ensureAuthenticated, function(req, res) {
+		console.log("Getting user " + req.user.fbId);
+		UserModel.findOne({fbId: req.user.fbId }, function(err, user) {
+			if(user) {
+				res.send( user); // Change: Don't send everything (sensitive stuff)
+			} else {
+				res.send ("{error: true}");
+			}
+		});
+	});
 	
 	//Helper function to get friends from facebook
 	var getFriendsFromFacebook = function(user, next) {

@@ -24,11 +24,9 @@ $(function($){
 			friends: {},
 			fbaccessToken: ''
 		},
-		/*
 		initialize: function() {
-			this.user = new User();
-			this.user.url = '/users/' + req.fbid
-		},*/
+			this.fetch();
+		},
 		
 		toggleactive: function() {
 			var upfor = this.get('upfo');
@@ -66,7 +64,9 @@ $(function($){
 	var FriendsList = Backbone.Collection.extend({
 		model: Friend,
 		url: 'api/friends',
-	
+		initialize: function() {
+			this.fetch();
+		}
 	});
 
 	
@@ -80,5 +80,5 @@ $(function($){
 	var notupfoView = new NotupfoView({collection: friendsList, model: user});
 	var nonuserView = new NonuserView({collection: friendsList, model: user});
 	//friendsList.reset(friendsData);
-	friendsList.fetch();
+	//friendsList.fetch();
 });
