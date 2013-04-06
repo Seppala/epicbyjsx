@@ -18,15 +18,9 @@
 	          <a class="brand" href="#">Piazzo</a>
 	          <div class="navbar-content">
 	            <ul class="nav  pull-right">
-				  <li>
-					<a href="/logout">Logout</a>
-				  </li>
-	              <li>
-	                <a href="#">Settings</a> 
-	              </li>
-	              <li>
-	                <a href="#">Home</a> 
-	              </li>
+    				  <li>
+    					<a href="/logout">Logout</a>
+    				  </li>
 	            </ul>
 	          </div>
 	        </div>
@@ -34,89 +28,13 @@
 	    </div>
 	<div class="page-header"></div>
 	<div class="container">
-	<div id="check"></div>
+  	<div id="check"></div>
     <p class="text-info">Your friends that are up for something:</p>
-        
-	
-      <table class="table table-condensed" id="upfo"><tbody></tbody></table>
-<p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
-	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
-	<p class="text-info">Your friends that are not on Piazzo yet:</p>
-	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
-	
-      <p
-      class="text-info">12 of your friends are using Piazzo:&nbsp;</p>
-        <div class="row">
-          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
-          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
-          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
-          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30">
-          <img src="//app.divshot.com/img/placeholder-100x100.gif" width="30"> 
-        </div>
-        <br>
-        <p>You can
-          <a>invite many at the same time using the Facebook Widget</a>
-          <br> or one by one:</p>
-        <table class="table table-condensed">
-          <tbody>
-            <tr>
-              <td width="60">
-                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
-                width="50"> 
-              </td>
-              <td>Michael Huffenburg</td>
-              <td>
-                <a class="btn">Invite</a> 
-              </td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td width="60">
-                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
-                width="50"> 
-              </td>
-              <td>Michael Huffenburg</td>
-              <td>
-                <a class="btn">Invite</a> 
-              </td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td width="60">
-                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
-                width="50"> 
-              </td>
-              <td>Michael Huffenburg</td>
-              <td>
-                <a class="btn">Invite</a> 
-              </td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td width="60">
-                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
-                width="50"> 
-              </td>
-              <td>Michael Huffenburg</td>
-              <td>
-                <a class="btn">Invite</a> 
-              </td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td width="60">
-                <img src="//app.divshot.com/img/placeholder-100x100.gif" class="img-rounded"
-                width="50"> 
-              </td>
-              <td>Michael Huffenburg</td>
-              <td>
-                <a class="btn">Invite</a> 
-              </td>
-            </tr>
-            <tr></tr>
-            <tr></tr>
-          </tbody>
-        </table>
+    <table class="table table-condensed" id="upfo"><tbody></tbody></table>
+    <p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
+  	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
+  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
+  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div><!-- container-->
 </body>
 
@@ -147,23 +65,14 @@
 " class="img-rounded " width="50 "> 
         </td>
         <td><%= name %><br/><em><%= message %></em></td>
-        <% if(user) { %>
-	    <td>
-        <% if(upfo) { %>
-	          <a class="btn btn-success">Join (3)</a> 
-        <% } %>
-	    </td>
-        <td>
-          <a class="btn ">Chat (2)</a> 
+        <td width="100">
+          <% if(user) { %>
+
+            <a class="btn <%= upfo?'btn-success':''%>">Call</a> 
+          <% } else { %>
+            <a class="btn ">Invite</a> 
+          <% } %>
         </td>
-        <td>
-          <a class="btn ">Call</a> 
-        </td>
-        <% } else { %>
-        <td>
-          <a class="btn ">Invite</a> 
-        </td>
-        <% } %>
 </script>
 <script src="js/main.js"></script>
 <script src="js/views.js"></script>
