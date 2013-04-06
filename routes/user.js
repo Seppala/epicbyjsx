@@ -25,13 +25,13 @@ module.exports = function(app) {
 						if(!err) {
 							// If the friend is found, flag user as true.
 							if(user) {
-								console.log('Friend found in database: ' + friend.name);
+								//console.log('Friend found in database: ' + friend.name);
 								friend.user = true;
 								// Specify data that should be transferred to the client
 								friend.upfo = user.upfo;
 								friend.message = user.message;
 							} else {
-								console.log('Friend not found in database: ' + friend.name);
+								//console.log('Friend not found in database: ' + friend.name);
 								friend.user = false;
 								friend.message = "";
 							}
