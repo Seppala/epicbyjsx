@@ -74,8 +74,9 @@ $(function($){
 	var user = new User();
 	var friendsList = new FriendsList();
 	var activeView = new ActiveView( {model: user} );
-	var isupfoView = new IsupfoView({collection: friendsList, model: user});
-	var notupfoView = new NotupfoView({collection: friendsList, model: user});
+	// var isupfoView = new IsupfoView({collection: friendsList, model: user});
+	// var notupfoView = new NotupfoView({collection: friendsList, model: user});
+	var upfoView = new UpfoView({collection: friendsList, model:user});
 	var nonuserView = new NonuserView({collection: friendsList, model: user});
 	//friendsList.reset(friendsData);
 	//friendsList.fetch();

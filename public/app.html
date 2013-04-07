@@ -27,15 +27,12 @@
 	      </div>
 	    </div>
 	<div class="page-header"></div>
-	<div class="container">
-  	<div id="check"></div>
-    <p class="text-info">Your friends that are up for something:</p>
-    <table class="table table-condensed" id="upfo"><tbody></tbody></table>
-    <p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
-  	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
-  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
-  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
-	</div><!-- container-->
+	<div class="container">		
+	  	<div id="activeview"><!--ActiveView--></div>
+	  	<div id="upfoview"><!-- Users who are friends --></div>
+	  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
+	  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
+	</div>
 </body>
 
 
@@ -79,6 +76,18 @@
           <% } %>
         </td>
 </script>
+
+<script type="text/template" id="upfo_t">
+		<% if($upfoFriends.html()) { %>
+	    	<p class="text-info">Your friends that are up for something:</p>
+	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
+    	<% } %>
+    	<% if($notupfoFriends.html()) { %>
+	    	<p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>	  	
+	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
+    	<% } %>
+</script>
+
 <script src="js/main.js"></script>
 <script src="js/views.js"></script>
 </html>
