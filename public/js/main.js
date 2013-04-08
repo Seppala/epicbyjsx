@@ -62,7 +62,13 @@ $(function($){
 	var FriendsList = Backbone.Collection.extend({
 		model: Friend,
 		url: 'api/friends',
-		initialize: function() {
+		initialize: function(options) {
+			this.user = options.user;
+			this.fetch();
+			// When user changes upfo, fetch the list again
+			this.listenTo(this.user, 'change:upfo', this.userChanged);
+		},
+		userChanged: function() {
 			this.fetch();
 		}
 	});
@@ -72,7 +78,7 @@ $(function($){
 	
 	//var mainView = new MainView();
 	var user = new User();
-	var friendsList = new FriendsList();
+	var friendsList = new FriendsList({user: user});
 	var activeView = new ActiveView( {model: user} );
 	// var isupfoView = new IsupfoView({collection: friendsList, model: user});
 	// var notupfoView = new NotupfoView({collection: friendsList, model: user});

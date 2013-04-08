@@ -47,7 +47,6 @@ var UpfoView = Backbone.View.extend({
 	initialize: function() {
 		//this.collection.fetch();
 		this.collection.on('reset', this.render, this);
-		this.model.on('change', this.render, this);
 	},
 	render: function() {
 		
@@ -89,7 +88,6 @@ var NonuserView = Backbone.View.extend({
 	initialize: function() {
 		//this.collection.fetch();
 		this.collection.on('reset', this.render, this);
-		this.model.on('change', this.render, this);
 	},
 	
 	render: function() {
