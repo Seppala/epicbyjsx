@@ -69,7 +69,10 @@ $(function($){
 			this.listenTo(this.user, 'change:upfo', this.userChanged);
 		},
 		userChanged: function() {
-			this.fetch();
+			if(this.user.attributes.upfo) {
+				// Only fetch if upfo is set to true
+				this.fetch();
+			}			
 		}
 	});
 
