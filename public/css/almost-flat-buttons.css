@@ -1,0 +1,874 @@
+button, .button {
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0 0 1.25em;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  padding-top: 0.75em;
+  padding-right: 1.5em;
+  padding-bottom: 0.8125em;
+  padding-left: 1.5em;
+  font-size: 1em;
+  background-color: #3498db;
+  border-color: #217dbb;
+  color: white;
+}
+button:hover, button:focus, .button:hover, .button:focus {
+  background-color: #217dbb;
+}
+button:hover, button:focus, .button:hover, .button:focus {
+  color: white;
+}
+button.secondary, .button.secondary {
+  background-color: #ecf0f1;
+  border-color: #cfd9db;
+  color: #333333;
+}
+button.secondary:hover, button.secondary:focus, .button.secondary:hover, .button.secondary:focus {
+  background-color: #cfd9db;
+}
+button.secondary:hover, button.secondary:focus, .button.secondary:hover, .button.secondary:focus {
+  color: #333333;
+}
+button.success, .button.success {
+  background-color: #2ecc71;
+  border-color: #25a25a;
+  color: white;
+}
+button.success:hover, button.success:focus, .button.success:hover, .button.success:focus {
+  background-color: #25a25a;
+}
+button.success:hover, button.success:focus, .button.success:hover, .button.success:focus {
+  color: white;
+}
+button.alert, .button.alert {
+  background-color: #e74c3c;
+  border-color: #d62c1a;
+  color: white;
+}
+button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus {
+  background-color: #d62c1a;
+}
+button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus {
+  color: white;
+}
+button.large, .button.large {
+  padding-top: 1em;
+  padding-right: 2em;
+  padding-bottom: 1.0625em;
+  padding-left: 2em;
+  font-size: 1.25em;
+}
+button.small, .button.small {
+  padding-top: 0.5625em;
+  padding-right: 1.125em;
+  padding-bottom: 0.625em;
+  padding-left: 1.125em;
+  font-size: 0.8125em;
+}
+button.tiny, .button.tiny {
+  padding-top: 0.4375em;
+  padding-right: 0.875em;
+  padding-bottom: 0.5em;
+  padding-left: 0.875em;
+  font-size: 0.6875em;
+}
+button.expand, .button.expand {
+  padding-top: false;
+  padding-right: 0px;
+  padding-bottom: false0.0625em;
+  padding-left: 0px;
+  width: 100%;
+}
+button.left-align, .button.left-align {
+  text-align: left;
+  text-indent: 0.75em;
+}
+button.right-align, .button.right-align {
+  text-align: right;
+  padding-right: 0.75em;
+}
+button.disabled, button[disabled], .button.disabled, .button[disabled] {
+  background-color: #3498db;
+  border-color: #217dbb;
+  color: white;
+  cursor: default;
+  opacity: 0.6;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
+  background-color: #217dbb;
+}
+button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
+  color: white;
+}
+button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
+  background-color: #3498db;
+}
+button.disabled.secondary, button[disabled].secondary, .button.disabled.secondary, .button[disabled].secondary {
+  background-color: #ecf0f1;
+  border-color: #cfd9db;
+  color: #333333;
+  cursor: default;
+  opacity: 0.6;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+button.disabled.secondary:hover, button.disabled.secondary:focus, button[disabled].secondary:hover, button[disabled].secondary:focus, .button.disabled.secondary:hover, .button.disabled.secondary:focus, .button[disabled].secondary:hover, .button[disabled].secondary:focus {
+  background-color: #cfd9db;
+}
+button.disabled.secondary:hover, button.disabled.secondary:focus, button[disabled].secondary:hover, button[disabled].secondary:focus, .button.disabled.secondary:hover, .button.disabled.secondary:focus, .button[disabled].secondary:hover, .button[disabled].secondary:focus {
+  color: #333333;
+}
+button.disabled.secondary:hover, button.disabled.secondary:focus, button[disabled].secondary:hover, button[disabled].secondary:focus, .button.disabled.secondary:hover, .button.disabled.secondary:focus, .button[disabled].secondary:hover, .button[disabled].secondary:focus {
+  background-color: #ecf0f1;
+}
+button.disabled.success, button[disabled].success, .button.disabled.success, .button[disabled].success {
+  background-color: #2ecc71;
+  border-color: #25a25a;
+  color: white;
+  cursor: default;
+  opacity: 0.6;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
+  background-color: #25a25a;
+}
+button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
+  color: white;
+}
+button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
+  background-color: #2ecc71;
+}
+button.disabled.alert, button[disabled].alert, .button.disabled.alert, .button[disabled].alert {
+  background-color: #e74c3c;
+  border-color: #d62c1a;
+  color: white;
+  cursor: default;
+  opacity: 0.6;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
+  background-color: #d62c1a;
+}
+button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
+  color: white;
+}
+button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
+  background-color: #e74c3c;
+}
+
+input.button,
+button.button {
+  padding-top: 0.8125em;
+  padding-bottom: 0.75em;
+}
+input.button.tiny,
+button.button.tiny {
+  padding-top: 0.5em;
+  padding-bottom: 0.4375em;
+}
+input.button.small,
+button.button.small {
+  padding-top: 0.625em;
+  padding-bottom: 0.5625em;
+}
+input.button.large,
+button.button.large {
+  padding-top: 1.03125em;
+  padding-bottom: 1.03125em;
+}
+
+@media only screen {
+  .button {
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    -webkit-transition: background-color 300ms ease-out;
+    -moz-transition: background-color 300ms ease-out;
+    transition: background-color 300ms ease-out;
+  }
+  .button:active {
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset;
+  }
+  .button.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+  }
+  .button.round {
+    -webkit-border-radius: 1000px;
+    border-radius: 1000px;
+  }
+}
+@media only screen and (min-width: 48em) {
+  .button {
+    display: inline-block;
+  }
+}
+
+.button {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #258cd1 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3498db), color-stop(5%, #3498db), color-stop(100%, #258cd1));
+  background-image: -webkit-linear-gradient(#3498db, #3498db 5%, #258cd1);
+  background-image: -moz-linear-gradient(#3498db, #3498db 5%, #258cd1);
+  background-image: -o-linear-gradient(#3498db, #3498db 5%, #258cd1);
+  background-image: linear-gradient(#3498db, #3498db 5%, #258cd1);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+.button:hover, .button:focus, .button:active {
+  background-color: #3498db;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3498db), color-stop(100%, #3498db));
+  background-image: -webkit-linear-gradient(#3498db, #3498db);
+  background-image: -moz-linear-gradient(#3498db, #3498db);
+  background-image: -o-linear-gradient(#3498db, #3498db);
+  background-image: linear-gradient(#3498db, #3498db);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #217dbb !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+
+a.primary-dark,
+button.primary-dark,
+input[type="submit"].primary-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #2472a4 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2980b9), color-stop(5%, #2980b9), color-stop(100%, #2472a4));
+  background-image: -webkit-linear-gradient(#2980b9, #2980b9 5%, #2472a4);
+  background-image: -moz-linear-gradient(#2980b9, #2980b9 5%, #2472a4);
+  background-image: -o-linear-gradient(#2980b9, #2980b9 5%, #2472a4);
+  background-image: linear-gradient(#2980b9, #2980b9 5%, #2472a4);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.primary-dark:hover, a.primary-dark:focus, a.primary-dark:active,
+button.primary-dark:hover,
+button.primary-dark:focus,
+button.primary-dark:active,
+input[type="submit"].primary-dark:hover,
+input[type="submit"].primary-dark:focus,
+input[type="submit"].primary-dark:active {
+  background-color: #2980b9;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2980b9), color-stop(100%, #2980b9));
+  background-image: -webkit-linear-gradient(#2980b9, #2980b9);
+  background-image: -moz-linear-gradient(#2980b9, #2980b9);
+  background-image: -o-linear-gradient(#2980b9, #2980b9);
+  background-image: linear-gradient(#2980b9, #2980b9);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #20638f !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.secondary,
+button.secondary,
+input[type="submit"].secondary {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #dde4e6 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ecf0f1), color-stop(5%, #ecf0f1), color-stop(100%, #dde4e6));
+  background-image: -webkit-linear-gradient(#ecf0f1, #ecf0f1 5%, #dde4e6);
+  background-image: -moz-linear-gradient(#ecf0f1, #ecf0f1 5%, #dde4e6);
+  background-image: -o-linear-gradient(#ecf0f1, #ecf0f1 5%, #dde4e6);
+  background-image: linear-gradient(#ecf0f1, #ecf0f1 5%, #dde4e6);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+a.secondary:hover, a.secondary:focus, a.secondary:active,
+button.secondary:hover,
+button.secondary:focus,
+button.secondary:active,
+input[type="submit"].secondary:hover,
+input[type="submit"].secondary:focus,
+input[type="submit"].secondary:active {
+  background-color: #ecf0f1;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ecf0f1), color-stop(100%, #ecf0f1));
+  background-image: -webkit-linear-gradient(#ecf0f1, #ecf0f1);
+  background-image: -moz-linear-gradient(#ecf0f1, #ecf0f1);
+  background-image: -o-linear-gradient(#ecf0f1, #ecf0f1);
+  background-image: linear-gradient(#ecf0f1, #ecf0f1);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #cfd9db !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.success,
+button.success,
+input[type="submit"].success {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #29b765 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2ecc71), color-stop(5%, #2ecc71), color-stop(100%, #29b765));
+  background-image: -webkit-linear-gradient(#2ecc71, #2ecc71 5%, #29b765);
+  background-image: -moz-linear-gradient(#2ecc71, #2ecc71 5%, #29b765);
+  background-image: -o-linear-gradient(#2ecc71, #2ecc71 5%, #29b765);
+  background-image: linear-gradient(#2ecc71, #2ecc71 5%, #29b765);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.success:hover, a.success:focus, a.success:active,
+button.success:hover,
+button.success:focus,
+button.success:active,
+input[type="submit"].success:hover,
+input[type="submit"].success:focus,
+input[type="submit"].success:active {
+  background-color: #2ecc71;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2ecc71), color-stop(100%, #2ecc71));
+  background-image: -webkit-linear-gradient(#2ecc71, #2ecc71);
+  background-image: -moz-linear-gradient(#2ecc71, #2ecc71);
+  background-image: -o-linear-gradient(#2ecc71, #2ecc71);
+  background-image: linear-gradient(#2ecc71, #2ecc71);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #25a25a !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.success-dark,
+button.success-dark,
+input[type="submit"].success-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #17a689 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1abc9c), color-stop(5%, #1abc9c), color-stop(100%, #17a689));
+  background-image: -webkit-linear-gradient(#1abc9c, #1abc9c 5%, #17a689);
+  background-image: -moz-linear-gradient(#1abc9c, #1abc9c 5%, #17a689);
+  background-image: -o-linear-gradient(#1abc9c, #1abc9c 5%, #17a689);
+  background-image: linear-gradient(#1abc9c, #1abc9c 5%, #17a689);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.success-dark:hover, a.success-dark:focus, a.success-dark:active,
+button.success-dark:hover,
+button.success-dark:focus,
+button.success-dark:active,
+input[type="submit"].success-dark:hover,
+input[type="submit"].success-dark:focus,
+input[type="submit"].success-dark:active {
+  background-color: #1abc9c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1abc9c), color-stop(100%, #1abc9c));
+  background-image: -webkit-linear-gradient(#1abc9c, #1abc9c);
+  background-image: -moz-linear-gradient(#1abc9c, #1abc9c);
+  background-image: -o-linear-gradient(#1abc9c, #1abc9c);
+  background-image: linear-gradient(#1abc9c, #1abc9c);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #148f77 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.success-darker,
+button.success-darker,
+input[type="submit"].success-darker {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #229955 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #27ae60), color-stop(5%, #27ae60), color-stop(100%, #229955));
+  background-image: -webkit-linear-gradient(#27ae60, #27ae60 5%, #229955);
+  background-image: -moz-linear-gradient(#27ae60, #27ae60 5%, #229955);
+  background-image: -o-linear-gradient(#27ae60, #27ae60 5%, #229955);
+  background-image: linear-gradient(#27ae60, #27ae60 5%, #229955);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.success-darker:hover, a.success-darker:focus, a.success-darker:active,
+button.success-darker:hover,
+button.success-darker:focus,
+button.success-darker:active,
+input[type="submit"].success-darker:hover,
+input[type="submit"].success-darker:focus,
+input[type="submit"].success-darker:active {
+  background-color: #27ae60;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #27ae60), color-stop(100%, #27ae60));
+  background-image: -webkit-linear-gradient(#27ae60, #27ae60);
+  background-image: -moz-linear-gradient(#27ae60, #27ae60);
+  background-image: -o-linear-gradient(#27ae60, #27ae60);
+  background-image: linear-gradient(#27ae60, #27ae60);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #1e8449 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.success-darkest,
+button.success-darkest,
+input[type="submit"].success-darkest {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #138a72 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #16a085), color-stop(5%, #16a085), color-stop(100%, #138a72));
+  background-image: -webkit-linear-gradient(#16a085, #16a085 5%, #138a72);
+  background-image: -moz-linear-gradient(#16a085, #16a085 5%, #138a72);
+  background-image: -o-linear-gradient(#16a085, #16a085 5%, #138a72);
+  background-image: linear-gradient(#16a085, #16a085 5%, #138a72);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.success-darkest:hover, a.success-darkest:focus, a.success-darkest:active,
+button.success-darkest:hover,
+button.success-darkest:focus,
+button.success-darkest:active,
+input[type="submit"].success-darkest:hover,
+input[type="submit"].success-darkest:focus,
+input[type="submit"].success-darkest:active {
+  background-color: #16a085;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #16a085), color-stop(100%, #16a085));
+  background-image: -webkit-linear-gradient(#16a085, #16a085);
+  background-image: -moz-linear-gradient(#16a085, #16a085);
+  background-image: -o-linear-gradient(#16a085, #16a085);
+  background-image: linear-gradient(#16a085, #16a085);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #107360 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.alert,
+button.alert,
+input[type="submit"].alert {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #e43725 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e74c3c), color-stop(5%, #e74c3c), color-stop(100%, #e43725));
+  background-image: -webkit-linear-gradient(#e74c3c, #e74c3c 5%, #e43725);
+  background-image: -moz-linear-gradient(#e74c3c, #e74c3c 5%, #e43725);
+  background-image: -o-linear-gradient(#e74c3c, #e74c3c 5%, #e43725);
+  background-image: linear-gradient(#e74c3c, #e74c3c 5%, #e43725);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.alert:hover, a.alert:focus, a.alert:active,
+button.alert:hover,
+button.alert:focus,
+button.alert:active,
+input[type="submit"].alert:hover,
+input[type="submit"].alert:focus,
+input[type="submit"].alert:active {
+  background-color: #e74c3c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e74c3c), color-stop(100%, #e74c3c));
+  background-image: -webkit-linear-gradient(#e74c3c, #e74c3c);
+  background-image: -moz-linear-gradient(#e74c3c, #e74c3c);
+  background-image: -o-linear-gradient(#e74c3c, #e74c3c);
+  background-image: linear-gradient(#e74c3c, #e74c3c);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #d62c1a !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.alert-dark,
+button.alert-dark,
+input[type="submit"].alert-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #ab3326 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c0392b), color-stop(5%, #c0392b), color-stop(100%, #ab3326));
+  background-image: -webkit-linear-gradient(#c0392b, #c0392b 5%, #ab3326);
+  background-image: -moz-linear-gradient(#c0392b, #c0392b 5%, #ab3326);
+  background-image: -o-linear-gradient(#c0392b, #c0392b 5%, #ab3326);
+  background-image: linear-gradient(#c0392b, #c0392b 5%, #ab3326);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.alert-dark:hover, a.alert-dark:focus, a.alert-dark:active,
+button.alert-dark:hover,
+button.alert-dark:focus,
+button.alert-dark:active,
+input[type="submit"].alert-dark:hover,
+input[type="submit"].alert-dark:focus,
+input[type="submit"].alert-dark:active {
+  background-color: #c0392b;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c0392b), color-stop(100%, #c0392b));
+  background-image: -webkit-linear-gradient(#c0392b, #c0392b);
+  background-image: -moz-linear-gradient(#c0392b, #c0392b);
+  background-image: -o-linear-gradient(#c0392b, #c0392b);
+  background-image: linear-gradient(#c0392b, #c0392b);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #962d22 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.info,
+button.info,
+input[type="submit"].info {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #dab10d !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1c40f), color-stop(5%, #f1c40f), color-stop(100%, #dab10d));
+  background-image: -webkit-linear-gradient(#f1c40f, #f1c40f 5%, #dab10d);
+  background-image: -moz-linear-gradient(#f1c40f, #f1c40f 5%, #dab10d);
+  background-image: -o-linear-gradient(#f1c40f, #f1c40f 5%, #dab10d);
+  background-image: linear-gradient(#f1c40f, #f1c40f 5%, #dab10d);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.info:hover, a.info:focus, a.info:active,
+button.info:hover,
+button.info:focus,
+button.info:active,
+input[type="submit"].info:hover,
+input[type="submit"].info:focus,
+input[type="submit"].info:active {
+  background-color: #f1c40f;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1c40f), color-stop(100%, #f1c40f));
+  background-image: -webkit-linear-gradient(#f1c40f, #f1c40f);
+  background-image: -moz-linear-gradient(#f1c40f, #f1c40f);
+  background-image: -o-linear-gradient(#f1c40f, #f1c40f);
+  background-image: linear-gradient(#f1c40f, #f1c40f);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #c29d0b !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.info-dark,
+button.info-dark,
+input[type="submit"].info-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #e08e0b !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f39c12), color-stop(5%, #f39c12), color-stop(100%, #e08e0b));
+  background-image: -webkit-linear-gradient(#f39c12, #f39c12 5%, #e08e0b);
+  background-image: -moz-linear-gradient(#f39c12, #f39c12 5%, #e08e0b);
+  background-image: -o-linear-gradient(#f39c12, #f39c12 5%, #e08e0b);
+  background-image: linear-gradient(#f39c12, #f39c12 5%, #e08e0b);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.info-dark:hover, a.info-dark:focus, a.info-dark:active,
+button.info-dark:hover,
+button.info-dark:focus,
+button.info-dark:active,
+input[type="submit"].info-dark:hover,
+input[type="submit"].info-dark:focus,
+input[type="submit"].info-dark:active {
+  background-color: #f39c12;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f39c12), color-stop(100%, #f39c12));
+  background-image: -webkit-linear-gradient(#f39c12, #f39c12);
+  background-image: -moz-linear-gradient(#f39c12, #f39c12);
+  background-image: -o-linear-gradient(#f39c12, #f39c12);
+  background-image: linear-gradient(#f39c12, #f39c12);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #c87f0a !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.warning,
+button.warning,
+input[type="submit"].warning {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #d67118 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e67e22), color-stop(5%, #e67e22), color-stop(100%, #d67118));
+  background-image: -webkit-linear-gradient(#e67e22, #e67e22 5%, #d67118);
+  background-image: -moz-linear-gradient(#e67e22, #e67e22 5%, #d67118);
+  background-image: -o-linear-gradient(#e67e22, #e67e22 5%, #d67118);
+  background-image: linear-gradient(#e67e22, #e67e22 5%, #d67118);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.warning:hover, a.warning:focus, a.warning:active,
+button.warning:hover,
+button.warning:focus,
+button.warning:active,
+input[type="submit"].warning:hover,
+input[type="submit"].warning:focus,
+input[type="submit"].warning:active {
+  background-color: #e67e22;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e67e22), color-stop(100%, #e67e22));
+  background-image: -webkit-linear-gradient(#e67e22, #e67e22);
+  background-image: -moz-linear-gradient(#e67e22, #e67e22);
+  background-image: -o-linear-gradient(#e67e22, #e67e22);
+  background-image: linear-gradient(#e67e22, #e67e22);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #bf6516 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.warning-dark,
+button.warning-dark,
+input[type="submit"].warning-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #b94a00 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d35400), color-stop(5%, #d35400), color-stop(100%, #b94a00));
+  background-image: -webkit-linear-gradient(#d35400, #d35400 5%, #b94a00);
+  background-image: -moz-linear-gradient(#d35400, #d35400 5%, #b94a00);
+  background-image: -o-linear-gradient(#d35400, #d35400 5%, #b94a00);
+  background-image: linear-gradient(#d35400, #d35400 5%, #b94a00);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.warning-dark:hover, a.warning-dark:focus, a.warning-dark:active,
+button.warning-dark:hover,
+button.warning-dark:focus,
+button.warning-dark:active,
+input[type="submit"].warning-dark:hover,
+input[type="submit"].warning-dark:focus,
+input[type="submit"].warning-dark:active {
+  background-color: #d35400;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d35400), color-stop(100%, #d35400));
+  background-image: -webkit-linear-gradient(#d35400, #d35400);
+  background-image: -moz-linear-gradient(#d35400, #d35400);
+  background-image: -o-linear-gradient(#d35400, #d35400);
+  background-image: linear-gradient(#d35400, #d35400);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #a04000 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.highlight,
+button.highlight,
+input[type="submit"].highlight {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #8c4bab !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9859b6), color-stop(5%, #9859b6), color-stop(100%, #8c4bab));
+  background-image: -webkit-linear-gradient(#9859b6, #9859b6 5%, #8c4bab);
+  background-image: -moz-linear-gradient(#9859b6, #9859b6 5%, #8c4bab);
+  background-image: -o-linear-gradient(#9859b6, #9859b6 5%, #8c4bab);
+  background-image: linear-gradient(#9859b6, #9859b6 5%, #8c4bab);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.highlight:hover, a.highlight:focus, a.highlight:active,
+button.highlight:hover,
+button.highlight:focus,
+button.highlight:active,
+input[type="submit"].highlight:hover,
+input[type="submit"].highlight:focus,
+input[type="submit"].highlight:active {
+  background-color: #9859b6;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9859b6), color-stop(100%, #9859b6));
+  background-image: -webkit-linear-gradient(#9859b6, #9859b6);
+  background-image: -moz-linear-gradient(#9859b6, #9859b6);
+  background-image: -o-linear-gradient(#9859b6, #9859b6);
+  background-image: linear-gradient(#9859b6, #9859b6);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #7d4399 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.highlight-dark,
+button.highlight-dark,
+input[type="submit"].highlight-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #7f3d9b !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8e44ad), color-stop(5%, #8e44ad), color-stop(100%, #7f3d9b));
+  background-image: -webkit-linear-gradient(#8e44ad, #8e44ad 5%, #7f3d9b);
+  background-image: -moz-linear-gradient(#8e44ad, #8e44ad 5%, #7f3d9b);
+  background-image: -o-linear-gradient(#8e44ad, #8e44ad 5%, #7f3d9b);
+  background-image: linear-gradient(#8e44ad, #8e44ad 5%, #7f3d9b);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.highlight-dark:hover, a.highlight-dark:focus, a.highlight-dark:active,
+button.highlight-dark:hover,
+button.highlight-dark:focus,
+button.highlight-dark:active,
+input[type="submit"].highlight-dark:hover,
+input[type="submit"].highlight-dark:focus,
+input[type="submit"].highlight-dark:active {
+  background-color: #8e44ad;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8e44ad), color-stop(100%, #8e44ad));
+  background-image: -webkit-linear-gradient(#8e44ad, #8e44ad);
+  background-image: -moz-linear-gradient(#8e44ad, #8e44ad);
+  background-image: -o-linear-gradient(#8e44ad, #8e44ad);
+  background-image: linear-gradient(#8e44ad, #8e44ad);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #703688 !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.inverse,
+button.inverse,
+input[type="submit"].inverse {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #2b3c4e !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #34495e), color-stop(5%, #34495e), color-stop(100%, #2b3c4e));
+  background-image: -webkit-linear-gradient(#34495e, #34495e 5%, #2b3c4e);
+  background-image: -moz-linear-gradient(#34495e, #34495e 5%, #2b3c4e);
+  background-image: -o-linear-gradient(#34495e, #34495e 5%, #2b3c4e);
+  background-image: linear-gradient(#34495e, #34495e 5%, #2b3c4e);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.inverse:hover, a.inverse:focus, a.inverse:active,
+button.inverse:hover,
+button.inverse:focus,
+button.inverse:active,
+input[type="submit"].inverse:hover,
+input[type="submit"].inverse:focus,
+input[type="submit"].inverse:active {
+  background-color: #34495e;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #34495e), color-stop(100%, #34495e));
+  background-image: -webkit-linear-gradient(#34495e, #34495e);
+  background-image: -moz-linear-gradient(#34495e, #34495e);
+  background-image: -o-linear-gradient(#34495e, #34495e);
+  background-image: linear-gradient(#34495e, #34495e);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #222f3d !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+a.inverse-dark,
+button.inverse-dark,
+input[type="submit"].inverse-dark {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #233140 !important;
+  border-width: 2px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2c3e50), color-stop(5%, #2c3e50), color-stop(100%, #233140));
+  background-image: -webkit-linear-gradient(#2c3e50, #2c3e50 5%, #233140);
+  background-image: -moz-linear-gradient(#2c3e50, #2c3e50 5%, #233140);
+  background-image: -o-linear-gradient(#2c3e50, #2c3e50 5%, #233140);
+  background-image: linear-gradient(#2c3e50, #2c3e50 5%, #233140);
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset;
+}
+a.inverse-dark:hover, a.inverse-dark:focus, a.inverse-dark:active,
+button.inverse-dark:hover,
+button.inverse-dark:focus,
+button.inverse-dark:active,
+input[type="submit"].inverse-dark:hover,
+input[type="submit"].inverse-dark:focus,
+input[type="submit"].inverse-dark:active {
+  background-color: #2c3e50;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2c3e50), color-stop(100%, #2c3e50));
+  background-image: -webkit-linear-gradient(#2c3e50, #2c3e50);
+  background-image: -moz-linear-gradient(#2c3e50, #2c3e50);
+  background-image: -o-linear-gradient(#2c3e50, #2c3e50);
+  background-image: linear-gradient(#2c3e50, #2c3e50);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-color: #1a242f !important;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
