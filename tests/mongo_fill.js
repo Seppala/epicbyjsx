@@ -4,5 +4,5 @@
 conn = new Mongo();
 db = conn.getDB("test")
 db.users.drop();
-db.users.insert({"name":"Oleg Podsechin","fbId":"36903358","upfo": true,"message":"Javascript session?"});
-db.users.insert({"name":"Pia Henrietta Kekäläinen","fbId":"100001140546837","upfo":false,"message":"We're at railsgirls!"});
+db.users.insert({"name":"Oleg Podsechin","fbId":"36903358","upfo": true,"message":"Javascript session?","phoneNumber": "+4933434"});
+db.users.insert({"name":"Pia Henrietta Kekäläinen","fbId":"100001140546837","upfo":false,"message":"We're at railsgirls!", "phoneNumber": ""});

@@ -27,16 +27,12 @@
 	      </div>
 	    </div>
 	<div class="page-header"></div>
-	<div class="container">
-	<div class="row-fluid">
-  	<div id="check"></div>
-    <p class="text-info">Your friends that are up for something:</p>
-    <table class="table table-condensed" id="upfo"><tbody></tbody></table>
-    <p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>
-  	<table class="table table-condensed" id="notupfo"><tbody></tbody></table>
-  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
-  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
-	</div><!-- container-->
+	<div class="container">		
+	  	<div id="activeview"><!--ActiveView--></div>
+	  	<div id="upfoview"><!-- Users who are friends --></div>
+	  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
+	  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
+	</div>
 </body>
 
 
@@ -66,15 +62,32 @@
 " class="img-rounded " width="50 "> 
         </td>
         <td><%= name %><br/><em><%= message %></em></td>
-        <td width="100">
+        <td width="200">
           <% if(user) { %>
-
-            <a class="btn <%= upfo?'btn-success':''%>">Call</a> 
+            <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
+            	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">Call</a> 	
+              	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">SMS</a> 
+            <% } else { %>
+              <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
+              <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
+            <% } %>
           <% } else { %>
             <a class="btn ">Invite</a> 
           <% } %>
         </td>
 </script>
+
+<script type="text/template" id="upfo_t">
+		<% if($upfoFriends.html()) { %>
+	    	<p class="text-info">Your friends that are up for something:</p>
+	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
+    	<% } %>
+    	<% if($notupfoFriends.html()) { %>
+	    	<p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>	  	
+	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
+    	<% } %>
+</script>
+
 <script src="js/main.js"></script>
 <script src="js/views.js"></script>
 </html>
