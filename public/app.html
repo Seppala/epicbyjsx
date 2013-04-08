@@ -28,16 +28,23 @@
 	      </div>
 	    </div>
 	<div class="page-header"></div>
-	<div class="container">		
-	  	<div id="activeview"><!--ActiveView--></div>
-	  	<div id="upfoview"><!-- Users who are friends --></div>
-	  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
-	  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
-	</div>
+	<div id="container" class="container"></div>
 </body>
 
 
 <!-- TEMPLATES!!!! -->
+<script type="text/template" id="page_upfo_t">
+	<div id="activeview"><!--ActiveView--></div>
+  	<div id="upfoview"><!-- Users who are friends --></div>
+  	<p class="text-info">Your friends that are not on Piazzo yet:</p>
+  	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
+</script>
+
+<script type="text/template" id="page_notfound_t">
+	<p>Sorry this page does not exist</p>
+</script>
+
+
 <script type="text/template" id="button_t">
 	<% if (upfo === false) { %>
 		<p class="lead text-info">Tell your friends you're up for something:</p>

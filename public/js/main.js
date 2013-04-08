@@ -52,7 +52,7 @@ $(function($){
 			message: "Golf at Pickala at 6ish?"
 		}
 	});
-	
+
 	
 	/*
 	 * COLLECTIONS
@@ -86,7 +86,7 @@ $(function($){
 	
 	
 	
-	//var mainView = new MainView();
+	var mainView = new MainView({page: "upfo"});
 	var user = new User();
 	var friendsList = new FriendsList({user: user});
 	var activeView = new ActiveView( {model: user} );
