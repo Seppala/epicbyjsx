@@ -66,10 +66,16 @@ var UpfoView = Backbone.View.extend({
 					$notupfoFriends.append(new FriendView({model:friend}).render().el);
 				}
 			});
+		} else {
+			seeStatusFriends = []
+			_.each(users.slice(0,3), function(friend){
+				seeStatusFriends.push(friend.attributes.name);
+			})
 		}
 		this.$el.append(this.template({
 			$upfoFriends: $upfoFriends, 
 			$notupfoFriends: $notupfoFriends, 
+			seeStatusFriends: seeStatusFriends,
 			upfo: this.model.get("upfo")
 		}));
 		return this; //It's good to always return this from render() 

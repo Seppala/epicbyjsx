@@ -45,7 +45,6 @@
     	<span class="help-inline">Message (Optional):</span>
 		<input id="user-message" type="text" class="input-medium input-block-level">
 		<button class="button primary-dark" id="active">I'm up for something!</button>
-		<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>You have to be up for something to see who else is!</div>
 	<!-- </form> -->
 	<% } else { %>
 	<p class="lead text-info">You're up for something!</p>
@@ -79,17 +78,25 @@
 </script>
 
 <script type="text/template" id="upfo_t">
+	<% if(upfo) { %>
 		<p class="text-info">Your friends that are up for something:</p>
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
-			<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
+			<div class="alert">None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
 	    	<p class="text-info">Your friends that are using Piazzo but not up for something right now:</p>	  	
 	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
     	<% } %>
+	<% } else { %>
+		<% if(seeStatusFriends.length > 0) { %>
+			<p class="alert alert-info">Set your status of to "up for someting" to see the status of <%= seeStatusFriends.join(", ") %>.</p>
+		<% } else { %>
+			<div class="alert">You don't have any friends on piazzo, yet! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
+		<% } %>
+	<% } %>
 </script>
 
 <script src="js/main.js"></script>
