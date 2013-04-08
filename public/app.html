@@ -73,7 +73,7 @@
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
             <% } %>
           <% } else { %>
-            <a class="btn ">Invite</a> 
+            <a class="button">Invite</a> 
           <% } %>
         </td>
 </script>
@@ -83,7 +83,7 @@
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
-			<p>None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a> 
+			<div class="alert"><button type="button" class="close" data-dismiss="alert">×</button>None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
