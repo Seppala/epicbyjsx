@@ -46,18 +46,7 @@ var UpfoView = Backbone.View.extend({
 	initialize: function() {
 		//this.collection.fetch();
 		this.collection.on('reset', this.render, this);
-		this.listenTo(this.model, 'change:upfo', this.upfoChange);
-	},
-	upfoChange: function(){
-		// Only render this directly if upfo is
-		// changed to "off" otherwise the FriendsList collection
-		// will do the job
-		if(!this.model.get("upfo")) {
-			this.render();
-		} else {
-			// This would be the place to implement a
-			// "Loading bar"
-		}
+		this.collection.on('remove', this.render, this);
 	},
 	render: function() {
 		

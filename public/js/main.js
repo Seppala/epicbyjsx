@@ -72,7 +72,10 @@ $(function($){
 			if(this.user.attributes.upfo) {
 				// Only fetch if upfo is set to true
 				this.fetch();
-			}			
+			} else {
+				this.remove(this.where({user: true}));
+				console.log(this);
+			}		
 		}
 	});
 
