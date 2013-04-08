@@ -57,6 +57,7 @@ var UpfoView = Backbone.View.extend({
 		this.$el.html("");
 		var $upfoFriends = $("<tbody></tbody>");
 		var $notupfoFriends = $("<tbody></tbody>");
+		seeStatusFriends = []
 		// If the user is upfo
 		if (this.model.get("upfo")) {
 			_.each(users, function(friend){
@@ -67,7 +68,6 @@ var UpfoView = Backbone.View.extend({
 				}
 			});
 		} else {
-			seeStatusFriends = []
 			_.each(users.slice(0,3), function(friend){
 				seeStatusFriends.push(friend.attributes.name);
 			})
