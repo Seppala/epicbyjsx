@@ -28,8 +28,14 @@ module.exports = function(app) {
 								//console.log('Friend found in database: ' + friend.name);
 								friend.user = true;
 								// Specify data that should be transferred to the client
-								friend.upfo = user.upfo;
-								friend.message = user.message;
+								// Only give upfo/message info, when user itself is upfo
+								if(user.upfo) {
+									friend.upfo = user.upfo;
+									friend.message = user.message;
+								} else {
+									friend.upfo = false;
+									friend.message = "";
+								}									
 								if(user.phoneNumber) {
 									friend.phoneNumber = user.phoneNumber;
 								}								
