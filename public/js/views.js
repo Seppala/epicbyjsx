@@ -47,6 +47,7 @@ var UpfoView = Backbone.View.extend({
 		//this.collection.fetch();
 		this.collection.on('reset', this.render, this);
 		this.collection.on('remove', this.render, this);
+		this.collection.on('change', this.render, this);
 	},
 	render: function() {
 		

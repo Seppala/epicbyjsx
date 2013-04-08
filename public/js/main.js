@@ -73,8 +73,12 @@ $(function($){
 				// Only fetch if upfo is set to true
 				this.fetch();
 			} else {
-				this.remove(this.where({user: true}));
-				console.log(this);
+				// Set the status of all friends to "not upfo"
+				// To make sure, that they are not somewhere seen as up
+				userFriends = this.where({user: true});
+				_.each(userFriends, function(friend){
+					friend.set("upfo", false);
+				});
 			}		
 		}
 	});
