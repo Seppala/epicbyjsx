@@ -11,7 +11,7 @@ if (process.env.NODE_ENV == 'production')
 	{
 		appId = '513729218671638';
 		appSecret = '7e5317d985ebb4a9222b21477ffaf9f3';
-		fbUrl = 'http://agile-plateau-5423.herokuapp.com/';
+		fbUrl = 'http://piazzo.co';
 	}
 else 
 	{
