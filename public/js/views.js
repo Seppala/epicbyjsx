@@ -45,6 +45,7 @@ var UpfoView = Backbone.View.extend({
 	template: _.template( $('#upfo_t').html()),
 	initialize: function() {
 		//this.collection.fetch();
+		this.model.on('change', this.render, this);
 		this.collection.on('reset', this.render, this);
 		this.collection.on('remove', this.render, this);
 		this.collection.on('change', this.render, this);
