@@ -110,20 +110,9 @@ var NonuserView = Backbone.View.extend({
 });
 
 var MainView = Backbone.View.extend({
-	el: "#container",
 	template: _.template( $('#page_upfo_t').html()),
-	initialize: function(options) {
-		this.render(options);
-	},
-	render: function(options) {
-		var template;
-		if(options.page === "upfo") {
-			this.template = _.template( $('#page_upfo_t').html() );
-		} else {
-			this.template = _.template( $('#page_notfound_t').html() );
-		}
-		this.$el.append(this.template());	
-			
-		return this;
+	render: function() {
+		//this.$el.html(this.template());	
+		return this.template();
 	}
 });

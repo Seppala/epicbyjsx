@@ -86,14 +86,45 @@ $(function($){
 	
 	
 	
-	var mainView = new MainView({page: "upfo"});
-	var user = new User();
-	var friendsList = new FriendsList({user: user});
-	var activeView = new ActiveView( {model: user} );
-	// var isupfoView = new IsupfoView({collection: friendsList, model: user});
-	// var notupfoView = new NotupfoView({collection: friendsList, model: user});
-	var upfoView = new UpfoView({collection: friendsList, model:user});
-	var nonuserView = new NonuserView({collection: friendsList, model: user});
-	//friendsList.reset(friendsData);
-	//friendsList.fetch();
+// 	var mainView = new MainView({page: "upfo"});
+// 	var user = new User();
+// var friendsList = new FriendsList({user: user});
+// var activeView = new ActiveView( {model: user} );
+// 	// var isupfoView = new IsupfoView({collection: friendsList, model: user});
+// 	// var notupfoView = new NotupfoView({collection: friendsList, model: user});
+// 	var upfoView = new UpfoView({collection: friendsList, model:user});
+// 	var nonuserView = new NonuserView({collection: friendsList, model: user});
+// 	//friendsList.reset(friendsData);
+// 	//friendsList.fetch();
+
+	// Ths router should be somewhere else
+	// also it should work a little different..
+	var PiazzoApp = new (Backbone.Router.extend({
+	routes: {
+		"": "index",
+		"options": "options",
+		":page": "notfound"
+	},
+	initialize: function(){
+		this.mainView = new MainView();
+	},
+	index: function() {
+		console.log("In the index route");
+		$('#container').html(this.mainView.render());
+		this.user = new User();
+		this.friendsList = new FriendsList({user: this.user});
+		this.activeView = new ActiveView( {model: this.user} );
+		this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
+		this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
+	},
+	options: function() {
+		$('#container').html("This will be the options page.");
+	},
+	notfound: function(page) {
+		// Right now handle them with the standard app
+		this.index();
+	}
+	}));
+	Backbone.history.start();
+
 });
