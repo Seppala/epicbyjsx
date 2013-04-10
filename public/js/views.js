@@ -133,7 +133,16 @@ var OptionsView = Backbone.View.extend({
 	},
 	save: function() {
 		this.model.set("phoneNumber", $('#user-phone').val());
-		this.model.save();
-		console.log("Saved (?)");
+		this.model.save({}, {
+			success: function() {
+				$('button#save').addClass("success");
+				console.log("Saved.");
+			},
+			error: function() {
+				$('button#save').addClass("error");
+				console.log("Error saving.");
+			}
+		});
+		
 	}
 });

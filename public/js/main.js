@@ -109,7 +109,6 @@ $(function($){
 	initialize: function(){
 		this.user = new User();
 		this.mainView = new MainView();
-		this.optionsView = new OptionsView({model: this.user});
 	},
 	index: function() {
 		console.log("In the index route");
@@ -120,6 +119,7 @@ $(function($){
 		this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
 	},
 	options: function() {
+		this.optionsView = new OptionsView({model: this.user});
 		$('#container').html(this.optionsView.render().el);
 	},
 	notfound: function(page) {
