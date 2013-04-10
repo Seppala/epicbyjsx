@@ -128,7 +128,8 @@ var OptionsView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
-		this.$el.html(this.template());
+		var attributes = this.model.toJSON();
+		this.$el.html(this.template(attributes));
 		return this;
 	},
 	save: function() {
