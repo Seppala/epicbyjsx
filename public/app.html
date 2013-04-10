@@ -19,6 +19,12 @@
 	          <a class="brand" href="#">Piazzo</a>
 	          <div class="navbar-content">
 	            <ul class="nav  pull-right">
+	            	<li>
+	            		<a href="#">Start</a>
+            		</li>
+	            	<li>
+	            		<a href="#options">Options</a>
+            		</li>
     				  <li>
     					<a href="/logout">Logout</a>
     				  </li>
@@ -40,10 +46,10 @@
   	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 </script>
 
-<script type="text/template" id="page_notfound_t">
-	<p>Sorry this page does not exist</p>
+<script type="text/template" id="page_options_t">
+	Phone: <input id="user-phone" type="text" class="input-medium"><br/>
+	<button class="button primary-dark" id="save">Save</button>
 </script>
-
 
 <script type="text/template" id="button_t">
 	<% if (upfo === false) { %>

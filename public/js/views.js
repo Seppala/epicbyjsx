@@ -109,10 +109,31 @@ var NonuserView = Backbone.View.extend({
 	}		
 });
 
+// PAGES
+
 var MainView = Backbone.View.extend({
 	template: _.template( $('#page_upfo_t').html()),
 	render: function() {
-		//this.$el.html(this.template());	
-		return this.template();
+		this.$el.html(this.template());	
+		return this;
+	}
+});
+
+var OptionsView = Backbone.View.extend({
+	template: _.template( $('#page_options_t').html()),
+	events: {
+		"click button#save": "save"
+	},
+	initialize: function() {
+		this.render();
+	},
+	render: function() {
+		this.$el.html(this.template());
+		return this;
+	},
+	save: function() {
+		this.model.set("phoneNumber", $('#user-phone').val());
+		this.model.save();
+		console.log("Saved (?)");
 	}
 });

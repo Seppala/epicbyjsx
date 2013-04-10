@@ -74,6 +74,7 @@ module.exports = function(app) {
 				//set users upfo status to what is given in the req
 				user.upfo = req.body.upfo;
 				user.message = req.body.message;
+				user.phoneNumber = req.body.phoneNumber;
 				//save user
 				return user.save( function( err ) {
 				    if( !err ) {

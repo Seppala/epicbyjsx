@@ -22,6 +22,7 @@ $(function($){
 			upfo: false,
 			message: 'Golf anyone?',
 			friends: {},
+			phoneNumber: '',
 			fbaccessToken: ''
 		},
 		initialize: function() {
@@ -106,19 +107,20 @@ $(function($){
 		":page": "notfound"
 	},
 	initialize: function(){
+		this.user = new User();
 		this.mainView = new MainView();
+		this.optionsView = new OptionsView({model: this.user});
 	},
 	index: function() {
 		console.log("In the index route");
-		$('#container').html(this.mainView.render());
-		this.user = new User();
+		$('#container').html(this.mainView.render().el);
 		this.friendsList = new FriendsList({user: this.user});
 		this.activeView = new ActiveView( {model: this.user} );
 		this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 		this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
 	},
 	options: function() {
-		$('#container').html("This will be the options page.");
+		$('#container').html(this.optionsView.render().el);
 	},
 	notfound: function(page) {
 		// Right now handle them with the standard app
