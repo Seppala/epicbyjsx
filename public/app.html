@@ -12,6 +12,8 @@
 
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
 	<body>
 	    <div class="navbar navbar-fixed-top">
 	      <div class="navbar-inner">
@@ -85,7 +87,7 @@
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
             <% } %>
           <% } else { %>
-            <a class="button">Invite</a> 
+            <a class="button" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a> 
           <% } %>
         </td>
 </script>
@@ -96,7 +98,7 @@
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
-			<div class="alert">None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
+			<div class="alert">None of your friends are currently up for something! Maybe you should invite more friends? You can send invites from the list below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></div>
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
@@ -107,11 +109,12 @@
 		<% if(seeStatusFriends.length > 0) { %>
 			<p class="alert alert-info">Set your status of to "up for someting" to see the status of <%= seeStatusFriends.join(", ") %>.</p>
 		<% } else { %>
-			<div class="alert">You don't have any friends on piazzo, yet! Maybe you should invite more friends? You can send invites from the list below or <a href="#">click here to invite directly on Facebook.</a></div> 
+			<div class="alert">You don't have any friends on piazzo, yet! Maybe you should invite some? You can send invites from the list below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></div> 
 		<% } %>
 	<% } %>
 </script>
 
 <script src="js/main.js"></script>
 <script src="js/views.js"></script>
+<script src="js/facebook.js"></script>
 </html>

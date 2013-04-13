@@ -73,6 +73,7 @@ $(function($){
 			if(this.user.attributes.upfo) {
 				// Only fetch if upfo is set to true
 				this.fetch();
+				console.log('user is upfo, fetched list:' + this)
 			} else {
 				// Set the status of all friends to "not upfo"
 				// To make sure, that they are not somewhere seen as up

@@ -54,6 +54,7 @@ var UpfoView = Backbone.View.extend({
 		
 		var self = this;
 		var users = this.collection.where({user: true});
+		console.log('users' + users)
 		
 		this.$el.html("");
 		var $upfoFriends = $("<tbody></tbody>");
@@ -96,7 +97,7 @@ var NonuserView = Backbone.View.extend({
 		
 		var self = this;
 		// Take first few nonUsers 
-		var nonUser = this.collection.where({user: false}).slice(0,7);
+		var nonUser = this.collection.where({user: false});
 		
 		this.$el.html("");
 		
