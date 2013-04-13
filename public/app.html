@@ -63,9 +63,11 @@
 	<!-- </form> -->
 	<% } else { %>
 	<p class="lead text-info">You're up for something!</p>
+	
 	<!--	<form class="form-vertical" id="active"> -->
-	    	<span class="help-inline">Your message:</span>
+	    	<!-- <span class="help-inline">Your message:</span> -->
         <input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>" disabled> 
+		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
 	<!-- </form> -->
 	<% } %>	
