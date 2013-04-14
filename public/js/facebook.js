@@ -1,5 +1,6 @@
 /* SETUP *********/
-/*
+/* These were moved to config.js
+
 var surl = document.URL.split('/')
 console.log('document URL:' + surl[2]) */
 //pathArray = window.location.pathname.split( '/' );
@@ -20,7 +21,6 @@ FB.init({
         appId  : appID,
         frictionlessRequests: true
       });
-
 /* INVITES *************/
 
 function sendFBRequest() {
