@@ -104,32 +104,34 @@ $(function($){
 	// Ths router should be somewhere else
 	// also it should work a little different..
 	var PiazzoApp = new (Backbone.Router.extend({
-	routes: {
-		"": "index",
-		"options": "options",
-		":page": "notfound"
-	},
-	initialize: function(){
-		this.user = new User();
-		this.mainView = new MainView();
-	},
-	index: function() {
-		console.log("In the index route");
-		$('#container').html(this.mainView.render().el);
-		this.friendsList = new FriendsList({user: this.user});
-		this.activeView = new ActiveView( {model: this.user} );
-		this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
-		this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
-	},
-	options: function() {
-		this.optionsView = new OptionsView({model: this.user});
-		$('#container').html(this.optionsView.render().el);
-	},
-	notfound: function(page) {
-		// Right now handle them with the standard app
-		this.index();
-	}
-	}));
+		routes: {
+			"": "index",
+			"options": "options",
+			":page": "notfound"
+		},
+		initialize: function(){
+			this.user = new User();
+			this.headerbarView = new HeaderbarView();
+			this.mainView = new MainView();
+		},
+		index: function() {
+			console.log("In the index route");
+			$('#headerbar').html(this.headerbarView.render().el);
+			$('#container').html(this.mainView.render().el);
+			this.friendsList = new FriendsList({user: this.user});
+			this.activeView = new ActiveView( {model: this.user} );
+			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
+			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
+		},
+		options: function() {
+			this.optionsView = new OptionsView({model: this.user});
+			$('#container').html(this.optionsView.render().el);
+		},
+		notfound: function(page) {
+			// Right now handle them with the standard app
+			this.index();
+		}
+		}));
 	Backbone.history.start();
 
 });

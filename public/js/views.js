@@ -120,6 +120,14 @@ var MainView = Backbone.View.extend({
 	}
 });
 
+var HeaderbarView = Backbone.View.extend({
+	template: _.template( $('#header_bar').html()),
+	render: function() {
+		this.$el.html(this.template());
+		return this;
+	}
+});
+
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {

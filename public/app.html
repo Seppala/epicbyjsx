@@ -17,32 +17,36 @@
 	<script src='js/fbLike.js'></script>
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<body>
-	    <div class="navbar navbar-fixed-top">
-	      <div class="navbar-inner">
-	        <div class="container">
-	          <a class="brand" href="#">Piazzo</a>
-	          <div class="navbar-content">
-	            <ul class="nav  pull-right">
-	            	<li>
-	            		<div class="fb-like liked" data-href="http://<%= link %>"  data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
-            		</li>
-	            	<li>
-	            		<a href="#options">Options</a>
-            		</li>
-    				  <li>
-    					<a href="/logout">Logout</a>
-    				  </li>
-	            </ul>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	<div class="page-header"></div>
-	<div id="container" class="container"></div>
+	   	<div id="headerbar" class="navbar navbar-fixed-top"></div>
+		<div class="page-header"></div>
+		<div id="container" class="container"></div>
 </body>
 
 
 <!-- TEMPLATES!!!! -->
+<script type="text/template" id="header_bar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">Piazzo</a>
+      <div class="navbar-content">
+        <ul class="nav  pull-right">
+        	<li>
+			<% if (place === 'dev') { %>
+        		<div class="fb-like liked" data-href="http://localhost:5000" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div><%} else {%>
+
+<% } %>
+    		</li>
+        	<li>
+        		<a href="#options">Options</a>
+    		</li>
+			  <li>
+				<a href="/logout">Logout</a>
+			  </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</script>	
 <script type="text/template" id="page_upfo_t">
 	<div id="activeview"><!--ActiveView--></div>
   	<div id="upfoview"><!-- Users who are friends --></div>
