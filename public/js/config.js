@@ -11,5 +11,5 @@ if (surl[2] === 'localhost:5000') {
 else {
 	appID = '513729218671638';
 	link = 'http://piazzo.co';
-	parce = 'prod';
+	place = 'prod';
 }
