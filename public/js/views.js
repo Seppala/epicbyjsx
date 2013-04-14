@@ -21,6 +21,7 @@ var ActiveView = Backbone.View.extend({
 	},
 	
 	toggleactive: function() {
+		console.log('doing toggleactive');
 		this.model.toggleactive();
 	},	
 });	

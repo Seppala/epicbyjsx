@@ -75,6 +75,10 @@
         <input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>" disabled> 
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
+	<% if (errmessage) { %>
+		<p><%= errmessage %></p>
+	<% } %>
+	
 	<!-- </form> -->
 	<% } %>	
 </script>

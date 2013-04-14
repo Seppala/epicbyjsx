@@ -13,3 +13,5 @@ else {
 	link = 'http://piazzo.co';
 	place = 'prod';
 }
+
+var errmessage = "";

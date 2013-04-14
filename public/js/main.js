@@ -25,7 +25,8 @@ $(function($){
 			message: 'Golf anyone?',
 			friends: {},
 			phoneNumber: '',
-			fbaccessToken: ''
+			fbaccessToken: '',
+			upfoTime: ''
 		},
 		initialize: function() {
 			this.fetch();
@@ -33,12 +34,23 @@ $(function($){
 		
 		toggleactive: function() {
 			var upfor = this.get('upfo');
+			var userUpfo = this.get('upfoTime')
 			if (upfor === true) {
-				this.set('message', '');
-				this.save({upfo : false});
-				console.log('upfo set to false'); }
+				if (Date.now() - userUpfo < 60000) {
+					console.log('has been less than 10 mins since change');
+					//var errmessage;
+					//Send request to change upfo on server in userUpfo + 10 minutes. 
+					//res.send({errmessage : 'It\'s been less than ten minutes since you changed to up for something. When ten minutes have passed your status will be cancelled.'});
+				}
+				else {
+					this.set('message', '');
+					this.save({upfo : false});
+					console.log('upfo set to false'); }
+				}
+				
 			else {
 				this.set('message', $('#user-message').val());
+				this.set('upfoTime', Date.now());
 				this.save({upfo : true});
 				console.log('upfo set to true');
 			};
