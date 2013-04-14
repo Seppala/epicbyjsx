@@ -1,10 +1,11 @@
 /* SETUP *********/
-
+/*
 var surl = document.URL.split('/')
-console.log('document URL:' + surl[2])
+console.log('document URL:' + surl[2]) */
 //pathArray = window.location.pathname.split( '/' );
 //host = pathArray[2];'
 
+/*
 if (surl[2] === 'localhost:5000') {
 	appID = '217545681715200';
 	link = 'http://localhost:5000';
@@ -14,7 +15,7 @@ else {
 	appID = '513729218671638';
 	link = 'http://piazzo.co';
 }
-
+*/
 FB.init({
         appId  : appID,
         frictionlessRequests: true

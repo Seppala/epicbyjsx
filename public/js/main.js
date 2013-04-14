@@ -1,5 +1,19 @@
 $(function($){	
 	
+	/*Make the appID and link variables available so the frontend can check whether we're in development or live!*/
+	var surl = document.URL.split('/')
+	console.log('document URL:' + surl[2])
+	
+	if (surl[2] === 'localhost:5000') {
+		appID = '217545681715200';
+		link = 'http://localhost:5000';
+	}
+
+	else {
+		appID = '513729218671638';
+		link = 'http://piazzo.co';
+	}
+	
 	var friendsData = [{name: "Juha", location: "Sydney", upfo: true, user: false},
 	{name: "Jonne", location: "Stockholm", upfo: false, user: false},
 	{name: "Jarkko", location: "Turku", upfo: false, user: true},
