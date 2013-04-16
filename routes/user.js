@@ -4,6 +4,10 @@ var config = require('../config');
 var request = require('request');
 
 module.exports = function(app) {
+
+	app.get('/', ensureAuthenticated, function(req, res){
+		res.sendfile('views/app.html');
+	});
 	
 	//Return the list of friends for the current user.
 	app.get('/api/friends', ensureAuthenticated, function (req, res){

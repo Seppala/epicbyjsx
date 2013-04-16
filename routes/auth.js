@@ -4,7 +4,7 @@ var UserModel = require('../models/user').UserModel;
 //Authentication
 module.exports = function(app) {
 	app.get('/fbauth', passport.authenticate('facebook'));
-	app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/app.html', failureRedirect: '/'}));
+	app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/'}));
 	app.get('/logout', function(req, res){
 		req.logOut();
 		res.redirect('/');
