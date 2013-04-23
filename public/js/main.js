@@ -16,7 +16,7 @@ $(function($){
 		defaults: {
 			fbId: '761506933',
 			name: 'Riku',
-			location: 'Helsinki',
+			location: [],
 			upfo: false,
 			message: 'Golf anyone?',
 			friends: {},
@@ -26,8 +26,23 @@ $(function($){
 		},
 		initialize: function() {
 			this.fetch();
+			// After initializing get current browser location
+			this.browserLocation();
+
 		},
-		
+		browserLocation: function() {
+			// Get location (everytime app is loaded?)
+			// Where should this actually go? ..
+			getLocation(function(err, lat, lng) {
+				if(!err) {
+					console.log('Savng ' + lat + "-" + lng);
+					this.set('location', [lat, lng]);
+					this.save();
+				} else {
+					console.log(err);
+				}
+			})			
+		},
 		toggleactive: function() {
 			var upfor = this.get('upfo');
 			var userUpfo = this.get('upfoTime');

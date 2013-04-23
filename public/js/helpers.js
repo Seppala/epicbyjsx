@@ -10,7 +10,8 @@ function serverDestroytimer() {
 	$.post("/api/destroytimer/");
 };
 
-var getLocation = function() {
+var getLocation = function(next) {
+	// Callback: next(error, lat, lng);
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			next(false, position.coords.latitude, position.coords.longitude);

@@ -81,6 +81,7 @@ module.exports = function(app) {
 				user.message = req.body.message;
 				user.phoneNumber = req.body.phoneNumber;
 				user.upfoTime = req.body.upfoTime;
+				user.location = req.body.location;
 				//save user
 				return user.save( function( err ) {
 				    if( !err ) {
