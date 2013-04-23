@@ -58,6 +58,7 @@ $(function($){
 				else {
 					this.set('message', '');
 					this.save({upfo : false});
+					//We have to destroy the timer that was created to automatically set the user notupfo after 1 hour
 					//serverDestroytimer();
 					console.log('upfo set to false'); }
 				}

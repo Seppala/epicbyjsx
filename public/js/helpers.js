@@ -5,3 +5,7 @@ function serverSettimer(time) {
 	$.post("/api/timeupfo/", {'time' : time});
 
 };
+
+function serverDestroytimer() {
+	$.post("/api/destroytimer/");
+};
