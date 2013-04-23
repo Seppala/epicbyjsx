@@ -33,11 +33,12 @@ $(function($){
 		browserLocation: function() {
 			// Get location (everytime app is loaded?)
 			// Where should this actually go? ..
+			var _this = this;
 			getLocation(function(err, lat, lng) {
 				if(!err) {
 					console.log('Savng ' + lat + "-" + lng);
-					this.set('location', [lat, lng]);
-					this.save();
+					_this.set('location', [lat, lng]);
+					_this.save();
 				} else {
 					console.log(err);
 				}
