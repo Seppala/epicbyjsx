@@ -1,12 +1,8 @@
+
 $(function($){	
 	
-	
-	
-	var friendsData = [{name: "Juha", location: "Sydney", upfo: true, user: false},
-	{name: "Jonne", location: "Stockholm", upfo: false, user: false},
-	{name: "Jarkko", location: "Turku", upfo: false, user: true},
-	{name: "Jesse", location: "London", upfo: true, user: false},
-	{name: "Janina", location: "Tallinn", upfo: true, user: true}];
+	/*global variables*/
+	var alertMessage = ''
 	/*
 	 * MODELS
 	 */
@@ -34,29 +30,44 @@ $(function($){
 		
 		toggleactive: function() {
 			var upfor = this.get('upfo');
-			var userUpfo = this.get('upfoTime')
-			if (upfor === true) {
-				if (Date.now() - userUpfo < 60000) {
-					console.log('has been less than 10 mins since change');
-					//var errmessage;
-					//Send request to change upfo on server in userUpfo + 10 minutes. 
-					//res.send({errmessage : 'It\'s been less than ten minutes since you changed to up for something. When ten minutes have passed your status will be cancelled.'});
-				}
-				else {
-					this.set('message', '');
-					this.save({upfo : false});
-					console.log('upfo set to false'); }
-				}
-				
-			else {
+			var userUpfo = this.get('upfoTime');
+			var now = Date.now();
+			if (upfor == false) {
 				this.set('message', $('#user-message').val());
 				this.set('upfoTime', Date.now());
 				this.save({upfo : true});
 				console.log('upfo set to true');
-			};
-			console.log(this.get('name'));
-		},
-	});
+				//Sends the server a message to tell it to switch upfo status to false in 1 hr.
+				time = now + 360000;
+				serverSettimer(time);
+			}	
+				
+			else if (upfor === true) {
+				
+				diff = now - userUpfo;
+				// if the user has been upfo for less than 9.5 mins we don't change status right away.
+				if (diff < 570000) {
+					console.log('has been less than 10 mins since change');
+					
+					//Sends the server a message to tell it to switch upfo status to false in 10 min - diff. 
+					//There should now be enough of a difference so that it doesn't screw it up...
+					time = 600000-diff;
+					console.log('in toggleactive, time to set is:' + time);
+					serverSettimer(time);
+				}
+				else {
+					this.set('message', '');
+					this.save({upfo : false});
+					//serverDestroytimer();
+					console.log('upfo set to false'); }
+				}
+				
+			}
+});
+	
+	//Timedupfo is a model of an event that triggers 
+	var timedUpfo
+	
 	
 	// The friendmodel represents one friend fetched from the database
 	var Friend = Backbone.Model.extend({

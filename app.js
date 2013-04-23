@@ -47,6 +47,7 @@ app.configure('development', function(){
 
 require('./routes/auth')(app);
 require('./routes/user')(app);
+require('./routes/upfo')(app);
 
 //MODELS
 

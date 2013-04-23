@@ -14,8 +14,9 @@
 <body>
 	<div id="fb-root"></div>
 	<script src='js/config.js'></script>
-	<script src='js/fbLike.js'></script>
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	<script src='js/fbLike.js'></script>
+	
 	<body>
 	   	<div id="headerbar" class="navbar navbar-fixed-top"></div>
 		<div class="page-header"></div>
@@ -47,40 +48,40 @@
     </div>
   </div>
 </script>	
+<!-- Template for button and list of friends who are users and those who are not -->
 <script type="text/template" id="page_upfo_t">
 	<div id="activeview"><!--ActiveView--></div>
   	<div id="upfoview"><!-- Users who are friends --></div>
   	<p class="text-info">Your friends that are not on Piazzo yet:</p>
   	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 </script>
-
+<!-- Phone number input for Options page -->
 <script type="text/template" id="page_options_t">
 	Phone: <input id="user-phone" type="text" value="<%= phoneNumber %>" class="input-medium"><br/>
 	<button class="button primary-dark" id="save">Save</button>
 </script>
-
+<!-- Button and message -->
 <script type="text/template" id="button_t">
 	<% if (upfo === false) { %>
-		<p class="lead text-info">Tell your friends you're up for something:</p>
+		<p class="lead text-info">Tell your friends youre up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
     	<span class="help-inline">Message (Optional):</span>
 		<input id="user-message" type="text" class="input-medium input-block-level">
-		<button class="button primary-dark" id="active">I'm up for something!</button>
+		<button class="button primary-dark" id="active">Im up for something!</button>
 	<!-- </form> -->
 	<% } else { %>
-	<p class="lead text-info">You're up for something!</p>
+	<p class="lead text-info">Youre up for something!</p>
 	
-	<!--	<form class="form-vertical" id="active"> -->
-	    	<!-- <span class="help-inline">Your message:</span> -->
         <input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>" disabled> 
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
-	<% if (errmessage) { %>
-		<p><%= errmessage %></p>
-	<% } %>
-	
-	<!-- </form> -->
 	<% } %>	
+	<div class="alert" id="msg" display="hidden">Set to ten!</div>
+	
+</script>
+<!-- Template for a message that can be changed according to what happens-->
+<script type="text/template" id="msg">
+<p> <%= msg %></p>
 </script>
 
 <script type="text/template" id="friend_t">
@@ -129,4 +130,5 @@
 <script src="js/main.js"></script>
 <script src="js/views.js"></script>
 <script src="js/facebook.js"></script>
+<script src="js/helpers.js"></script>
 </html>

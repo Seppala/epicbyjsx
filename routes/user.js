@@ -72,9 +72,11 @@ module.exports = function(app) {
 	        // Was the user found on the server?
 	        if(user) {
 				//set users upfo status to what is given in the req
+				console.log('putting the user! upfoTime: ' + req.body.upfoTime);
 				user.upfo = req.body.upfo;
 				user.message = req.body.message;
 				user.phoneNumber = req.body.phoneNumber;
+				user.upfoTime = req.body.upfoTime;
 				//save user
 				return user.save( function( err ) {
 				    if( !err ) {

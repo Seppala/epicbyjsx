@@ -11,7 +11,8 @@ var userSchema = new mongoose.Schema({
 	message: String,
 	fbaccessToken: String,
 	phoneNumber: String,
-	upfoTime: Date
+	upfoTime: String,
+	timeToFalse: String
 });
 
 exports.UserModel = mongoose.model('User', userSchema);
