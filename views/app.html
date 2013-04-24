@@ -50,6 +50,7 @@
 </script>	
 <!-- Template for button and list of friends who are users and those who are not -->
 <script type="text/template" id="page_upfo_t">
+    <div id="messages" ><!-- messages --></div>
 	<div id="activeview"><!--ActiveView--></div>
   	<div id="upfoview"><!-- Users who are friends --></div>
   	<p class="text-info">Your friends that are not on Piazzo yet:</p>
@@ -76,12 +77,16 @@
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
 	<% } %>	
-	<div class="alert" id="msg" display="hidden">Set to ten!</div>
+	
 	
 </script>
 <!-- Template for a message that can be changed according to what happens-->
-<script type="text/template" id="msg">
-<p> <%= msg %></p>
+<script type="text/template" id="alertMsg">
+<div>Chip</div>
+<% if (alertMsg) { %>
+<div class="alert"><%= alertMsg %> hoi <%= message.alertMsg %></div>
+<% }  %>
+
 </script>
 
 <script type="text/template" id="friend_t">

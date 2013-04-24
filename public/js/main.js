@@ -2,7 +2,7 @@
 $(function($){	
 	
 	/*global variables*/
-	var alertMessage = ''
+	var alertMsg = ''
 	/*
 	 * MODELS
 	 */
@@ -82,9 +82,11 @@ $(function($){
 			}
 });
 	
-	//Timedupfo is a model of an event that triggers 
-	var timedUpfo
-	
+	var Message = Backbone.Model.extend({
+		defaults: {
+			alertMsg: "Hi!"
+		}
+	});
 	
 	// The friendmodel represents one friend fetched from the database
 	var Friend = Backbone.Model.extend({
@@ -153,6 +155,7 @@ $(function($){
 			this.user = new User();
 			this.headerbarView = new HeaderbarView();
 			this.mainView = new MainView();
+			this.message = new Message();
 		},
 		index: function() {
 			console.log("In the index route");
@@ -162,6 +165,7 @@ $(function($){
 			this.activeView = new ActiveView( {model: this.user} );
 			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
+			this.alertView = new AlertView({message: this.message });
 		},
 		options: function() {
 			this.optionsView = new OptionsView({model: this.user});

@@ -129,6 +129,19 @@ var HeaderbarView = Backbone.View.extend({
 	}
 });
 
+var AlertView = Backbone.View.extend({
+	el: "#messages",
+	template: _.template( $('#alertMsg').html()),
+	initalize: function() {
+		this.render();
+	},
+	render: function() {
+		var attributes = this.message.toJSON();
+		this.$el.html(this.template(attributes));
+		return this;
+	}
+});
+
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
