@@ -30,15 +30,18 @@ var AlertView = Backbone.View.extend({
 	el: "#messages",
 	template: _.template( $('#alertMsg').html()),
 	initialize: function() {
+		var msg;
 		this.render(this);
+		this.model.on('change', this.render, this);
 	},
 	
 	render: function() {
 		var attributes = this.model.toJSON();
 		console.log('rendering alertview, attributes(message.toJSON()):' + attributes);
-		this.$el.append(this.template(attributes));
+		this.$el.html(this.template(attributes));
 		return this;
-	}
+	},
+	
 });
 
 var FriendView = Backbone.View.extend({

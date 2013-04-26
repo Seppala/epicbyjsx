@@ -70,6 +70,7 @@ $(function($){
 					time = 600000-diff;
 					console.log('in toggleactive, time to set is:' + time);
 					serverSettimer(time);
+					this.message.message.set("It's been less than 10 minutes since you went upfo. You can't change status within 10 minutes, but now your status will be automatically cancelled when 10 minutes has passed.");
 				}
 				else {
 					this.set('message', '');
@@ -167,8 +168,8 @@ $(function($){
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
-			this.activeView = new ActiveView( {model: this.user} );
-			this.alertView = new AlertView( {model: this.message} );
+			this.activeView = new ActiveView( {model: this.user, message: this.message} );
+			this.alertView = new AlertView( {model: this.message } );
 			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
 			

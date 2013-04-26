@@ -25,7 +25,7 @@
 
 <!-- Template for a message that can be changed according to what happens-->
 <script type="text/template" id="alertMsg">
-<p>Hello! and: </p><%= message %>
+<div class="alert"><%= message %></div>
 </script>
 <!-- TEMPLATES!!!! -->
 <script type="text/template" id="header_bar">
@@ -53,8 +53,8 @@
 </script>	
 <!-- Template for button and list of friends who are users and those who are not -->
 <script type="text/template" id="page_upfo_t">
-	<div id="messages" ><!-- messages --></div>
 	<div id="activeview"><!--ActiveView--></div>
+	<div id="messages" ><!-- messages --></div>
   	<div id="upfoview"><!-- Users who are friends --></div>
   	<p class="text-info">Your friends that are not on Piazzo yet:</p>
   	<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
