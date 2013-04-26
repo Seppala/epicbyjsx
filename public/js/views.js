@@ -22,7 +22,10 @@ var ActiveView = Backbone.View.extend({
 	
 	toggleactive: function() {
 		console.log('doing toggleactive');
-		this.model.toggleactive();
+		var msg = this.model.toggleactive();
+		console.log('got answer from toggleactive: ' + msg);
+		console.log('this.model: ' + this.model + 'this.alert: ' + this.alert);
+		this.options.alert.save({msg: msg});
 	},	
 });	
 
@@ -37,7 +40,7 @@ var AlertView = Backbone.View.extend({
 	
 	render: function() {
 		var attributes = this.model.toJSON();
-		console.log('rendering alertview, attributes(message.toJSON()):' + attributes);
+		console.log('rendering alertview, attributes(model.toJSON()):' + attributes);
 		this.$el.html(this.template(attributes));
 		return this;
 	},

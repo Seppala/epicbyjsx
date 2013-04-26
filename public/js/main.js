@@ -7,6 +7,9 @@ $(function($){
 	 * MODELS
 	 */
 	
+	/*Vent is for firing events from any view*/
+	var vent = _.extend({}, Backbone.Events);
+	
 	// The user represents the current user that is fetched from the database...
 	var User = Backbone.Model.extend({
 		urlRoot: '/api/users',
@@ -70,22 +73,26 @@ $(function($){
 					time = 600000-diff;
 					console.log('in toggleactive, time to set is:' + time);
 					serverSettimer(time);
-					this.message.message.set("It's been less than 10 minutes since you went upfo. You can't change status within 10 minutes, but now your status will be automatically cancelled when 10 minutes has passed.");
+					var msg = "It's been less than 10 minutes since you went upfo. When 10 minutes has passed, you're friends will no longer see that you are up for something."
+					return msg;
 				}
 				else {
 					this.set('message', '');
 					this.save({upfo : false});
 					//We have to destroy the timer that was created to automatically set the user notupfo after 1 hour
 					//serverDestroytimer();
-					console.log('upfo set to false'); }
+					console.log('Ok, you're no longer up for something! Go do stuff!'');
+					var msg = "upfo set to false";
+					return msg;
+					 }
 				}
 				
 			}
 });
 	
-	var Message = Backbone.Model.extend({
+	var Alert = Backbone.Model.extend({
 		defaults: {
-			message: "Hi!"
+			msg: "Hi!"
 		},
 		initialize: function() {
 			
@@ -157,7 +164,9 @@ $(function($){
 		},
 		initialize: function(){
 			this.user = new User();
-			this.message = new Message();
+			console.log('init piazzoapp: user' +  this.user);
+			this.alert = new Alert();
+			console.log('init piazzoapp: alert' +  this.alert);
 			this.headerbarView = new HeaderbarView();
 			this.mainView = new MainView();
 			
@@ -168,8 +177,9 @@ $(function($){
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
-			this.activeView = new ActiveView( {model: this.user, message: this.message} );
-			this.alertView = new AlertView( {model: this.message } );
+			console.log('in index: function(): alert' +  this.alert);
+			this.activeView = new ActiveView( {model: this.user, alert: this.alert} );
+			this.alertView = new AlertView( {model: this.alert } );
 			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
 			
