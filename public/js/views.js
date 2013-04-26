@@ -26,6 +26,20 @@ var ActiveView = Backbone.View.extend({
 	},	
 });	
 
+var AlertView = Backbone.View.extend({
+	el: "#messages",
+	template: _.template( $('#alertMsg').html()),
+	initialize: function() {
+		this.render(this);
+	},
+	
+	render: function() {
+		var attributes = this.model.toJSON();
+		console.log('rendering alertview, attributes(message.toJSON()):' + attributes);
+		this.$el.append(this.template(attributes));
+		return this;
+	}
+});
 
 var FriendView = Backbone.View.extend({
 	tagName: "tr",
@@ -39,6 +53,8 @@ var FriendView = Backbone.View.extend({
 	}
 	
 });
+
+
 
 
 var UpfoView = Backbone.View.extend({
@@ -125,19 +141,6 @@ var HeaderbarView = Backbone.View.extend({
 	template: _.template( $('#header_bar').html()),
 	render: function() {
 		this.$el.html(this.template());
-		return this;
-	}
-});
-
-var AlertView = Backbone.View.extend({
-	el: "#messages",
-	template: _.template( $('#alertMsg').html()),
-	initalize: function() {
-		this.render();
-	},
-	render: function() {
-		var attributes = this.message.toJSON();
-		this.$el.html(this.template(attributes));
 		return this;
 	}
 });

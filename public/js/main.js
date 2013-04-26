@@ -2,7 +2,7 @@
 $(function($){	
 	
 	/*global variables*/
-	var alertMsg = ''
+	//var alertMsg = ''
 	/*
 	 * MODELS
 	 */
@@ -84,7 +84,10 @@ $(function($){
 	
 	var Message = Backbone.Model.extend({
 		defaults: {
-			alertMsg: "Hi!"
+			message: "Hi!"
+		},
+		initialize: function() {
+			
 		}
 	});
 	
@@ -153,9 +156,11 @@ $(function($){
 		},
 		initialize: function(){
 			this.user = new User();
+			this.message = new Message();
 			this.headerbarView = new HeaderbarView();
 			this.mainView = new MainView();
-			this.message = new Message();
+			
+			
 		},
 		index: function() {
 			console.log("In the index route");
@@ -163,9 +168,10 @@ $(function($){
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
 			this.activeView = new ActiveView( {model: this.user} );
+			this.alertView = new AlertView( {model: this.message} );
 			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
-			this.alertView = new AlertView({message: this.message });
+			
 		},
 		options: function() {
 			this.optionsView = new OptionsView({model: this.user});
