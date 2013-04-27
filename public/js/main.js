@@ -81,8 +81,8 @@ $(function($){
 					this.save({upfo : false});
 					//We have to destroy the timer that was created to automatically set the user notupfo after 1 hour
 					//serverDestroytimer();
-					console.log('Ok, you're no longer up for something! Go do stuff!'');
-					var msg = "upfo set to false";
+					console.log('');
+					var msg = "Ok, you're no longer up for something! Hop hop, go meet your friends!";
 					return msg;
 					 }
 				}
@@ -92,7 +92,7 @@ $(function($){
 	
 	var Alert = Backbone.Model.extend({
 		defaults: {
-			msg: "Hi!"
+			msg: ""
 		},
 		initialize: function() {
 			

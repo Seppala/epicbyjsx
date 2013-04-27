@@ -17,3 +17,7 @@ var userSchema = new mongoose.Schema({
 
 exports.UserModel = mongoose.model('User', userSchema);
 // export this model if done form another file: module.exports = mongoose.model('User', userSchema);
+
+var alert = new mongoose.Schema({
+	msg: String,
+});
