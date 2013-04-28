@@ -59,18 +59,22 @@ $(function($){
 				//Sends the server a message to tell it to switch upfo status to false in 1 hr.
 				time = now + 360000;
 				serverSettimer(time);
+				var msg = "";
+				return msg;
 			}	
 				
 			else if (upfor === true) {
 				
 				diff = now - userUpfo;
 				// if the user has been upfo for less than 9.5 mins we don't change status right away.
-				if (diff < 570000) {
+				// FOR TESTING SET TO 1 min (0. sec)
+				if (diff < 5700) {
 					console.log('has been less than 10 mins since change');
 					
 					//Sends the server a message to tell it to switch upfo status to false in 10 min - diff. 
 					//There should now be enough of a difference so that it doesn't screw it up...
-					time = 600000-diff;
+					//FOR TESTING SET TO 10 SEC
+					time = 6000-diff;
 					console.log('in toggleactive, time to set is:' + time);
 					serverSettimer(time);
 					var msg = "It's been less than 10 minutes since you went upfo. When 10 minutes has passed, you're friends will no longer see that you are up for something."
