@@ -4,13 +4,13 @@ console.log('document URL:' + surl[2])
 
 if (surl[2] === 'localhost:5000') {
 	appID = '217545681715200';
-	link = 'http://localhost:5000';
+	link = 'http://localhost:5000/';
 	place = 'dev';
 }
 
 else {
 	appID = '513729218671638';
-	link = 'http://piazzo.co';
+	link = 'http://piazzo.co/';
 	place = 'prod';
 }
 
