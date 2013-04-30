@@ -85,6 +85,7 @@ var UpfoView = Backbone.View.extend({
 		var $notupfoFriends = $("<tbody></tbody>");
 		seeStatusFriends = []
 		// If the user is upfo
+		
 		if (this.model.get("upfo")) {
 			_.each(users, function(friend){
 				if(friend.attributes.upfo) {
@@ -98,6 +99,7 @@ var UpfoView = Backbone.View.extend({
 				seeStatusFriends.push(friend.attributes.name);
 			})
 		}
+		
 		this.$el.append(this.template({
 			$upfoFriends: $upfoFriends, 
 			$notupfoFriends: $notupfoFriends, 

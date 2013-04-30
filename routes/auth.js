@@ -3,7 +3,7 @@ var config = require('../config');
 var UserModel = require('../models/user').UserModel;
 //Authentication
 module.exports = function(app) {
-	app.get('/fbauth', passport.authenticate('facebook'));
+	app.get('/fbauth', passport.authenticate('facebook', { scope: ['user_location','friends_location']}));
 	app.get('/fbauthed', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/'}));
 	app.get('/logout', function(req, res){
 		req.logOut();
@@ -59,6 +59,7 @@ passport.use(new FacebookStrategy({
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
+					newUser.city = profile.user_location;
 					
 					newUser.save(function(err){
 						if (err) throw err;

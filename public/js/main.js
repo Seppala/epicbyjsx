@@ -25,7 +25,8 @@ $(function($){
 			friends: {},
 			phoneNumber: '',
 			fbaccessToken: '',
-			upfoTime: ''
+			upfoTime: '',
+			city: '',
 		},
 		initialize: function() {
 			this.fetch();
@@ -109,7 +110,8 @@ $(function($){
 			name: "John",
 			location: "Helsinki",
 			active: true,
-			message: "Golf at Pickala at 6ish?"
+			message: "Golf at Pickala at 6ish?",
+			city: "No city"
 		}
 	});
 

@@ -103,7 +103,10 @@
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
             <% } %>
           <% } else { %>
-            <a class="button" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a> 
+			<td><%= city %></td>
+			<td>
+            <a class="button" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
+ 			</td>
           <% } %>
         </td>
 </script>

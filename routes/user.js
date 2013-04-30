@@ -21,6 +21,11 @@ module.exports = function(app) {
 					// Change id to fbId
 					friend.fbId = friend.id;
 					delete friend.id
+					//Make city the city that was fetched (overridden later if it's a user)
+					if (friend.location) {
+						friend.city = friend.location.name;
+					};
+					//friend.city = friend.location.name;
 					// Count the number of findOnes used.
 					countCalls++;
 					// Lookup whether the friend is in the database
@@ -36,9 +41,11 @@ module.exports = function(app) {
 								if(user.upfo) {
 									friend.upfo = user.upfo;
 									friend.message = user.message;
+									friend.city = user.city;
 								} else {
 									friend.upfo = false;
 									friend.message = "";
+									friend.city = user.city;
 								}									
 								if(user.phoneNumber) {
 									friend.phoneNumber = user.phoneNumber;
@@ -47,6 +54,7 @@ module.exports = function(app) {
 								//console.log('Friend not found in database: ' + friend.name);
 								friend.user = false;
 								friend.message = "";
+								//friend.city = friend.location.name;
 							}
 						} else {
 							// No Error Handling yet :)
@@ -82,6 +90,7 @@ module.exports = function(app) {
 				user.phoneNumber = req.body.phoneNumber;
 				user.upfoTime = req.body.upfoTime;
 				user.location = req.body.location;
+				user.city = req.body.city;
 				//save user
 				return user.save( function( err ) {
 				    if( !err ) {
@@ -116,13 +125,16 @@ module.exports = function(app) {
 		var friendsUrl = config.FBURL;
 		friendsUrl += user.fbId // facebook user id
 		friendsUrl += '/friends';
-		friendsUrl += '?access_token=' + user.fbaccessToken; 
+		friendsUrl += '?fields=location,name';
+		friendsUrl += '&access_token=' + user.fbaccessToken; 
+		
 
 		console.log("Requesting facebook: " + friendsUrl);
 		// Make the request to the facebook graph api
 		request(friendsUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				console.log('Received friends list for ' + user.name);
+				console.log('friends: ' + body);
 				next(false, JSON.parse(body).data);
 			} else {
 				// Error with the facebook request
