@@ -29,6 +29,7 @@ var ActiveView = Backbone.View.extend({
 	},	
 });	
 
+// Alertview is used to show messages to user. These disappear at each refresh of the page.
 var AlertView = Backbone.View.extend({
 	el: "#messages",
 	template: _.template( $('#alertMsg').html()),

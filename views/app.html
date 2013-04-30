@@ -109,8 +109,8 @@
 </script>
 
 <script type="text/template" id="upfo_t">
-	<% if(upfo) { %>
 		<p class="text-info">Your friends that are up for something:</p>
+	<% if(upfo) { %>
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
