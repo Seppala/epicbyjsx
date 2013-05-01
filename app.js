@@ -15,6 +15,7 @@ var passport = require('passport'),
 //Dependencies on our files
 var config = require('./config');
 var ensureAuthenticated = require('./routes/routehelpers').ensureAuthenticated;
+var sort = require('./helpers/sort').sort_by;
 
 //DB CONNECTION
 

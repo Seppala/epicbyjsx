@@ -2,6 +2,7 @@ var ensureAuthenticated = require('./routehelpers').ensureAuthenticated;
 var UserModel = require('../models/user').UserModel;
 var config = require('../config');
 var request = require('request');
+var sort = require('../helpers/sort').sort_by;
 
 module.exports = function(app) {
 
@@ -64,7 +65,14 @@ module.exports = function(app) {
 						// If there are no calls left, send to client
 						if(countCalls < 1) {
 							console.log("Sending to client.");
-							res.send(JSON.stringify(fbFriends));
+							console.log("fbFriends is" + fbFriends);
+							
+							//homes.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
+							
+							res.send(JSON.stringify(fbFriends.sort(sort_by('city', false, function(a){
+								return a.toUpperCase()
+							}))));
+							
 						}
 					});
 				}); 
