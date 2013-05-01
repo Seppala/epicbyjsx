@@ -14,6 +14,11 @@ module.exports = function(app) {
 	app.get('/api/friends', ensureAuthenticated, function (req, res){
 		console.log('Request to api/friends.');
 		console.log('req.user = ' + req.user);
+		if (req.user.city) {
+			userCity = req.user.city;
+			console.log('req.user.body.city: ' + userCity);
+		};
+		
 		var countCalls = 0;
 		var fbFriends = getFriendsFromFacebook(req.user, function(err, fbFriends) {
 			if(!err) {
@@ -65,12 +70,14 @@ module.exports = function(app) {
 						// If there are no calls left, send to client
 						if(countCalls < 1) {
 							console.log("Sending to client.");
-							//console.log("fbFriends is" + fbFriends);
-							
+							console.log("fbFriends is" + JSON.stringify(fbFriends));
+							//Check if the city of the friend is same as the users.
 							//fbFriends.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
 							
-							res.send(JSON.stringify(fbFriends.sort(sort_by('name', false, function(a){
-								return a.toUpperCase()
+							res.send(JSON.stringify(fbFriends.sort(sort_by('name', true, function(a){
+								if (a) {
+									return a.toUpperCase()
+								};
 							}))));
 							
 						}
