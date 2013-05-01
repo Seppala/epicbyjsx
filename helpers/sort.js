@@ -10,8 +10,14 @@ exports.sort_by = function(field, reverse, primer){
    return function (a,b) {
        var A = key(a), B = key(b);
        return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
-   }
+   };
 };
+/*
+exports.sort_by = function(field, reverse, primer){
+
+   return a;                  
+   }
+};*/
 
 //};
 
