@@ -3,6 +3,7 @@ var UserModel = require('../models/user').UserModel;
 var config = require('../config');
 var request = require('request');
 var sort_by = require('../helpers/sort').sort_by;
+var geocode = require('../helpers/geocode');
 
 module.exports = function(app) {
 
@@ -105,7 +106,12 @@ module.exports = function(app) {
 				user.phoneNumber = req.body.phoneNumber;
 				user.upfoTime = req.body.upfoTime;
 				user.location = req.body.location;
-				user.city = req.body.city;
+				if(user.city != req.body.city) {
+					user.city = req.body.city;
+					// Update geocoded lat/lng location
+					geocode.geocodeUserCity(user, console.log);			
+				}
+
 				//save user
 				return user.save( function( err ) {
 				    if( !err ) {

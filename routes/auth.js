@@ -1,6 +1,7 @@
 var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('../config');
 var UserModel = require('../models/user').UserModel;
+var geocode = require('../helpers/geocode');
 //Authentication
 module.exports = function(app) {
 	app.get('/fbauth', passport.authenticate('facebook', { scope: ['user_location','friends_location']}));
@@ -64,15 +65,16 @@ passport.use(new FacebookStrategy({
 					// Right now the login does not wait for the geocoding
 					// This way the first response would be faster
 					// If needed it could be rearranged putting the done function in here
-					require('mapquest').geocode(newUser.city, function(err, location) {
-						if (!err) {
-							newUser.location = [location.latLng.lat, location.latLng.lng]; // Form {lat:,lng:} 
-						};
-						newUser.save(function(err) {
-							if (err) {throw err};
-							console.log('Set lng/lat');
-						})
-					})
+					// require('mapquest').geocode(newUser.city, function(err, location) {
+					// 	if (!err) {
+					// 		newUser.location = [location.latLng.lat, location.latLng.lng]; // Form {lat:,lng:} 
+					// 	};
+					// 	newUser.save(function(err) {
+					// 		if (err) {throw err};
+					// 		console.log('Set lng/lat');
+					// 	})
+					// })
+					geocode.geocodeUserCity(newUser, console.log);
 					
 					newUser.save(function(err){
 						if (err) throw err;
