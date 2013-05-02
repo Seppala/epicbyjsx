@@ -59,7 +59,7 @@ passport.use(new FacebookStrategy({
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
-					newUser.city = profile.user_location;
+					newUser.city = profile._json.location.name;
 					
 					newUser.save(function(err){
 						if (err) throw err;
