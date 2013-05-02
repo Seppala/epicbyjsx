@@ -30,13 +30,9 @@ $(function($){
 		},
 		initialize: function() {
 			this.fetch();
-			// After initializing get current browser location
-			this.browserLocation();
-
 		},
 		browserLocation: function() {
-			// Get location (everytime app is loaded?)
-			// Where should this actually go? ..
+			// unused
 			var _this = this;
 			getLocation(function(err, lat, lng) {
 				if(!err) {

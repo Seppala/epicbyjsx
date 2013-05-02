@@ -60,6 +60,19 @@ passport.use(new FacebookStrategy({
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
 					newUser.city = profile._json.location.name;
+
+					// Right now the login does not wait for the geocoding
+					// This way the first response would be faster
+					// If needed it could be rearranged putting the done function in here
+					require('mapquest').geocode(newUser.city, function(err, location) {
+						if (!err) {
+							newUser.location = [location.latLng.lat, location.latLng.lng]; // Form {lat:,lng:} 
+						};
+						newUser.save(function(err) {
+							if (err) {throw err};
+							console.log('Set lng/lat');
+						})
+					})
 					
 					newUser.save(function(err){
 						if (err) throw err;

@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
 	fbId: String,
 	name: String,
 	friends_list: [Number],
-	location: {type: [Number], index: '2d'},
+	location: {type: [Number], index: '2d'}, // lat, lng
 	upfo: Boolean,
 	message: String,
 	fbaccessToken: String,
