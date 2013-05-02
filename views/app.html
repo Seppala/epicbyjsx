@@ -63,8 +63,18 @@
 </script>
 <!-- Phone number input for Options page -->
 <script type="text/template" id="page_options_t">
-	Phone: <input id="user-phone" type="text" value="<%= phoneNumber %>" class="input-medium"><br/>
-	<button class="button primary-dark" id="save">Save</button>
+	<form id="optionsform" class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="user-phone">Phone:</label>
+			<div class="controls"><input id="user-phone" type="text" value="<%= phoneNumber %>" class="input-medium"></div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="user-city">City:</label>
+			<div class="controls"><input id="user-city" type="text" value="<%= city %>" class="input-medium"></div>
+		<button type="submit" class="button primary-dark" id="save">Save</button>
+		</div>
+
+	</form>
 </script>
 <!-- Button and message -->
 <script type="text/template" id="button_t">

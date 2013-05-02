@@ -157,7 +157,7 @@ var HeaderbarView = Backbone.View.extend({
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
-		"click button#save": "save"
+		"submit #optionsform": "save"
 	},
 	initialize: function() {
 		this.render();
@@ -167,8 +167,11 @@ var OptionsView = Backbone.View.extend({
 		this.$el.html(this.template(attributes));
 		return this;
 	},
-	save: function() {
+	save: function(e) {
+		e.preventDefault();
+
 		this.model.set("phoneNumber", $('#user-phone').val());
+		this.model.set("city", $('#user-city').val());
 		this.model.save({}, {
 			success: function() {
 				$('button#save').addClass("success");
