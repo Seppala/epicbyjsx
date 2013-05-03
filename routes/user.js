@@ -107,27 +107,31 @@ module.exports = function(app) {
 				user.upfoTime = req.body.upfoTime;
 				if(user.city !== req.body.city) {
 					console.log('New city, geocode ' + req.body.city)
-					user.city = req.body.city;
 					// Update geocoded lat/lng location
-					geocode.geocodeUserCity(user, console.log);			
+					geocode.saveCity(user, req.body.city, function(err, user) {
+						if (err) {
+							console.log('City not geocoded.');
+						}
+						res.send(user); // unchanged at error
+					});			
+				} else if (user.location[0] !== req.body.location[0]) {
+					// Only geocode again if location is changed
+					// This test should probably be more robust
+					// e.g. test whether it really is an array etc.
+						user.location = req.body.location;
+						geocode.saveCityFromLatLng(user);
+						// TODO: Save after callback
+				} else {
+					//save user without waiting for geocoding
+					user.save( function( err ) {
+					    if( !err ) {
+					        console.log( 'user updated' );
+					    } else {
+					        console.log( err );
+					    }
+					    res.send( user );
+					});
 				}
-				// Only geocode again if location is changed
-				// This test should probably be more robust
-				// e.g. test whether it really is an array etc.
-				if (user.location[0] !== req.body.location[0]) {
-					user.location = req.body.location;
-					geocode.saveCityFromLatLng(user);
-				};
-
-				//save user
-				return user.save( function( err ) {
-				    if( !err ) {
-				        console.log( 'user updated' );
-				    } else {
-				        console.log( err );
-				    }
-				    return res.send( user );
-				});
 	        } else {
 	        	// No user found respond with some kind of error
 	        	console.log("The user was not found.");
