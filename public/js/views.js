@@ -160,6 +160,8 @@ var OptionsView = Backbone.View.extend({
 		"submit #optionsform": "save"
 	},
 	initialize: function() {
+		this.model.fetch();
+		this.model.on('change', this.render, this);
 		this.render();
 	},
 	render: function() {
