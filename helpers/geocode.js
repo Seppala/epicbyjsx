@@ -18,3 +18,21 @@ exports.geocodeUserCity = function(userModel, next) {
 		next({message: "No City."});
 	}
 };
+
+exports.saveCityFromLatLng = function(userModel) {
+	if(userModel.location && userModel.location.length === 2) {
+		// adminArea5 = city
+		var coordinates = {
+			latitude: userModel.location[0],
+			longitude: userModel.location[1]
+		}
+		mapquest.reverse(coordinates, function(err, location) {
+			if (!err) {
+				userModel.city = location.adminArea5 + ', ' + location.adminArea1;
+				userModel.save(function(err) {
+					console.log('City saved: ' + userModel.city);
+				})
+			};
+		})
+	}
+}

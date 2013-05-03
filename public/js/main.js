@@ -30,6 +30,7 @@ $(function($){
 		},
 		initialize: function() {
 			this.fetch();
+			//this.browserLocation();
 		},
 		browserLocation: function() {
 			// unused
