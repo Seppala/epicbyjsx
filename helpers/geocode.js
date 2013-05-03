@@ -1,61 +1,66 @@
 var mapquest = require('mapquest');
 
-exports.geocodeUserCity = function(userModel, next) {
-	// Takes a userModel with a cityand geocodes the city to the database
-	if(userModel.city) {
-		mapquest.geocode(userModel.city, function(err, location) {
-			if (!err) {
-				if ('lat' in location.latLng) {
-					userModel.location = [location.latLng.lat, location.latLng.lng]; // Form {lat:,lng:} 
-					userModel.save(function(err) {
-						console.log('Set lng/lat');
-						next(null, userModel.location);
-					});
-				} else {
-					next({message: "City not found"});
-				}
-			};
-			next(true); // Error..
-		});
-	} else {
-		next({message: "No City."});
-	}
-};
-
-exports.saveCity = function(userModel, city, next) {
+var getLatLng = function(city, next) {
 	// Takes a userModel and a city, it only saves the city if a lat/lng combination is found
 	// If it is found it also saves the location
 	mapquest.geocode(city, function(err, location) {
 		if (!err) {
 			if (typeof location === 'object' && 'lat' in location.latLng) {
-				userModel.location = [location.latLng.lat, location.latLng.lng]; // Form {lat:,lng:} 
-				userModel.city = city;
-				userModel.save(function(err) {
-					console.log('Set lng/lat');
-					next(null, userModel);
-				});
+				next(null,[location.latLng.lat, location.latLng.lng]); // Form {lat:,lng:} 
 			} else {
-				next({message: "City not found"}, userModel);
+				next({message: "City not found"});
 			}
-		};
-		next(true, userModel); // Error..
+		} else {
+			next(err); 
+		}
 	});
 };
 
-exports.saveCityFromLatLng = function(userModel) {
-	if(userModel.location && userModel.location.length === 2) {
+exports.getLatLng = getLatLng;
+
+var getCity = function(location, next) { // location = [lat, lng]
+	if(location instanceof Array && location.length === 2) {
 		// adminArea5 = city
 		var coordinates = {
-			latitude: userModel.location[0],
-			longitude: userModel.location[1]
+			latitude: location[0],
+			longitude: location[1]
 		}
 		mapquest.reverse(coordinates, function(err, location) {
 			if (!err) {
-				userModel.city = location.adminArea5 + ', ' + location.adminArea1;
-				userModel.save(function(err) {
-					console.log('City saved: ' + userModel.city);
-				})
-			};
+				var city = location.adminArea5 + ', ' + location.adminArea1
+				next(null, city);
+			} else {
+				next(err);
+			}
 		})
+	} else {
+		next("Wrong type"); //Error
+	}
+}
+
+exports.sync = function(userServer, userClient, next) {
+	// This functions checks whether something needs to be done
+	if (userClient.city && userServer.city !== userClient.city) {
+		console.log('Searching latlng for city');
+		getLatLng(userClient.city, function(err, location) {
+			if(!err) {
+				// update if location is found
+				userServer.location = location;
+				userServer.city = userClient.city;
+			} 
+			next(err, userServer);
+		});
+	} else if (userServer.location[0] !== userClient.location[0]) {
+		console.log('Search City for latlng');
+		getCity(userClient.location, function(err, city) {
+			if (!err) {
+				userServer.city = city;
+				userServer.location = userClient.location;
+			}
+			next(err, userServer); // err will be falsy if okay
+		});
+	} else {
+		console.log('No geocoding needed');
+		next(null, userServer);
 	}
 }

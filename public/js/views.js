@@ -172,8 +172,11 @@ var OptionsView = Backbone.View.extend({
 	save: function(e) {
 		e.preventDefault();
 
-		this.model.set("phoneNumber", $('#user-phone').val());
-		this.model.set("city", $('#user-city').val());
+		this.model.set({
+			'phoneNumber': $('#user-phone').val(),
+			'city': $('#user-city').val()
+		});
+		
 		this.model.save({}, {
 			success: function() {
 				$('button#save').addClass("success");

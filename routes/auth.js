@@ -60,7 +60,6 @@ passport.use(new FacebookStrategy({
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
-					newUser.city = profile._json.location.name;
 
 					// Right now the login does not wait for the geocoding
 					// This way the first response would be faster
@@ -74,13 +73,18 @@ passport.use(new FacebookStrategy({
 					// 		console.log('Set lng/lat');
 					// 	})
 					// })
-					geocode.geocodeUserCity(newUser, console.log);
+					geocode.getLatLng(profile._json.location.name, function(err, location) {
+						if (!err) {
+							newUser.city = profile._json.location.name; // Only saving the city from facebook if geocodable
+							newUser.location = location;
+						};
+						newUser.save(function(err){
+							if (err) throw err;
+							console.log('New user created: ' + newUser.name + ' and logged in...');
+							done(null, newUser);
+						});
+					})
 					
-					newUser.save(function(err){
-						if (err) throw err;
-						console.log('New user created: ' + newUser.name + ' and logged in...');
-						done(null, newUser);
-					});
 				}
 			});
 		});

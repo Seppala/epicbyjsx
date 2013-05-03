@@ -90,6 +90,8 @@ module.exports = function(app) {
 		});
 
 	});
+
+
 	
 	//Put request that makes changes to the user
 	app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
@@ -105,33 +107,17 @@ module.exports = function(app) {
 				user.message = req.body.message;
 				user.phoneNumber = req.body.phoneNumber;
 				user.upfoTime = req.body.upfoTime;
-				if(user.city !== req.body.city) {
-					console.log('New city, geocode ' + req.body.city)
-					// Update geocoded lat/lng location
-					geocode.saveCity(user, req.body.city, function(err, user) {
-						if (err) {
-							console.log('City not geocoded.');
-						}
-						res.send(user); // unchanged at error
-					});			
-				} else if (user.location[0] !== req.body.location[0]) {
-					// Only geocode again if location is changed
-					// This test should probably be more robust
-					// e.g. test whether it really is an array etc.
-						user.location = req.body.location;
-						geocode.saveCityFromLatLng(user);
-						// TODO: Save after callback
-				} else {
-					//save user without waiting for geocoding
+				// Look whether a geocode lookup has to be done 
+				geocode.sync(user, req.body, function(err, user) {
 					user.save( function( err ) {
 					    if( !err ) {
 					        console.log( 'user updated' );
 					    } else {
 					        console.log( err );
 					    }
-					    res.send( user );
+					    res.send( user ); 
 					});
-				}
+				});
 	        } else {
 	        	// No user found respond with some kind of error
 	        	console.log("The user was not found.");
