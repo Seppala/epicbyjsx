@@ -81,14 +81,23 @@
 	<% if (upfo === false) { %>
 		<p class="lead text-info">Tell your friends youre up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
-    	<span class="help-inline">Message (Optional):</span>
+    	<span class="help-inline"><p><small>Message (Optional):</small></p></span>
 		<input id="user-message" type="text" class="input-medium input-block-level">
 		<button class="button primary-dark" id="active">Im up for something!</button>
 	<!-- </form> -->
 	<% } else { %>
-	<p class="lead text-info">Youre up for something!</p>
-	
-        <input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>" disabled> 
+	<p class="lead text-info">You're up for something!</p>
+		<form>
+		<table>
+			<tr>
+				<td colspan=2><p><small>Message:</small></p></td>
+			</tr>
+			<tr>
+				<td><input id="user-message" type="text" class="input-medium input-block-level inputtext" value="<%= message %>"></td>
+				<td><button class="button secondary small msgset" id="msgset">Save</button></td>
+			</tr>
+		</table>
+		</form>
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
 	<% } %>	
