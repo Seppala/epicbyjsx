@@ -112,8 +112,8 @@
 " class="img-rounded " width="50 "> 
         </td>
         <td><%= name %><br/><em><%= message %></em></td>
-        <td width="200">
           <% if(user) { %>
+			<td>
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
             	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">Call</a> 	
               	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">SMS</a> 
@@ -121,6 +121,7 @@
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
             <% } %>
+			</td>
           <% } else { %>
 			<td><%= city %></td>
 			<td>
