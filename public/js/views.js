@@ -23,6 +23,8 @@ var ActiveView = Backbone.View.extend({
 	toggleactive: function() {
 		
 		console.log('doing toggleactive');
+		//this.collection.reset();
+		//this.options.alert.save({msg: 'Loading...'});
 		var msg = this.model.toggleactive();
 		this.collection.fetch();
 		console.log('got answer from toggleactive: ' + msg);
