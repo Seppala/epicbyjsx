@@ -22,6 +22,7 @@ var ActiveView = Backbone.View.extend({
 	
 	toggleactive: function() {
 		console.log('doing toggleactive');
+		this.collection.reset();
 		var msg = this.model.toggleactive();
 		console.log('got answer from toggleactive: ' + msg);
 		console.log('this.model: ' + this.model + 'this.alert: ' + this.alert);
@@ -62,14 +63,12 @@ var FriendView = Backbone.View.extend({
 });
 
 
-
-
 var UpfoView = Backbone.View.extend({
 	el: "#upfoview",
 	template: _.template( $('#upfo_t').html()),
 	initialize: function() {
 		//this.collection.fetch();
-		this.model.on('change', this.render, this);
+		//this.model.on('change', this.render, this);
 		this.collection.on('reset', this.render, this);
 		this.collection.on('remove', this.render, this);
 		this.collection.on('change', this.render, this);

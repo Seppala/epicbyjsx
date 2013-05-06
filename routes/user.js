@@ -75,11 +75,15 @@ module.exports = function(app) {
 							//Check if the city of the friend is same as the users.
 							//fbFriends.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
 							
-							res.send(JSON.stringify(fbFriends.sort(sort_by('name', true, function(a){
+							// fbFriends.sort(function(a, b) { if(a.name > b.name) return 1; if(a.name < b.name) return -1; })
+							
+							fbFriends = fbFriends.sort(sort_by('name', true, function(a){
 								if (a) {
 									return a.toUpperCase()
 								};
-							}))));
+							}))
+							
+							res.send(JSON.stringify(fbFriends));
 							
 						}
 					});

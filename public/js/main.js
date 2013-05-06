@@ -50,6 +50,7 @@ $(function($){
 			var userUpfo = this.get('upfoTime');
 			var now = Date.now();
 			if (upfor == false) {
+				//this.collection.reset();
 				this.set('message', $('#user-message').val());
 				this.set('upfoTime', Date.now());
 				this.save({upfo : true});
@@ -181,7 +182,7 @@ $(function($){
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
 			console.log('in index: function(): alert' +  this.alert);
-			this.activeView = new ActiveView( {model: this.user, alert: this.alert} );
+			this.activeView = new ActiveView( {collection: this.friendsList, model: this.user, alert: this.alert} );
 			this.alertView = new AlertView( {model: this.alert } );
 			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
