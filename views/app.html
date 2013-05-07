@@ -111,8 +111,9 @@
           <img src="//app.divshot.com/img/placeholder-100x100.gif
 " class="img-rounded " width="50 "> 
         </td>
-        <td><%= name %><br/><em><%= message %></em></td>
+        <td><%= name %>
           <% if(user) { %>
+			<br/><em><small><%= message %><small></em></td>
 			<td>
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
             	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">Call</a> 	
@@ -123,12 +124,12 @@
             <% } %>
 			</td>
           <% } else { %>
+			</td>
 			<td><%= city %></td>
 			<td>
             <a class="button" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
  			</td>
           <% } %>
-        </td>
 </script>
 
 <script type="text/template" id="upfo_t">
