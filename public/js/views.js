@@ -133,11 +133,9 @@ var NonuserView = Backbone.View.extend({
 	render: function() {
 		
 		var self = this;
+		this.$el.html("");
 		// Take first few nonUsers 
 		var nonUser = this.collection.where({user: false});
-		
-		this.$el.html("");
-		
 
 		_.each(nonUser, function(friend){
 			self.$el.append(new FriendView({model:friend}).render().el);
