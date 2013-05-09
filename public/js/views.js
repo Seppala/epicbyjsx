@@ -71,7 +71,7 @@ var UpfoView = Backbone.View.extend({
 	template: _.template( $('#upfo_t').html()),
 	initialize: function() {
 		//this.collection.fetch();
-		//this.model.on('change', this.render, this);
+		this.model.on('change', this.renderAlert, this);
 		this.collection.on('reset', this.render, this);
 		this.collection.on('remove', this.render, this);
 		this.collection.on('change', this.render, this);
@@ -109,7 +109,16 @@ var UpfoView = Backbone.View.extend({
 			upfo: this.model.get("upfo")
 		}));
 		return this; //It's good to always return this from render() 
+	},
+	
+	renderAlert: function() {
+		this.$el.html("<div id='see'>&nbsp;</div>");
+		var target = document.getElementById('see');
+		var spinner = new Spinner(opts).spin(target);
+		
 	}
+	
+	
 	});
 
 //NonuserView is the view that renders the friends that are users of the app

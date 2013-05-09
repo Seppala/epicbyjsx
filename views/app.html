@@ -57,7 +57,9 @@
 <script type="text/template" id="page_upfo_t">
 	<div id="activeview"><!--ActiveView--></div>
 	<div id="messages" ><!-- messages --></div>
-  	<div id="upfoview"><!-- Users who are friends --></div>
+	<p class="text-info">Your friends that are up for something:</p>
+  	<div id="upfoview">
+		<!-- Users who are friends --></div>
 	<div id="nonupfoview">
   		<p class="text-info">Your friends that are not on Piazzo yet:</p>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
@@ -135,7 +137,7 @@
 </script>
 
 <script type="text/template" id="upfo_t">
-		<p class="text-info">Your friends that are up for something:</p>
+		
 	<% if(upfo) { %>
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
@@ -149,7 +151,7 @@
     	<% } %>
 	<% } else { %>
 		<% if(seeStatusFriends.length > 0) { %>
-			<p class="alert alert-info">Set your status of to "up for someting" to see the status of your Facebook friends.</p>
+			<p class="alert alert-info" id="uMessage">Set your status of to "up for someting" to see the status of your Facebook friends.</p>
 		<% } else { %>
 			<div class="alert">You don't have any friends on piazzo, yet! Maybe you should invite some? You can send invites from the list below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></div> 
 		<% } %>
@@ -160,4 +162,7 @@
 <script src="js/views.js"></script>
 <script src="js/facebook.js"></script>
 <script src="js/helpers.js"></script>
+<script src="js/spin.js"></script>
+<script src="js/spinSettings.js"></script>
+
 </html>
