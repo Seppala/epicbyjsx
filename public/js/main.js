@@ -46,42 +46,55 @@ $(function($){
 				}
 			})			
 		},
-		toggleactive: function(callback) {
+		toggleactive: function(view) {
+			
 			var upfo = this.get('upfo');
 			console.log("in main, toggleactive, upfo variable is: " + upfo);
-			
+
 			if (upfo === false) {
 				//this.collection.reset();
 				this.set('message', $('#user-message').val());
-				this.save({upfo : true});
+				this.save({upfo : true}, {
+					
+				});
 				console.log('upfo set to true in toggleactive function');
-				/*var msg = "";
-				return msg;*/
-				if (typeof callback == 'function') {
-					console.log("in toggleactive, upfor === false, firing callback");
-					msg = "";
-					callback(msg);
-				}
-			}	
+				return upfo;
+				}	
 				
 			else if (upfo === true) {
 				console.log("in main toggleactive, setting upfo to false");
-				this.save({upfo : false}, {wait:true});
-					/*function() {
-					console.log("I'm in the callback of save in main toggleactive setting upfo to false");
-					if (this.get('upfo') === true) {
-						console.log("... But upfo is true after callback in main, toggleactive");
-						var msg = "Your status will be switched to not up for something when 10 minutes has passed from when you switched to 'up for something'";
-						callback(msg);
+				//this.save({upfo : false}, {wait:true});
+				saveResponse = this.save({upfo : false}, {success: function(model, response) {
+					console.log('upfo:' + model.get('upfo'));
+				
+					upfo = model.get('upfo');
+					if (upfo === true) {
+						console.log("It's been under 10 mins! But I don't know how to alert the user of this!");
+						return upfo;
 					}
-					else if(this.get('upfo') === false) {
-						console.log("... But upfo is false after callback in main, toggleactive");
-						var msg = "You're no longer up for something. Hop hop, go meet your friends!";
-						callback(msg);
+					else if (upfo === false) {
+						console.log("status was changed on server! But how do I alert the user of this?!?!");
+						return upfo;
 					}
-				});*/
-			
+				}});
 			}
+			
+			/* Example
+			saveCountry: function() {
+			    this.model.save({},{
+			        success: function(model, response) {
+			            console.log('success! ' + response);
+			        },
+			        error: function(model, response) {
+			            console.log('error! ' + response);
+			        }
+			    });
+			    this.render();
+
+			    return false;
+			},
+			*/
+			
 		}
 	});
 	

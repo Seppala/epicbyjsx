@@ -7,10 +7,11 @@ var UpfoButtonView = Backbone.View.extend({
 	
 	events: {"click button#active" : 'toggleactive'},
 	
-	initialize: function() {
+	initialize: function(options) {
 		//this.model.on('change', this.render, this);
 		this.model.on('sync', this.render, this);
 		this.render(this);
+		this.vent = options.vent;
 	
 	},
 	
@@ -22,21 +23,11 @@ var UpfoButtonView = Backbone.View.extend({
 		return this;
 	},
 	
-	toggleactive: function() {
-		
-		console.log('doing toggleactive');
-		//this.collection.reset();
-		//this.options.alert.save({msg: 'Loading...'});
-		var upfoWas = this.model.get('upfo');
-		this.model.toggleactive(function(msg) {
-			console.log("We're back from toggleactive and");
-			console.log("upfo was: " + upfoWas + " msg is now: " + msg);
-			//this.options.alert.save({msg:msg});
-		});
-		//this.collection.fetch();
-		//console.log('got answer from toggleactive: ' + msg);
-		//console.log('this.model: ' + this.model + 'this.alert: ' + this.alert);
-		//this.options.alert.save({msg: msg});
+	toggleactive: function(options) {
+		console.log('toggleactive in views called');
+		this.model.toggleactive(this.vent, function(model) {
+			console.log("in views toggleactive callback: upfo is:" + upfo);
+		});	
 	},	
 });	
 
