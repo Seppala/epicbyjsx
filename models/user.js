@@ -12,6 +12,7 @@ var userSchema = new mongoose.Schema({
 	fbaccessToken: String,
 	phoneNumber: String,
 	upfoTime: String,
+	notUpfoTime: String,
 	timeToFalse: String,
 	city: String,
 });

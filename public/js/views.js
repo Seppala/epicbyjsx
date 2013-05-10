@@ -1,19 +1,21 @@
 /*
  * VIEWS
  */
-var ActiveView = Backbone.View.extend({
-	el: "#activeview",
-	template: _.template( $('#button_t').html()),
+var UpfoButtonView = Backbone.View.extend({
+	el: "#upfoButtonView",
+	template: _.template( $('#upfo_button').html()),
 	
 	events: {"click button#active" : 'toggleactive'},
 	
 	initialize: function() {
-		this.model.on('change', this.render, this);
+		//this.model.on('change', this.render, this);
+		this.model.on('sync', this.render, this);
 		this.render(this);
 	
 	},
 	
 	render: function() {
+		console.log("rendering upfoButtonView again.")
 		this.$el.html("");
 		var attributes = this.model.toJSON();
 		this.$el.append(this.template(attributes));	
@@ -25,11 +27,16 @@ var ActiveView = Backbone.View.extend({
 		console.log('doing toggleactive');
 		//this.collection.reset();
 		//this.options.alert.save({msg: 'Loading...'});
-		var msg = this.model.toggleactive();
-		this.collection.fetch();
-		console.log('got answer from toggleactive: ' + msg);
-		console.log('this.model: ' + this.model + 'this.alert: ' + this.alert);
-		this.options.alert.save({msg: msg});
+		var upfoWas = this.model.get('upfo');
+		this.model.toggleactive(function(msg) {
+			console.log("We're back from toggleactive and");
+			console.log("upfo was: " + upfoWas + " msg is now: " + msg);
+			//this.options.alert.save({msg:msg});
+		});
+		//this.collection.fetch();
+		//console.log('got answer from toggleactive: ' + msg);
+		//console.log('this.model: ' + this.model + 'this.alert: ' + this.alert);
+		//this.options.alert.save({msg: msg});
 	},	
 });	
 
@@ -66,12 +73,13 @@ var FriendView = Backbone.View.extend({
 });
 
 
-var UpfoView = Backbone.View.extend({
-	el: "#upfoview",
-	template: _.template( $('#upfo_t').html()),
+var UserView = Backbone.View.extend({
+	el: "#userView",
+	template: _.template( $('#userList').html()),
 	initialize: function() {
 		//this.collection.fetch();
 		this.model.on('change', this.renderAlert, this);
+		this.model.on('sync', this.render, this);
 		this.collection.on('reset', this.render, this);
 		this.collection.on('remove', this.render, this);
 		this.collection.on('change', this.render, this);
@@ -114,6 +122,7 @@ var UpfoView = Backbone.View.extend({
 	renderAlert: function() {
 		this.$el.html("<div id='see'>&nbsp;</div>");
 		var target = document.getElementById('see');
+		console.log("Now setting the spinner in UpfoView, renderalert");
 		var spinner = new Spinner(opts).spin(target);
 		
 	}
@@ -148,7 +157,7 @@ var NonuserView = Backbone.View.extend({
 // PAGES
 
 var MainView = Backbone.View.extend({
-	template: _.template( $('#page_upfo_t').html()),
+	template: _.template( $('#active_page').html()),
 	render: function() {
 		this.$el.html(this.template());	
 		return this;

@@ -25,7 +25,8 @@ $(function($){
 			friends: {},
 			phoneNumber: '',
 			fbaccessToken: '',
-			upfoTime: '',
+			upfoTime: '', //time when user was set upfo.
+			notUpfoTime: '', //time when user should be turned not upfo.
 			city: '',
 		},
 		initialize: function() {
@@ -45,53 +46,44 @@ $(function($){
 				}
 			})			
 		},
-		toggleactive: function() {
-			var upfor = this.get('upfo');
-			var userUpfo = this.get('upfoTime');
-			var now = Date.now();
-			if (upfor == false) {
+		toggleactive: function(callback) {
+			var upfo = this.get('upfo');
+			console.log("in main, toggleactive, upfo variable is: " + upfo);
+			
+			if (upfo === false) {
 				//this.collection.reset();
 				this.set('message', $('#user-message').val());
-				this.set('upfoTime', Date.now());
 				this.save({upfo : true});
-				console.log('upfo set to true');
-				//Sends the server a message to tell it to switch upfo status to false in 1 hr.
-				time = now + 360000;
-				serverSettimer(time);
-				var msg = "";
-				return msg;
+				console.log('upfo set to true in toggleactive function');
+				/*var msg = "";
+				return msg;*/
+				if (typeof callback == 'function') {
+					console.log("in toggleactive, upfor === false, firing callback");
+					msg = "";
+					callback(msg);
+				}
 			}	
 				
-			else if (upfor === true) {
-				
-				diff = now - userUpfo;
-				// if the user has been upfo for less than 9.5 mins we don't change status right away.
-				// FOR TESTING SET TO 1 min (0. sec)
-				if (diff < 5700) {
-					console.log('has been less than 10 mins since change');
-					
-					//Sends the server a message to tell it to switch upfo status to false in 10 min - diff. 
-					//There should now be enough of a difference so that it doesn't screw it up...
-					//FOR TESTING SET TO 10 SEC
-					time = 6000-diff;
-					console.log('in toggleactive, time to set is:' + time);
-					serverSettimer(time);
-					var msg = "It's been less than 10 minutes since you went upfo. When 10 minutes has passed, you're friends will no longer see that you are up for something."
-					return msg;
-				}
-				else {
-					this.set('message', '');
-					this.save({upfo : false});
-					//We have to destroy the timer that was created to automatically set the user notupfo after 1 hour
-					//serverDestroytimer();
-					console.log('');
-					var msg = "Ok, you're no longer up for something! Hop hop, go meet your friends!";
-					return msg;
-					 }
-				}
-				
+			else if (upfo === true) {
+				console.log("in main toggleactive, setting upfo to false");
+				this.save({upfo : false}, {wait:true});
+					/*function() {
+					console.log("I'm in the callback of save in main toggleactive setting upfo to false");
+					if (this.get('upfo') === true) {
+						console.log("... But upfo is true after callback in main, toggleactive");
+						var msg = "Your status will be switched to not up for something when 10 minutes has passed from when you switched to 'up for something'";
+						callback(msg);
+					}
+					else if(this.get('upfo') === false) {
+						console.log("... But upfo is false after callback in main, toggleactive");
+						var msg = "You're no longer up for something. Hop hop, go meet your friends!";
+						callback(msg);
+					}
+				});*/
+			
 			}
-});
+		}
+	});
 	
 	var Alert = Backbone.Model.extend({
 		defaults: {
@@ -144,20 +136,6 @@ $(function($){
 		}
 	});
 
-	
-	
-	
-// 	var mainView = new MainView({page: "upfo"});
-// 	var user = new User();
-// var friendsList = new FriendsList({user: user});
-// var activeView = new ActiveView( {model: user} );
-// 	// var isupfoView = new IsupfoView({collection: friendsList, model: user});
-// 	// var notupfoView = new NotupfoView({collection: friendsList, model: user});
-// 	var upfoView = new UpfoView({collection: friendsList, model:user});
-// 	var nonuserView = new NonuserView({collection: friendsList, model: user});
-// 	//friendsList.reset(friendsData);
-// 	//friendsList.fetch();
-
 	// Ths router should be somewhere else
 	// also it should work a little different..
 	var PiazzoApp = new (Backbone.Router.extend({
@@ -182,9 +160,9 @@ $(function($){
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
 			console.log('in index: function(): alert' +  this.alert);
-			this.activeView = new ActiveView( {collection: this.friendsList, model: this.user, alert: this.alert} );
-			this.alertView = new AlertView( {model: this.alert } );
-			this.upfoView = new UpfoView({collection: this.friendsList, model: this.user});
+			this.upfoButtonView = new UpfoButtonView( {collection: this.friendsList, model: this.user, alert: this.alert, vent: this.vent} );
+			this.alertView = new AlertView( {model: this.alert, vent: this.vent } );
+			this.userView = new UserView({collection: this.friendsList, model: this.user, vent: this.vent});
 			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
 			
 		},

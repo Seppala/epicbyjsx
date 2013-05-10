@@ -4,6 +4,7 @@ var config = require('../config');
 var request = require('request');
 var sort_by = require('../helpers/sort').sort_by;
 var geocode = require('../helpers/geocode');
+var upfoFalse = require('./upfo').upfoFalse;
 
 module.exports = function(app) {
 
@@ -46,8 +47,15 @@ module.exports = function(app) {
 								// Specify data that should be transferred to the client
 								// Only give upfo/message info, when user itself is upfo
 								if(user.upfo) {
-									friend.upfo = user.upfo;
-									friend.message = user.message;
+									//If the user shouldn't be set to false according to timer
+									if (Date.now() < user.notUpfoTime) {
+										friend.upfo = user.upfo;
+										friend.message = user.message;
+									}
+									else {
+										friend.upfo = false;
+										friend.message = "";
+									}
 									friend.city = user.city;
 								} else {
 									friend.upfo = false;
@@ -105,12 +113,30 @@ module.exports = function(app) {
 		return UserModel.findOne({ fbId: req.user.fbId }, function( err, user ) {
 	        // Was the user found on the server?
 	        if(user) {
-				//set users upfo status to what is given in the req
-				console.log('putting the user! upfoTime: ' + req.body.upfoTime);
-				user.upfo = req.body.upfo;
+		
+				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
+				// ,user to upfo and upfoTime to now.
+				if (user.upfo === false && req.body.upfo === true ) {
+					user.notUpfoTime = Date.now() + 3600000;
+					console.log("notupfo time set to:" + user.notUpfoTime);
+					user.upfo = true;
+					user.upfoTime = Date.now();
+				}
+				// if the user was upfo and is now being set to not upfo, check that upfoTime is over
+				// 10 minutes ago, if yes, switch to not upfo, otherwise, set notUpfoTime to 10 min
+				// from upfoTime
+				if (user.upfo === true && req.body.upfo === false) {
+					var diff = Date.now() - user.upfoTime;
+					if (diff > 10000) {
+						user.upfo = false;
+					}
+					else {
+						user.notUpfoTime = user.upfoTime + 10000;
+					}
+				}
+				
 				user.message = req.body.message;
 				user.phoneNumber = req.body.phoneNumber;
-				user.upfoTime = req.body.upfoTime;
 				// Look whether a geocode lookup has to be done 
 				geocode.sync(user, req.body, function(err, user) {
 					user.save( function( err ) {
@@ -134,6 +160,15 @@ module.exports = function(app) {
 		console.log("Getting user " + req.user.fbId);
 		UserModel.findOne({fbId: req.user.fbId }, function(err, user) {
 			if(user) {
+				if (user.upfo === true) {
+					console.log("user is upfo in database..")
+					if (user.notUpfoTime) {
+						if (user.notUpfoTime < Date.now())
+							console.log("notupfotime was less than date now.")
+							user.upfo = false;
+							user.save();
+					}
+				}
 				res.send( user); // Change: Don't send everything (sensitive stuff)
 			} else {
 				res.send ("{error: true}");

@@ -54,16 +54,16 @@
   </div>
 </script>	
 <!-- Template for button and list of friends who are users and those who are not -->
-<script type="text/template" id="page_upfo_t">
-	<div id="activeview"><!--ActiveView--></div>
+<script type="text/template" id="active_page">
+	<div id="upfoButtonView"><!--UpfoButtonView--></div>
 	<div id="messages" ><!-- messages --></div>
 	<div>
 		<p class="text-info">Your friends that are up for something:</p>
 	</div>
-  	<div id="upfoview">
+  	<div id="userView">
 		<!-- Users who are friends --></div>
 	<div id="nonupfoview">
-  		<p class="text-info">Your friends that are not on Piazzo yet:</p>
+  		<p class="text-info">Invite friends that are not on Piazzo yet below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></p>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
 </script>
@@ -83,7 +83,7 @@
 	</form>
 </script>
 <!-- Button and message -->
-<script type="text/template" id="button_t">
+<script type="text/template" id="upfo_button">
 	<% if (upfo === false) { %>
 		<p class="lead text-info">Tell your friends youre up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
@@ -138,7 +138,7 @@
           <% } %>
 </script>
 
-<script type="text/template" id="upfo_t">
+<script type="text/template" id="userList">
 		
 	<% if(upfo) { %>
 		<% if($upfoFriends.html()) { %>
