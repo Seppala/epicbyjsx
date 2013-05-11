@@ -11,8 +11,7 @@ var UpfoButtonView = Backbone.View.extend({
 		//this.model.on('change', this.render, this);
 		this.model.on('sync', this.render, this);
 		this.render(this);
-		this.vent = options.vent;
-	
+		this.alert = options.alert;
 	},
 	
 	render: function() {
@@ -23,22 +22,54 @@ var UpfoButtonView = Backbone.View.extend({
 		return this;
 	},
 	
-	toggleactive: function(options) {
+	toggleactive: function() {
 		console.log('toggleactive in views called');
-		this.model.toggleactive(this.vent, function(model) {
-			console.log("in views toggleactive callback: upfo is:" + upfo);
-		});	
-	},	
-});	
+		var self = this;
+		var upfo = this.model.get('upfo');
+
+		if (upfo === false) {
+			this.model.set('message', $('#user-message').val());
+			var p = this.model.save({upfo : true});
+			p.done(function(data, status) {
+				console.log('saved status upfo true');
+			});
+			p.fail(function() {
+				console.log('saving upfo true failed');
+			});
+		}
+
+		else if (upfo === true) {
+			console.log("in views toggleactive, setting upfo to false");
+					
+			var p = this.model.save({upfo : false});
+			p.done(function(data, status) {
+				upfo = self.model.get('upfo');
+				if (upfo === false) {
+					console.log('changed status');
+					var msg = "";
+					self.alert.set({msg:msg});
+				}
+				else if (upfo === true) {
+					console.log('')
+					var msg = "Your status will be changed automatically when 10 minutes has passed from turning up for something";
+					self.alert.set({msg:msg});
+				}
+			});
+		}
+	}
+});
+
 
 // Alertview is used to show messages to user. These disappear at each refresh of the page.
 var AlertView = Backbone.View.extend({
 	el: "#messages",
-	template: _.template( $('#alertMsg').html()),
-	initialize: function() {
+	template: _.template( $('#ventMsg').html()),
+	initialize: function(options) {
 		var msg;
+		_.bindAll(this, "showUpfo");
 		this.render(this);
 		this.model.on('change', this.render, this);
+	//	options.vent.bind("toggleUpfo", this.showUpfo, msg);
 	},
 	
 	render: function() {
@@ -48,6 +79,9 @@ var AlertView = Backbone.View.extend({
 		return this;
 	},
 	
+	showUpfo: function(msg) {
+		this.$el.html(this.template({msg : msg}));
+	}
 });
 
 var FriendView = Backbone.View.extend({

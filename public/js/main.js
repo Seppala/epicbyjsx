@@ -64,7 +64,7 @@ $(function($){
 			else if (upfo === true) {
 				console.log("in main toggleactive, setting upfo to false");
 				//this.save({upfo : false}, {wait:true});
-				saveResponse = this.save({upfo : false}, {success: function(model, response) {
+				p = this.save({upfo : false}, {success: function(model, response) {
 					console.log('upfo:' + model.get('upfo'));
 				
 					upfo = model.get('upfo');
@@ -77,6 +77,8 @@ $(function($){
 						return upfo;
 					}
 				}});
+				
+				p.done
 			}
 			
 			/* Example
