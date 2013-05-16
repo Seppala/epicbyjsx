@@ -5,7 +5,11 @@ var UpfoButtonView = Backbone.View.extend({
 	el: "#upfoButtonView",
 	template: _.template( $('#upfo_button').html()),
 	
-	events: {"click button#active" : 'toggleactive'},
+	events: {"click button#active" : 'toggleactive',
+	"submit #msgForm": "save",
+	"click a#editCity": "chooseCityFetch",
+	"click a#GPS": "GPS",
+	},
 	
 	initialize: function(options) {
 		//this.model.on('change', this.render, this);
@@ -22,11 +26,19 @@ var UpfoButtonView = Backbone.View.extend({
 		return this;
 	},
 	
+	//toggleactive changes upfo status depending on the current upfo status. 
+	// When user is not upfo and changes to 'up for something' (upfo), a timestamp is set on the server
+	// for 1 hour in the future, and the user is changed to "not up for something" automatically after
+	// the hour has passed. Technically, each time friends are fetched it's just checked that the user
+	// timestamp (notUpfoTime) hasn't passed yet.
+	// If the user tries to change upfo status within 10 minutes of going upfo the server will not change
+	// the status, but the timestamp (notUpfoTime) is reset to be in 10 minutes from when the user went upfo
 	toggleactive: function() {
 		console.log('toggleactive in views called');
 		var self = this;
 		var upfo = this.model.get('upfo');
 
+		// if upfo is false, just turn it to true and save the message the user set.
 		if (upfo === false) {
 			this.model.set('message', $('#user-message').val());
 			var p = this.model.save({upfo : true});
@@ -37,7 +49,8 @@ var UpfoButtonView = Backbone.View.extend({
 				console.log('saving upfo true failed');
 			});
 		}
-
+		// if upfo is true, try to change it to false (saving). Then check whether the server actually
+		// changed the status. If not, alert that it has been under 10 minutes.
 		else if (upfo === true) {
 			console.log("in views toggleactive, setting upfo to false");
 					
@@ -46,17 +59,49 @@ var UpfoButtonView = Backbone.View.extend({
 				upfo = self.model.get('upfo');
 				if (upfo === false) {
 					console.log('changed status');
-					var msg = "";
+					var msg = "Ok go meet some friends! <img href='images/stickhairwave.gif'>";
 					self.alert.set({msg:msg});
+					$('#ventMsg').append("<img href='images/stickhairwave.gif'>");
 				}
 				else if (upfo === true) {
 					console.log('')
-					var msg = "Your status will be changed automatically when 10 minutes has passed from turning up for something";
+					var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
 					self.alert.set({msg:msg});
 				}
 			});
 		}
-	}
+	},
+	
+	// save saves the message when a user changes it after they have switched to upfo
+	save: function(e) {
+		e.preventDefault();
+		this.model.set({
+			'message': $('#user-message').val(),
+		});
+		
+		this.model.save({}, {
+			success: function() {
+				$('button.#msgset').append('<p>Saved</p>');
+				console.log("Saved.");
+			},
+			error: function() {
+				$('button.#save').append('<p>Error! Please try again and check your connection.</p>');
+				console.log("Error saving.");
+			}
+		});
+		
+	},
+	
+	chooseCityFetch: function(e) {
+		e.preventDefault();
+		//$('#cityText').append('Check it out');
+		$('#cityText').append('<a href="#" id="GPS">Fetch from GPS </a> or <a href="#options" id="writeCity"> Write your city.</a>');
+	},
+	
+	GPS: function(e) {
+		e.preventDefault();
+		this.model.browserLocation();
+	},
 });
 
 
@@ -103,11 +148,10 @@ var UserView = Backbone.View.extend({
 	template: _.template( $('#userList').html()),
 	initialize: function() {
 		//this.collection.fetch();
-		this.model.on('change', this.renderAlert, this);
+		this.model.on('change', this.renderSpin, this);
 		this.model.on('sync', this.render, this);
-		this.collection.on('reset', this.render, this);
-		this.collection.on('remove', this.render, this);
-		this.collection.on('change', this.render, this);
+		this.collection.on('change', this.renderSpin, this);
+		this.collection.on('sync', this.render, this);
 	},
 	render: function() {
 		
@@ -144,7 +188,7 @@ var UserView = Backbone.View.extend({
 		return this; //It's good to always return this from render() 
 	},
 	
-	renderAlert: function() {
+	renderSpin: function() {
 		this.$el.html("<div id='see'>&nbsp;</div>");
 		var target = document.getElementById('see');
 		console.log("Now setting the spinner in UpfoView, renderalert");
@@ -162,6 +206,7 @@ var NonuserView = Backbone.View.extend({
 	initialize: function() {
 		//this.collection.fetch();
 		this.collection.on('reset', this.render, this);
+		this.collection.on('change', this.renderSpin, this);
 	},
 	
 	render: function() {
@@ -176,6 +221,14 @@ var NonuserView = Backbone.View.extend({
 		});
 
 		return this; //It's good to always return this from render() 
+	},
+	
+	renderSpin: function() {
+		this.$el.html("<div id='spin2'>&nbsp;</div>");
+		var target = document.getElementById('spin2');
+		console.log("Now setting the spinner in NonuserView, renderSpin");
+		var spinner = new Spinner(opts).spin(target);
+		
 	}		
 });
 
@@ -222,11 +275,11 @@ var OptionsView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('button#save').addClass("success");
+				$('button.#save').append('<p>Saved</p>');
 				console.log("Saved.");
 			},
 			error: function() {
-				$('button#save').addClass("error");
+				$('button.#save').append('<p>Error! Please try again and check your connection.</p>');
 				console.log("Error saving.");
 			}
 		});

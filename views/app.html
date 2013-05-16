@@ -30,6 +30,8 @@
 <% } %>
 </script>
 <!-- TEMPLATES!!!! -->
+
+<!-- The Header -->
 <script type="text/template" id="header_bar">
   <div class="navbar-inner">
     <div class="container">
@@ -53,7 +55,7 @@
     </div>
   </div>
 </script>	
-<!-- Template for button and list of friends who are users and those who are not -->
+<!-- "Meta" Template that has placeholders for button "UPfoButtonView" and list of friends who are users "userView" and those who are not "nonUserView"-->
 <script type="text/template" id="active_page">
 	<div id="upfoButtonView"><!--UpfoButtonView--></div>
 	<div id="messages" ><!-- messages --></div>
@@ -62,7 +64,7 @@
 	</div>
   	<div id="userView">
 		<!-- Users who are friends --></div>
-	<div id="nonupfoview">
+	<div id="nonUserView">
   		<p class="text-info">Invite friends that are not on Piazzo yet below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></p>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
@@ -77,7 +79,8 @@
 		<div class="control-group">
 			<label class="control-label" for="user-city">City:</label>
 			<div class="controls"><input id="user-city" type="text" value="<%= city %>" class="input-medium"></div>
-		<button type="submit" class="button primary-dark" id="save">Save</button>
+		<button type="submit" class="button primary-dark" id="save">Save</button> or
+		<button class="button primary-dark" id="fetchGPS">Fetch GPS location</button>
 		</div>
 
 	</form>
@@ -88,16 +91,16 @@
 		<p class="lead text-info">Tell your friends youre up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
 		<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
-		<p><i class="icon-map-marker"></i> <%=city%>   <a href="#options">change</a></p>
-		<button class="button primary-dark" id="active">Im up for something!</button>
+		<p id="cityText"><i class="icon-map-marker"></i> <%=city%>   <a href="#" id="editCity">edit</a></p>
+		<button class="button primary-dark" id="active">I'm up for something!</button>
 	<!-- </form> -->
 	<% } else { %>
 	<p class="lead text-info">You're up for something!</p>
-		<form>
+		<form id="msgForm">
 		<table>
 			<tr>
 				<td><input id="user-message" type="text" class="input-medium input-block-level inputtext" placeholder="Your message" value="<%= message %>"></td>
-				<td><button class="button secondary small msgset" id="msgset">Save</button></td>
+				<td><button class="button secondary small msgset" id="msgset">Change</button></td>
 			</tr>
 		</table>
 		</form>
@@ -111,25 +114,27 @@
 
 
 <script type="text/template" id="friend_t">
-        <td>
-          <img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 "> 
+        <td class="pictd">
+          <img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 ">
+ 		
         </td>
-        <td><%= name %>
-          <% if(user) { %>
-			<br/><em><small><%= message %><small></em></td>
-			<td>
+        <td class="nametd"><%= name %>
+          
+			<br/><small><em><%= city %><em></small>
+		<% if(user) { %>
+			<br/><small><%= message %></small>
+		  <% } %>
+		</td>
+		<% if(user){ %>
+			<td class="nrtd">
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
             	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">Call</a> 	
-              	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">SMS</a> 
             <% } else { %>
               <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
-              <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="sms:<%= phoneNumber %>">SMS</a> 
             <% } %>
 			</td>
           <% } else { %>
-			</td>
-			<td><%= city %></td>
-			<td>
+			<td class="invitetd">
             <a class="butto" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
  			</td>
           <% } %>

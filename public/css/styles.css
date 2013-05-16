@@ -39,3 +39,25 @@
 select{
 font-size: 50px;
 }
+
+/*Styling for the list of users, in template friend_t*/
+
+	table {
+		width:100%;
+	}
+
+	td .pictd {
+		width:7%;
+	}
+
+	td .nametd {
+		width:73%;
+	}
+
+	td .nrtd {
+		width:20%;
+	}
+
+	td .invitetd {
+		width:20%;
+	}

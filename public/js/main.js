@@ -45,58 +45,6 @@ $(function($){
 					console.log(err);
 				}
 			})			
-		},
-		toggleactive: function(view) {
-			
-			var upfo = this.get('upfo');
-			console.log("in main, toggleactive, upfo variable is: " + upfo);
-
-			if (upfo === false) {
-				//this.collection.reset();
-				this.set('message', $('#user-message').val());
-				this.save({upfo : true}, {
-					
-				});
-				console.log('upfo set to true in toggleactive function');
-				return upfo;
-				}	
-				
-			else if (upfo === true) {
-				console.log("in main toggleactive, setting upfo to false");
-				//this.save({upfo : false}, {wait:true});
-				p = this.save({upfo : false}, {success: function(model, response) {
-					console.log('upfo:' + model.get('upfo'));
-				
-					upfo = model.get('upfo');
-					if (upfo === true) {
-						console.log("It's been under 10 mins! But I don't know how to alert the user of this!");
-						return upfo;
-					}
-					else if (upfo === false) {
-						console.log("status was changed on server! But how do I alert the user of this?!?!");
-						return upfo;
-					}
-				}});
-				
-				p.done
-			}
-			
-			/* Example
-			saveCountry: function() {
-			    this.model.save({},{
-			        success: function(model, response) {
-			            console.log('success! ' + response);
-			        },
-			        error: function(model, response) {
-			            console.log('error! ' + response);
-			        }
-			    });
-			    this.render();
-
-			    return false;
-			},
-			*/
-			
 		}
 	});
 	
