@@ -36,8 +36,12 @@
 	margin-top:3px;
 }
 
-select{
+select {
 font-size: 50px;
+}
+
+.my-page-header {
+	margin-top: 49px;
 }
 
 /*Styling for the list of users, in template friend_t*/

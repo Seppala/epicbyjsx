@@ -60,7 +60,7 @@
 	<div id="upfoButtonView"><!--UpfoButtonView--></div>
 	<div id="messages" ><!-- messages --></div>
 	<div>
-		<p class="text-info">Your friends that are up for something:</p>
+		<p>Your friends that you're up for something:</p>
 	</div>
   	<div id="userView">
 		<!-- Users who are friends --></div>
@@ -69,9 +69,36 @@
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
 </script>
-<!-- Phone number input for Options page -->
+
+
+
+<!-- Phone number and city input for Options page -->
 <script type="text/template" id="page_options_t">
 	<form id="optionsform" class="form-horizontal">
+		<fieldset>
+		<legend>Options</fieldset>
+		<div class="row">
+			<div class="large-4 columns">
+				<label>Phone:</label>
+				<input id="user-phone" type="text" value="<%= phoneNumber %>">
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-4 columns">
+				<label>City:</label>
+				<input id="user-city" type="text" value="<%= city %>">
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-4 columns">
+			<button type="submit" class="button primary-dark small" id="save">Save</button> or
+			<button class="button primary-dark small" id="fetchGPS">Fetch GPS location</button>
+			</div>
+		</div>
+		
+		
+		</fieldset>
+		<!--
 		<div class="control-group">
 			<label class="control-label" for="user-phone">Phone:</label>
 			<div class="controls"><input id="user-phone" type="text" value="<%= phoneNumber %>" class="input-medium"></div>
@@ -79,16 +106,17 @@
 		<div class="control-group">
 			<label class="control-label" for="user-city">City:</label>
 			<div class="controls"><input id="user-city" type="text" value="<%= city %>" class="input-medium"></div>
-		<button type="submit" class="button primary-dark" id="save">Save</button> or
-		<button class="button primary-dark" id="fetchGPS">Fetch GPS location</button>
 		</div>
-
+		<div class="control-group">
+			<button type="submit" class="button primary-dark small" id="save">Save</button> or
+			<button class="button primary-dark small" id="fetchGPS">Fetch GPS location</button>
+		</div>-->
 	</form>
 </script>
 <!-- Button and message -->
 <script type="text/template" id="upfo_button">
 	<% if (upfo === false) { %>
-		<p class="lead text-info">Tell your friends youre up for something:</p>
+		<p class="text-info">Tell your friends that you're up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
 		<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
 		<p id="cityText"><i class="icon-map-marker"></i> <%=city%>   <a href="#" id="editCity">edit</a></p>

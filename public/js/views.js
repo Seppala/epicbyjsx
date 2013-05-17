@@ -95,7 +95,7 @@ var UpfoButtonView = Backbone.View.extend({
 	chooseCityFetch: function(e) {
 		e.preventDefault();
 		//$('#cityText').append('Check it out');
-		$('#cityText').append('<a href="#" id="GPS">Fetch from GPS </a> or <a href="#options" id="writeCity"> Write your city.</a>');
+		$('#cityText').append(': <a href="#" id="GPS">Fetch from GPS </a> or <a href="#options" id="writeCity"> Write your city.</a>');
 	},
 	
 	GPS: function(e) {

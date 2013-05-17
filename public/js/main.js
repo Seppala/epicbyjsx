@@ -1,8 +1,12 @@
 
 $(function($){	
 	
-	/*global variables*/
-	//var alertMsg = ''
+	/*Some jQuery css stuff*/
+	
+	//Position the container div below the header with jQuery.
+	//$('.my-page-header').css('margin-top', $('#headerbar').outerHeight());
+	
+	
 	/*
 	 * MODELS
 	 */
