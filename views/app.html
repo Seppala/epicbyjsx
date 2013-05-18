@@ -113,6 +113,10 @@
 		</div>-->
 	</form>
 </script>
+
+
+
+
 <!-- Button and message -->
 <script type="text/template" id="upfo_button">
 	<% if (upfo === false) { %>
@@ -182,11 +186,8 @@
 	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
     	<% } %>
 	<% } else { %>
-		<% if(seeStatusFriends.length > 0) { %>
-			<p class="alert alert-info" id="uMessage">Set your status of to "up for someting" to see the status of your Facebook friends.</p>
-		<% } else { %>
-			<div class="alert">You don't have any friends on piazzo, yet! Maybe you should invite some? You can send invites from the list below or <a href="#" onclick="sendFBRequest();">click here to invite more people at the same time.</a></div> 
-		<% } %>
+			<p class="alert alert-info" id="uMessage">Set your status of to "up for something" to see the status of your Facebook friends.</p>
+	
 	<% } %>
 </script>
 
