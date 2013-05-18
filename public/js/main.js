@@ -98,6 +98,31 @@ $(function($){
 			}		
 		}
 	});
+	
+	var NonUserFriendsList = Backbone.Collection.extend({
+		model: Friend,
+		url: 'api/nonuserfriends',
+		initialize: function(options) {
+			this.user = options.user;
+			this.fetch();
+			// When user changes upfo, fetch the list again
+			//this.listenTo(this.user, 'change:upfo', this.userChanged);
+		},
+		userChanged: function() {
+			if(this.user.attributes.upfo) {
+				// Only fetch if upfo is set to true
+				this.fetch();
+				console.log('user is upfo, fetched list:' + this)
+			} else {
+				// Set the status of all friends to "not upfo"
+				// To make sure, that they are not somewhere seen as up
+				userFriends = this.where({user: true});
+				_.each(userFriends, function(friend){
+					friend.set("upfo", false);
+				});
+			}		
+		}
+	});
 
 	// Ths router should be somewhere else
 	// also it should work a little different..
@@ -124,11 +149,12 @@ $(function($){
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
+			this.nonuserfriendsList = new NonUserFriendsList({user: this.user});
 			console.log('in index: function(): alert' +  this.alert);
 			this.upfoButtonView = new UpfoButtonView( {collection: this.friendsList, model: this.user, alert: this.alert, vent: this.vent} );
 			this.alertView = new AlertView( {model: this.alert, vent: this.vent } );
 			this.userView = new UserView({collection: this.friendsList, model: this.user, vent: this.vent});
-			this.nonuserView = new NonuserView({collection: this.friendsList, model: this.user});
+			this.nonuserView = new NonuserView({collection: this.nonuserfriendsList, model: this.user});
 			
 		},
 		options: function() {
