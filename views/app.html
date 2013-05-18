@@ -116,14 +116,14 @@
 <!-- Button and message -->
 <script type="text/template" id="upfo_button">
 	<% if (upfo === false) { %>
-		<p class="text-info">Tell your friends that you're up for something:</p>
+		<p id="firstText" class="text-info">Tell your friends that you're up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
 		<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
 		<p id="cityText"><i class="icon-map-marker"></i> <%=city%>   <a href="#" id="editCity">edit</a></p>
 		<button class="button primary-dark" id="active">I'm up for something!</button>
 	<!-- </form> -->
 	<% } else { %>
-	<p class="lead text-info">You're up for something!</p>
+	<p id="firstText" class="text-info">You're up for something!</p>
 		<form id="msgForm">
 		<table>
 			<tr>

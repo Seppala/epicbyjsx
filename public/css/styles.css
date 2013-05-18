@@ -40,8 +40,8 @@ select {
 font-size: 50px;
 }
 
-.my-page-header {
-	margin-top: 49px;
+#firstText {
+	margin-top: 3px;
 }
 
 /*Styling for the list of users, in template friend_t*/

@@ -1,10 +1,6 @@
 
 $(function($){	
 	
-	/*Some jQuery css stuff*/
-	
-	//Position the container div below the header with jQuery.
-	//$('.my-page-header').css('margin-top', $('#headerbar').outerHeight());
 	
 	
 	/*
@@ -143,5 +139,13 @@ $(function($){
 		}
 		}));
 	Backbone.history.start();
+	
+	/*Some jQuery css stuff*/
+	
+	//Position the container div below the header with jQuery.
+	$('.my-page-header').css('margin-top', $('#headerbar').outerHeight());
+	console.log('headerbar height is: ' + $('#headerbar').height());
+	
 
 });
+

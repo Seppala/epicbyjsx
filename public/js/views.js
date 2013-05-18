@@ -148,8 +148,10 @@ var UserView = Backbone.View.extend({
 	template: _.template( $('#userList').html()),
 	initialize: function() {
 		//this.collection.fetch();
+		this.model.on('request', this.renderSpin, this);
 		this.model.on('change', this.renderSpin, this);
 		this.model.on('sync', this.render, this);
+		this.collection.on('request', this.renderSpin, this);
 		this.collection.on('change', this.renderSpin, this);
 		this.collection.on('sync', this.render, this);
 	},
