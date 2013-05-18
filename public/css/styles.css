@@ -9,8 +9,26 @@
 	max-width: 100%;
 }
 
+#cityText {
+	margin-top:4px;
+	margin-bottom:7px;
+}
 .liked {
 	padding-top:10px;
+}
+
+.listText {
+	margin-bottom:2px;
+}
+
+.listDiv {
+	border-bottom:1px solid #222;
+	margin-bottom: 7px;
+}
+
+.activeDiv {
+	margin-top:9px;
+	margin-bottom:18px;
 }
 
 #alerttext {

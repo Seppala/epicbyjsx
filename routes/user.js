@@ -206,7 +206,7 @@ module.exports = function(app) {
 				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
 				// ,user to upfo and upfoTime to now.
 				if (user.upfo === false && req.body.upfo === true ) {
-					user.notUpfoTime = Date.now() + 3600000;
+					user.notUpfoTime = Date.now() + upfoHour;
 					console.log("notupfo time set to:" + user.notUpfoTime);
 					user.upfo = true;
 					user.upfoTime = Date.now();
@@ -216,11 +216,11 @@ module.exports = function(app) {
 				// from upfoTime
 				if (user.upfo === true && req.body.upfo === false) {
 					var diff = Date.now() - user.upfoTime;
-					if (diff > 10000) {
+					if (diff > upfoTen - upfoTen/10) {
 						user.upfo = false;
 					}
 					else {
-						user.notUpfoTime = user.upfoTime + 10000;
+						user.notUpfoTime = user.upfoTime + upfoTen;
 					}
 				}
 				

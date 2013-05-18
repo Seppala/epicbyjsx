@@ -12,12 +12,17 @@ if (process.env.NODE_ENV == 'production')
 		appId = '513729218671638';
 		appSecret = '7e5317d985ebb4a9222b21477ffaf9f3';
 		fbUrl = 'http://piazzo.co/';
+		upfoTen = 600000;
+		upfoHour = 3600000;
 	}
 else 
 	{
 		appId = "217545681715200";
 		appSecret = "713d928ae56d98762a74ea61e096252d";
 		fbUrl = 'http://localhost:5000/';
+		upfoTen = 10000;
+		upfoHour = 60000;
+		
 	}
 
 console.log('appId: ' + appId + ' appSecret: ' + appSecret);
@@ -29,5 +34,7 @@ module.exports = {
 		url: fbUrl 
 	},
 	dbUrl: dbUrl,
-	FBURL: FBURL
+	FBURL: FBURL,
+	upfoTen: upfoTen,
+	upfoHour: upfoHour
 }
