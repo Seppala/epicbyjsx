@@ -111,6 +111,8 @@ $(function($){
 			this.user = new User();
 			console.log('init piazzoapp: user' +  this.user);
 			this.alert = new Alert();
+			var msg = "";
+			this.alert.set({msg:msg});
 			console.log('init piazzoapp: alert' +  this.alert);
 			this.headerbarView = new HeaderbarView();
 			this.mainView = new MainView();

@@ -14,15 +14,20 @@ var UpfoButtonView = Backbone.View.extend({
 	initialize: function(options) {
 		//this.model.on('change', this.render, this);
 		this.model.on('sync', this.render, this);
-		this.render(this);
 		this.alert = options.alert;
+		this.render(this);
+		
+		
 	},
 	
 	render: function() {
-		console.log("rendering upfoButtonView again.")
+		var self = this;
+		console.log("rendering upfoButtonView again.");
 		this.$el.html("");
 		var attributes = this.model.toJSON();
 		this.$el.append(this.template(attributes));	
+		var msg = "";
+		self.alert.set({msg:msg});
 		return this;
 	},
 	
@@ -61,7 +66,6 @@ var UpfoButtonView = Backbone.View.extend({
 					console.log('changed status');
 					var msg = "Ok go meet some friends! <img href='images/stickhairwave.gif'>";
 					self.alert.set({msg:msg});
-					$('#ventMsg').append("<img href='images/stickhairwave.gif'>");
 				}
 				else if (upfo === true) {
 					console.log('')
