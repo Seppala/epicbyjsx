@@ -64,8 +64,9 @@ var UpfoButtonView = Backbone.View.extend({
 				upfo = self.model.get('upfo');
 				if (upfo === false) {
 					console.log('changed status');
-					var msg = "Ok go meet some friends! <img href='images/stickhairwave.gif'>";
-					self.alert.set({msg:msg});
+					$('#messages').append('<p>Ok, go meet some friends</p><img src="images/stickhairwave.gif">');
+					//var msg = "Ok go meet some friends! <img src='images/stickhairwave.gif'>";
+					//self.alert.set({msg:msg});
 				}
 				else if (upfo === true) {
 					console.log('')
@@ -85,11 +86,11 @@ var UpfoButtonView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('#msgset').append('<p>Saved</p>');
+				$('#messages').append('<div class="alert">Changed message saved</div>');
 				console.log("Saved.");
 			},
 			error: function() {
-				$('#save').append('<p>Error! Please try again and check your connection.</p>');
+				$('#save').append('<div class="alert">Error! Please try again and check your connection.</div>');
 				console.log("Error saving.");
 			}
 		});
@@ -151,6 +152,7 @@ var UserView = Backbone.View.extend({
 	el: "#userView",
 	template: _.template( $('#userList').html()),
 	initialize: function() {
+		this.renderSpin();
 		//this.collection.fetch();
 		this.model.on('request', this.renderSpin, this);
 		this.model.on('change', this.renderSpin, this);
@@ -211,6 +213,7 @@ var NonuserView = Backbone.View.extend({
 
 	initialize: function() {
 		//this.collection.fetch();
+		this.renderSpin();
 		this.collection.on('reset', this.render, this);
 		this.collection.on('change', this.renderSpin, this);
 	},
