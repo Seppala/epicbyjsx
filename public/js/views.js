@@ -85,11 +85,11 @@ var UpfoButtonView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('button.#msgset').append('<p>Saved</p>');
+				$('#msgset').append('<p>Saved</p>');
 				console.log("Saved.");
 			},
 			error: function() {
-				$('button.#save').append('<p>Error! Please try again and check your connection.</p>');
+				$('#save').append('<p>Error! Please try again and check your connection.</p>');
 				console.log("Error saving.");
 			}
 		});
