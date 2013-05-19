@@ -25,6 +25,7 @@ var UpfoButtonView = Backbone.View.extend({
 		var self = this;
 		console.log("rendering upfoButtonView again.");
 		this.$el.html("");
+		$('#messages').html('');
 		var attributes = this.model.toJSON();
 		this.$el.append(this.template(attributes));	
 		var msg = "";
@@ -295,11 +296,11 @@ var OptionsView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('button.#save').append('<p>Saved</p>');
+				$('#optionsbuttons').append('<p>Saved</p>');
 				console.log("Saved.");
 			},
 			error: function() {
-				$('button.#save').append('<p>Error! Please try again and check your connection.</p>');
+				$('#optionsbuttons').append('<p>Error! Please try again and check your connection.</p>');
 				console.log("Error saving.");
 			}
 		});
