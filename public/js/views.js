@@ -262,8 +262,10 @@ var HeaderbarView = Backbone.View.extend({
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
-		"submit #optionsform": "save"
+		"submit #optionsform": "save",
+		"click button#fetchGPS": "getLocation"
 	},
+	
 	initialize: function() {
 		this.model.fetch();
 		this.model.on('change', this.render, this);
@@ -293,5 +295,11 @@ var OptionsView = Backbone.View.extend({
 			}
 		});
 		
-	}
+	},
+	
+	getLocation: function(e) {
+		e.preventDefault();
+		this.model.browserLocation();
+	},
+	
 });

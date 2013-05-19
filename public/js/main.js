@@ -34,11 +34,10 @@ $(function($){
 			//this.browserLocation();
 		},
 		browserLocation: function() {
-			// unused
 			var _this = this;
 			getLocation(function(err, lat, lng) {
 				if(!err) {
-					console.log('Savng ' + lat + "-" + lng);
+					console.log('Saving ' + lat + "-" + lng);
 					_this.set('location', [lat, lng]);
 					_this.save();
 				} else {
@@ -159,6 +158,7 @@ $(function($){
 		},
 		options: function() {
 			this.optionsView = new OptionsView({model: this.user});
+			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.optionsView.render().el);
 		},
 		notfound: function(page) {

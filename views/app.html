@@ -90,9 +90,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="large-4 columns">
+			<div class="large-4 columns optionsbuttons">
 			<button type="submit" class="button primary-dark small" id="save">Save</button> or
 			<button class="button primary-dark small" id="fetchGPS">Fetch GPS location</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-4 columns optionsbuttons">
+			<button onClick="parent.location='/'" class="button success" id="back">Back</button>
 			</div>
 		</div>
 		
@@ -151,7 +156,8 @@
 
 <script type="text/template" id="friend_t">
         <td class="pictd">
-          <!--<img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 "> -->
+		<% if (place === 'prod') { %>
+          <img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 "> <% } %>
  		
         </td>
         <td class="nametd"><%= name %>
