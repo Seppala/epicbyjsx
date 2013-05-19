@@ -1,4 +1,4 @@
-var ensureAuthenticated = require('./routehelpers').ensureAuthenticated;
+/*var ensureAuthenticated = require('./routehelpers').ensureAuthenticated;
 var UserModel = require('../models/user').UserModel;
 var config = require('../config');
 var request = require('request');
@@ -39,6 +39,6 @@ module.exports = function(app) {
 		    console.log('set to false from timer');
 		});
 	}
-}
+}*/
 
 

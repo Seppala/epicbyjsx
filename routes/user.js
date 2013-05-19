@@ -14,8 +14,6 @@ module.exports = function(app) {
 	
 	//Return the list of friends for the current user.
 	app.get('/api/friends', ensureAuthenticated, function (req, res){
-		console.log('Request to api/friends.');
-		console.log('req.user = ' + req.user);
 		if (req.user.city) {
 			userCity = req.user.city;
 			console.log('req.user.body.city: ' + userCity);
@@ -104,8 +102,6 @@ module.exports = function(app) {
 	});
 
 	app.get('/api/nonuserfriends', ensureAuthenticated, function (req, res){
-		console.log('Request to api/friends.');
-		console.log('req.user = ' + req.user);
 		if (req.user.city) {
 			userCity = req.user.city;
 			console.log('req.user.body.city: ' + userCity);
@@ -248,16 +244,21 @@ module.exports = function(app) {
 	app.get('/api/users/:fbId', ensureAuthenticated, function(req, res) {
 		console.log("Getting user " + req.user.fbId);
 		UserModel.findOne({fbId: req.user.fbId }, function(err, user) {
+			console.log('Got user');
 			if(user) {
+				console.log('is user');
 				if (user.upfo === true) {
-					console.log("user is upfo in database..")
+					console.log("user is upfo in database.. user is:" + user);
 					if (user.notUpfoTime) {
-						if (user.notUpfoTime < Date.now())
-							console.log("notupfotime was less than date now.")
+						console.log('checking user upfo time');
+						if (user.notUpfoTime < Date.now()) { 
+							console.log("notupfotime was less than date now.");
 							user.upfo = false;
 							user.save();
+							}
+						}
 					}
-				}
+				console.log('after checking if user is upfo in/api/users/:fbid, user is ' + user);
 				res.send( user); // Change: Don't send everything (sensitive stuff)
 			} else {
 				res.send ("{error: true}");
@@ -274,8 +275,6 @@ module.exports = function(app) {
 		friendsUrl += '?fields=location,name';
 		friendsUrl += '&access_token=' + user.fbaccessToken; 
 		
-
-		console.log("Requesting facebook: " + friendsUrl);
 		// Make the request to the facebook graph api
 		request(friendsUrl, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
