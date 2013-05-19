@@ -13,6 +13,7 @@ var UpfoButtonView = Backbone.View.extend({
 	
 	initialize: function(options) {
 		//this.model.on('change', this.render, this);
+		this.renderSpin();
 		this.model.on('sync', this.render, this);
 		this.alert = options.alert;
 		this.render(this);
@@ -107,6 +108,14 @@ var UpfoButtonView = Backbone.View.extend({
 		e.preventDefault();
 		this.model.browserLocation();
 	},
+	
+	renderSpin: function() {
+		this.$el.html("<div id='see'>&nbsp;</div>");
+		var target = document.getElementById('see');
+		console.log("Now setting the spinner in UpfoView, renderalert");
+		var spinner = new Spinner(opts).spin(target);
+		
+	}
 });
 
 
