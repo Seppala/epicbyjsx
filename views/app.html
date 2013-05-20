@@ -128,7 +128,7 @@
 		<p id="firstText" class="text-info">Tell your friends that you're up for something:</p>
 		<!-- <form class="form-vertical" id="active">-->
 		<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
-		<p id="cityText"><i class="icon-map-marker"></i> <%=city%>   <a href="#" id="editCity">edit</a></p>
+		<p><i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span></p>
 		<div class="activeDiv">
 		<button class="button primary-dark" id="active">I'm up for something!</button>
 		</div>
@@ -143,7 +143,7 @@
 			</tr>
 		</table>
 		</form>
-		<p><i class="icon-map-marker"></i> <%=city%>    <a href="#options">change</a></p>
+		<i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span>
 		<div class="activeDiv">
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button warning" id="active">Cancel</button>
