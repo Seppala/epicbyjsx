@@ -289,7 +289,7 @@ var OptionsView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('#optionsbuttons').append('<p>Saved</p>');
+				$('#save').text('Saved.');
 				console.log("Saved.");
 			},
 			error: function() {
