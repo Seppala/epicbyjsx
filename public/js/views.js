@@ -5,10 +5,12 @@ var UpfoButtonView = Backbone.View.extend({
 	el: "#upfoButtonView",
 	template: _.template( $('#upfo_button').html()),
 	
-	events: {"click button#active" : 'toggleactive',
-	"submit #msgForm": "save",
-	"click a#editCity": "chooseCityFetch",
-	"click a#GPS": "GPS",
+	events: {
+		"submit #upfoForm" : 'upfoTrue',
+		"click #cancelUpfo": 'upfoFalse',
+		"submit #msgForm": "save",
+		"click a#editCity": "chooseCityFetch",
+		"click a#GPS": "GPS",
 	},
 	
 	initialize: function(options) {
@@ -32,51 +34,42 @@ var UpfoButtonView = Backbone.View.extend({
 		self.alert.set({msg:msg});
 		return this;
 	},
-	
-	//toggleactive changes upfo status depending on the current upfo status. 
-	// When user is not upfo and changes to 'up for something' (upfo), a timestamp is set on the server
-	// for 1 hour in the future, and the user is changed to "not up for something" automatically after
-	// the hour has passed. Technically, each time friends are fetched it's just checked that the user
-	// timestamp (notUpfoTime) hasn't passed yet.
-	// If the user tries to change upfo status within 10 minutes of going upfo the server will not change
-	// the status, but the timestamp (notUpfoTime) is reset to be in 10 minutes from when the user went upfo
-	toggleactive: function() {
-		console.log('toggleactive in views called');
-		var self = this;
-		var upfo = this.model.get('upfo');
 
-		// if upfo is false, just turn it to true and save the message the user set.
-		if (upfo === false) {
-			this.model.set('message', $('#user-message').val());
-			var p = this.model.save({upfo : true});
-			p.done(function(data, status) {
-				console.log('saved status upfo true');
-			});
-			p.fail(function() {
-				console.log('saving upfo true failed');
-			});
-		}
-		// if upfo is true, try to change it to false (saving). Then check whether the server actually
-		// changed the status. If not, alert that it has been under 10 minutes.
-		else if (upfo === true) {
-			console.log("in views toggleactive, setting upfo to false");
-					
-			var p = this.model.save({upfo : false});
-			p.done(function(data, status) {
-				upfo = self.model.get('upfo');
-				if (upfo === false) {
-					console.log('changed status');
-					$('#messages').append('<p>Ok, go meet some friends</p><img src="images/stickhairwave.gif">');
-					//var msg = "Ok go meet some friends! <img src='images/stickhairwave.gif'>";
-					//self.alert.set({msg:msg});
-				}
-				else if (upfo === true) {
-					console.log('')
-					var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
-					self.alert.set({msg:msg});
-				}
-			});
-		}
+	upfoTrue: function(e) {
+		// Set the upfo to true
+		e.preventDefault();
+		this.model.set('message', $('#user-message').val());
+		var p = this.model.save({upfo : true});
+		p.done(function(data, status) {
+			console.log('saved status upfo true');
+		});
+		p.fail(function() {
+			console.log('saving upfo true failed');
+		});
+	},
+
+	upfoFalse: function(e) {
+		// Set the upfo to false
+		e.preventDefault();
+		var self = this;
+		var p = this.model.save({upfo : false});
+		// If the user tries to change upfo status within 10 minutes of going upfo the server will not change
+		// the status, but the timestamp (notUpfoTime) is reset to be in 10 minutes from when the user went upfo
+		p.done(function(data, status) {
+			upfo = self.model.get('upfo');
+			if (upfo === false) {
+				console.log('changed status');
+				$('#messages').append('<p>Ok, go meet some friends</p><img src="images/stickhairwave.gif">');
+				//var msg = "Ok go meet some friends! <img src='images/stickhairwave.gif'>";
+				//self.alert.set({msg:msg});
+			}
+			else if (upfo === true) {
+				console.log('')
+				var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
+				self.alert.set({msg:msg});
+			}
+		});
+
 	},
 	
 	// save saves the message when a user changes it after they have switched to upfo

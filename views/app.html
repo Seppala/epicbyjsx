@@ -125,16 +125,16 @@
 <!-- Button and message -->
 <script type="text/template" id="upfo_button">
 	<% if (upfo === false) { %>
-		<p id="firstText" class="text-info">Tell your friends that you're up for something:</p>
-		<!-- <form class="form-vertical" id="active">-->
-		<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
-		<p><i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span></p>
-		<div class="activeDiv">
-		<button class="button primary-dark" id="active">I'm up for something!</button>
+		<p id="firstText" class="text-info">Tell your friends that you&rsquo;re up for something:</p>
+		<form id="upfoForm">
+			<input id="user-message" type="text" placeholder="Your message" class="input-medium input-block-level">
+			<i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span>
+			<div class="activeDiv">
+			<input type="submit" class="button primary-dark" id="active" value="I&rsquo;m up for something!">
+		</form>
 		</div>
-	<!-- </form> -->
 	<% } else { %>
-	<p id="firstText" class="text-info">You're up for something!</p>
+	<p id="firstText" class="text-info">You&rsquo;re up for something!</p>
 		<form id="msgForm">
 		<table>
 			<tr>
@@ -146,7 +146,7 @@
 		<i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span>
 		<div class="activeDiv">
 		<button class="button primary" onclick="publishFBStory();">Share on Facebook</button>
-	<button class="button warning" id="active">Cancel</button>
+	<button class="button warning" id="cancelUpfo">Cancel</button>
 	</div>
 	<% } %>	
 	
