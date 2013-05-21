@@ -33,13 +33,17 @@ $(function($){
 			this.fetch();
 			//this.browserLocation();
 		},
-		browserLocation: function() {
+		browserLocation: function(successfun /*optional*/) {
 			var _this = this;
 			getLocation(function(err, lat, lng) {
 				if(!err) {
 					console.log('Saving ' + lat + "-" + lng);
-					_this.set('location', [lat, lng]);
-					_this.save();
+					_this.set('location', [lat, lng])
+					_this.save({},{
+						success: function() {
+							if(successfun) successfun();
+						}
+					});
 				} else {
 					console.log(err);
 				}

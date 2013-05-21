@@ -267,7 +267,8 @@ var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
 		"submit #optionsform": "save",
-		"click button#fetchGPS": "getLocation"
+		"click button#fetchGPS": "getLocation",
+		"change #optionsform": "notsaved"
 	},
 	
 	initialize: function() {
@@ -300,10 +301,24 @@ var OptionsView = Backbone.View.extend({
 		});
 		
 	},
+
+	notsaved: function() {
+		// Function to reset the "saved" button
+		console.log("Not saved yet.")
+		$('#save').text('Save changes');
+	},
 	
 	getLocation: function(e) {
 		e.preventDefault();
-		this.model.browserLocation();
+
+		// Make sure the changes for the phone number are not lost
+		this.model.set({
+			'phoneNumber': $('#user-phone').val()
+		});
+		
+		this.model.browserLocation(function() {
+			$('#save').text('Saved.');
+		});
 	},
 	
 });
