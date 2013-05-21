@@ -1,13 +1,5 @@
 /* apply a natural box layout model to all elements */
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-
-.nrtd {
-	width: 60px;
-}
-
-.pictd {
-	width: 60px;
-}
+/** { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }*/
 
 #nonuser tr td{
 	min-width: 50px;
@@ -76,22 +68,29 @@ font-size: 50px;
 		width:100%;
 	}
 
-	td .pictd {
-		width:7%;
+	.pictd {
+		width: 60px;
 	}
 
-	td .nametd {
-		width:73%;
+	.nrtd {
+		width: 60px;
 	}
 
-	td .nrtd {
-		width:20%;
-	}
-
-	td .invitetd {
-		width:20%;
-	}
 	
 .optionsbuttons {
 	margin-top: 5px;
 }
+
+/* Fix alerts in flat */
+
+.alert {
+	color: white;
+	text-shadow: none;
+	background-color: #F1C40F;
+}
+
+.alert-info {
+	background-color: #3498DB;
+}
+
+
