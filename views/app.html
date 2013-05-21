@@ -22,7 +22,6 @@
 	
 	<body>
 	   	<div id="headerbar" class="navbar navbar-inverse"></div>
-		<div class="my-page-header"></div>
 		<div id="container" class="container"></div>
 </body>
 
@@ -137,8 +136,8 @@
 		</form>
 		<i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span>
 		<div class="activeDiv">
-		<button class="btn btn-info" onclick="publishFBStory();">Share on Facebook</button>
-	<button class="btn btn-warning" id="cancelUpfo">Cancel</button>
+		<button class="btn btn-primary" onclick="publishFBStory();">Share on Facebook</button>
+	<button class="btn btn-danger" id="cancelUpfo">Cancel</button>
 	</div>
 	<% } %>	
 	
@@ -162,9 +161,9 @@
 		<% if(user){ %>
 			<td class="nrtd">
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
-            	<a class="btn <%= upfo?'btn-success':'btn-warning' %> disabled" href="# >">Call</a> 	
+            	<a class="btn <%= upfo?'btn-primary':'btn-danger' %> disabled" href="# >">Call</a> 	
             <% } else { %>
-              <a class="btn <%= upfo?'btn-success':'btn-warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
+              <a class="btn <%= upfo?'btn-primary':'btn-danger' %>" href="tel:<%= phoneNumber %>">Call</a> 
             <% } %>
 			</td>
           <% } else { %>
