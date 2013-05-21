@@ -202,24 +202,18 @@ module.exports = function(app) {
 				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
 				// ,user to upfo and upfoTime to now.
 				if (user.upfo === false && req.body.upfo === true ) {
-					// parseInt is temporary to make sure they are not concenated
-					user.notUpfoTime = Date.now() + parseInt(upfoHour);
+					user.upfoTime = Date.now();
+					user.notUpfoTime = Date.now() + upfoHour;
 					console.log("notupfo time set to:" + user.notUpfoTime);
 					user.upfo = true;
-					user.upfoTime = Date.now();
 				}
-				// if the user was upfo and is now being set to not upfo, check that upfoTime is over
-				// 10 minutes ago, if yes, switch to not upfo, otherwise, set notUpfoTime to 10 min
-				// from upfoTime
+				// if the user was upfo and is now being set to not upfo
+				// set to notupfo only when it is after the notupfo time
 				if (user.upfo === true && req.body.upfo === false) {
-					var diff = Date.now() - user.upfoTime;
-					if (diff > upfoTen - upfoTen/10) {
+					user.notUpfoTime = parseInt(user.upfoTime) + upfoTen;
+					if (Date.now() >= user.notUpfoTime) {
 						user.upfo = false;
-					}
-					else {
-						// ParseInt is temporary, because it was saved as String before
-						user.notUpfoTime = parseInt(user.upfoTime) + upfoTen;
-					}
+					} 
 				}
 				
 				user.message = req.body.message;
