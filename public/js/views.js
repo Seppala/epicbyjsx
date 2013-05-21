@@ -18,9 +18,7 @@ var UpfoButtonView = Backbone.View.extend({
 		this.renderSpin();
 		this.model.on('sync', this.render, this);
 		this.alert = options.alert;
-		this.render(this);
-		
-		
+		this.render(this);		
 	},
 	
 	render: function() {
@@ -64,32 +62,37 @@ var UpfoButtonView = Backbone.View.extend({
 				//self.alert.set({msg:msg});
 			}
 			else if (upfo === true) {
-				$('#cancelUpfo').addClass('disabled');
 
-				var showTimeLeft = function() {
-					var msLeft = self.model.get('notUpfoTime') - Date.now();
-					var minutesLeft = Math.round(msLeft / 1000 / 60);
-					var secondsLeft = Math.round(msLeft / 1000);
-					
-					$('#cancelUpfo').text("Cancelling in " + minutesLeft + ":" + secondsLeft);
-
-					if(msLeft <= 0) {
-						clearInterval(updateTimeLeft);
-						// upfo false is used to update the view to show the
-						// "I'm upfo button again".
-						$('#cancelUpfo').text('Cancelled!');
-						self.model.save({upfo: false});
-					}
-				}
-
-				showTimeLeft();
-				var updateTimeLeft = setInterval(showTimeLeft, 1000)
-
+				self.upfoTimer();
 				var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
 				self.alert.set({msg:msg});
 			}
 		});
 
+	},
+
+	upfoTimer: function() {
+		var self = this;
+		$('#cancelUpfo').addClass('disabled');
+
+		var showTimeLeft = function() {
+			var msLeft = self.model.get('notUpfoTime') - Date.now();
+			var minutesLeft = Math.floor(msLeft / 1000 / 60);
+			var secondsLeft = ("00" + Math.ceil(msLeft / 1000) % 60).slice (-2);
+			
+			$('#cancelUpfo').text("Cancelling in " + minutesLeft + ":" + secondsLeft);
+
+			if(msLeft <= 0) {
+				clearInterval(updateTimeLeft);
+				// upfo false is used to update the view to show the
+				// "I'm upfo button again".
+				$('#cancelUpfo').text('Cancelled!');
+				self.model.save({upfo: false});
+			}
+		}
+
+		showTimeLeft();
+		var updateTimeLeft = setInterval(showTimeLeft, 1000)
 	},
 	
 	// save saves the message when a user changes it after they have switched to upfo
