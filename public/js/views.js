@@ -255,6 +255,7 @@ var MainView = Backbone.View.extend({
 });
 
 var HeaderbarView = Backbone.View.extend({
+	className: 'navbar-inner',
 	template: _.template( $('#header_bar').html()),
 	render: function() {
 		this.$el.html(this.template());

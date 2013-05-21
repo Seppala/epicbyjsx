@@ -4,8 +4,12 @@
     <title>Epicby</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="/css/styles.css">
-    <link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootswatch/2.3.1/flatly/bootstrap.min.css'>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/flat-ui.css">
+    <!--<link rel='stylesheet' href='//netdna.bootstrapcdn.com/bootswatch/2.3.1/flatly/bootstrap.min.css'>
+	-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 	<script src="//cdn.jsdelivr.net/underscorejs/1.4.4/underscore-min.js" type="text/javascript"></script>
 	<script src="//cdn.jsdelivr.net/backbonejs/0.9.10/backbone-min.js" type="text/javascript"></script>
 
@@ -17,32 +21,42 @@
 	<script src='js/fbLike.js'></script>
 	
 	<body>
-	   	<div id="headerbar" class="navbar navbar-fixed-top"></div>
+	   	<div id="headerbar" class="navbar navbar-inverse"></div>
 		<div class="my-page-header"></div>
 		<div id="container" class="container"></div>
 </body>
 
+<!-- TEMPLATES!!!! -->
 <!-- Template for a message that can be changed according to what happens-->
 <script type="text/template" id="ventMsg">
 <% if (msg != "") { %>
 <div class="alert"><%= msg %></div>
 <% } %>
 </script>
-<!-- TEMPLATES!!!! -->
 
 <!-- The Header -->
 <script type="text/template" id="header_bar">
-  <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">Piazzo</a>
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      	 <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+       </a>
+
+      <a class="btn brand" href="#">Piazzo</a>
+      <div class="nav-collapse collapse">
       <div class="navbar-content">
         <ul class="nav  pull-right">
         	<li>
 			<% if (place === 'dev') { %>
-        		<div class="fb-like liked" data-href="http://localhost:5000" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div><%} else {%>
+        		<div class="fb-like liked" data-href="http://localhost:5000" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
+        	<%} else {%>
 				<div class="fb-like liked" data-href="http://piazzo.co" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
-<% } %>
+			<% } %>
     		</li>
+        	<li>
+        		<a href="#">Home</a>
+        	</li>
         	<li>
         		<a href="#options">Options</a>
     		</li>
@@ -51,8 +65,8 @@
 			  </li>
         </ul>
       </div>
+      </div>
     </div>
-  </div>
 </script>	
 <!-- "Meta" Template that has placeholders for button "UPfoButtonView" and list of friends who are users "userView" and those who are not "nonUserView"-->
 <script type="text/template" id="active_page">
@@ -86,12 +100,12 @@
 			<label class="control-label" for="user-city">City:</label>
 			<div class="controls">
 				<input id="user-city" type="text" value="<%= city %>">
-				<button class="btn btn-primary btn-small" id="fetchGPS">Fetch GPS location</button>
+				<button class="btn btn-small" id="fetchGPS">Fetch GPS location</button>
 			</div>
 		</div>
 		<div class="form-actions">
-            <button type="submit" id="save" class="btn btn-primary">Save changes</button>
-            <button onClick="parent.location='/'" class="btn" id="back">Back</button>
+            <button type="submit" id="save" class="btn btn-primary btn-large">Save changes</button>
+            <button onClick="parent.location='/'" class="btn btn-large" id="back">Back</button>
           </div>
 		</fieldset>
 	</form>
@@ -108,7 +122,7 @@
 			<input id="user-message" type="text" placeholder="Your message" class="input-block-level">
 			<i class="icon-map-marker"></i> <%=city%>   <span id="cityText"><a href="#" id="editCity">edit</a></span>
 			<div class="activeDiv">
-			<input type="submit" class="btn btn-success" id="active" value="I&rsquo;m up for something!">
+			<input type="submit" class="btn btn-large btn-primary" id="active" value="I&rsquo;m up for something!">
 		</form>
 		</div>
 	<% } else { %>
