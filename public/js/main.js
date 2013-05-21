@@ -25,8 +25,8 @@ $(function($){
 			friends: {},
 			phoneNumber: '',
 			fbaccessToken: '',
-			upfoTime: '', //time when user was set upfo.
-			notUpfoTime: '', //time when user should be turned not upfo.
+			upfoTime: 0, //time when user was set upfo.
+			notUpfoTime: 0, //time when user should be turned not upfo.
 			city: '',
 		},
 		initialize: function() {

@@ -64,7 +64,27 @@ var UpfoButtonView = Backbone.View.extend({
 				//self.alert.set({msg:msg});
 			}
 			else if (upfo === true) {
-				console.log('')
+				$('#cancelUpfo').addClass('disabled');
+
+				var showTimeLeft = function() {
+					var msLeft = self.model.get('notUpfoTime') - Date.now();
+					var minutesLeft = Math.round(msLeft / 1000 / 60);
+					var secondsLeft = Math.round(msLeft / 1000);
+					
+					$('#cancelUpfo').text("Cancelling in " + minutesLeft + ":" + secondsLeft);
+
+					if(msLeft <= 0) {
+						clearInterval(updateTimeLeft);
+						// upfo false is used to update the view to show the
+						// "I'm upfo button again".
+						$('#cancelUpfo').text('Cancelled!');
+						self.model.save({upfo: false});
+					}
+				}
+
+				showTimeLeft();
+				var updateTimeLeft = setInterval(showTimeLeft, 1000)
+
 				var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
 				self.alert.set({msg:msg});
 			}
