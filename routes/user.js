@@ -42,27 +42,17 @@ module.exports = function(app) {
 							if(user) {
 								//console.log('Friend found in database: ' + friend.name);
 								friend.user = true;
+								friend.city = user.city
+								friend.phoneNumber = user.phoneNumber;
 								// Specify data that should be transferred to the client
 								// Only give upfo/message info, when user itself is upfo
-								if(user.upfo) {
-									//If the user shouldn't be set to false according to timer
-									if (Date.now() < user.notUpfoTime) {
-										friend.upfo = user.upfo;
-										friend.message = user.message;
-									}
-									else {
-										friend.upfo = false;
-										friend.message = "";
-									}
-									friend.city = user.city;
+								if(Date.now() < user.notUpfoTime) {
+									friend.upfo = true;
+									friend.message = user.message;
 								} else {
 									friend.upfo = false;
 									friend.message = "";
-									friend.city = user.city;
-								}									
-								if(user.phoneNumber) {
-									friend.phoneNumber = user.phoneNumber;
-								}								
+								}							
 							} else {
 								//console.log('Friend not found in database: ' + friend.name);
 								friend.user = false;
@@ -70,7 +60,7 @@ module.exports = function(app) {
 								//friend.city = friend.location.name;
 							}
 						} else {
-							// No Error Handling yet :)
+							console.log("Error: Database error");
 						}
 						// Call finished, set calls one less
 						countCalls--;
@@ -199,21 +189,18 @@ module.exports = function(app) {
 	        // Was the user found on the server?
 	        if(user) {
 		
+				console.log(Date.now() + "-"+ user.notUpfoTime);
 				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
 				// ,user to upfo and upfoTime to now.
-				if (user.upfo === false && req.body.upfo === true ) {
+				if (Date.now() > user.notUpfoTime && req.body.upfo === true ) {
+					console.log("Going upfo");
 					user.upfoTime = Date.now();
 					user.notUpfoTime = Date.now() + upfoHour;
-					console.log("notupfo time set to:" + user.notUpfoTime);
-					user.upfo = true;
-				}
+				} else if (Date.now() < user.notUpfoTime && req.body.upfo === false) {
 				// if the user was upfo and is now being set to not upfo
 				// set to notupfo only when it is after the notupfo time
-				if (user.upfo === true && req.body.upfo === false) {
+					console.log("Going not upfo.");
 					user.notUpfoTime = parseInt(user.upfoTime) + upfoTen;
-					if (Date.now() >= user.notUpfoTime) {
-						user.upfo = false;
-					} 
 				}
 				
 				user.message = req.body.message;
@@ -226,6 +213,8 @@ module.exports = function(app) {
 					    } else {
 					        console.log( err );
 					    }
+					    // Send the upfo status to the client
+					    user.upfo = Date.now() < user.notUpfoTime;
 					    res.send( user ); 
 					});
 				});
@@ -243,18 +232,8 @@ module.exports = function(app) {
 			console.log('Got user');
 			if(user) {
 				console.log('is user');
-				if (user.upfo === true) {
-					console.log("user is upfo in database.. user is:" + user);
-					if (user.notUpfoTime) {
-						console.log('checking user upfo time');
-						if (user.notUpfoTime < Date.now()) { 
-							console.log("notupfotime was less than date now.");
-							user.upfo = false;
-							user.save();
-							}
-						}
-					}
-				console.log('after checking if user is upfo in/api/users/:fbid, user is ' + user);
+				user.upfo = Date.now() < user.notUpfoTime; // upfo as long as notUpfoTime is later than now
+				console.log("GET: Upfo status is " + user.upfo);
 				res.send( user); // Change: Don't send everything (sensitive stuff)
 			} else {
 				res.send ("{error: true}");
