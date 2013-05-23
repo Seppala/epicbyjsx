@@ -13,7 +13,6 @@ var userSchema = new mongoose.Schema({
 	phoneNumber: String,
 	upfoTime: Number,
 	notUpfoTime: Number,
-	timeToFalse: Number,
 	city: String,
 });
 
