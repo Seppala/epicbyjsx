@@ -92,5 +92,9 @@ font-size: 50px;
 .alert-info {
 	background-color: #3498DB;
 }
+/* Fixing responsiveness for windows devices...*/
+@-ms-viewport{
+	width: device-width;
+}
 
 
