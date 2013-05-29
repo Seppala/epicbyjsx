@@ -204,7 +204,24 @@ module.exports = function(app) {
 				}
 				
 				user.message = req.body.message;
-				user.phoneNumber = req.body.phoneNumber;
+				if(user.phoneNumber !== req.body.phoneNumber) {
+					// The test for the phone number only tests wether it generelly looks like
+					// a phone number, for more reliable testing something like https://code.google.com/p/libphonenumber/ 
+					// would help. However this is good enough to ensure that the field is not misused.
+					// Remove all whitespaces and hypens from the phone number
+					req.body.phoneNumber = req.body.phoneNumber.replace(/[\s|\-]*/g, '');
+					if(req.body.phoneNumber) {
+						// Test the resulting number (quite lazy) and only save it
+						// if it fits in the pattern.
+						if(/^(\+)?\d{7,16}$/.test(req.body.phoneNumber)) {
+							user.phoneNumber = req.body.phoneNumber;
+						} // else -> Error notification still missing
+					} else {
+						// phone number was taken out
+						user.phoneNumber = "";
+					}
+
+				}
 				// Look whether a geocode lookup has to be done 
 				geocode.sync(user, req.body, function(err, user) {
 					user.save( function( err ) {
