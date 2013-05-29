@@ -246,6 +246,7 @@ var NonuserView = Backbone.View.extend({
 	
 	render: function() {
 		
+		$('#spin2').remove();
 		var self = this;
 		this.$el.html("");
 		// Take first few nonUsers 
@@ -259,10 +260,14 @@ var NonuserView = Backbone.View.extend({
 	},
 	
 	renderSpin: function() {
-		this.$el.html("<div id='spin2'>&nbsp;</div>");
+		$("#container").prepend('<div id="spin2"></div>');
 		var target = document.getElementById('spin2');
-		console.log("Now setting the spinner in NonuserView, renderSpin");
 		var spinner = new Spinner(opts).spin(target);
+		/*this.$el.html("<div id='spin2'>&nbsp;</div>");
+		var target = document.getElementById('container');
+		target.$el.html("<div id='spin2'>&nbsp;</div>");
+		console.log("Now setting the spinner in NonuserView, renderSpin");
+		var spinner = new Spinner(opts).spin(target);*/
 		
 	}		
 });

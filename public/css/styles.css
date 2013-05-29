@@ -84,9 +84,7 @@ font-size: 50px;
 /* Fix alerts in flat */
 
 .alert {
-	color: white;
 	text-shadow: none;
-	background-color: #F1C40F;
 }
 
 .alert-info {
@@ -97,4 +95,8 @@ font-size: 50px;
 	width: device-width;
 }
 
+/*spin2 is for the spinner that's up on the page..*/
+#spin2 {
+	height: 100px;
+}
 
