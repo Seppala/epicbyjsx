@@ -175,7 +175,7 @@ $(function($){
 	/*Some jQuery css stuff*/
 	
 	//Position the container div below the header with jQuery.
-	$('#container').css('margin-top', $('#headerbar').height());
+	$('#container').css('margin-top', $('#navbar').height());
 	console.log('headerbar height is: ' + $('#headerbar').height());
 	
 

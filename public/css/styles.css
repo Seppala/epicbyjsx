@@ -1,5 +1,5 @@
 /* apply a natural box layout model to all elements */
-/** { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }*/
+{ -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 .dynamicContent {
 	max-width: 480px;
@@ -12,6 +12,10 @@
 	padding-top:8px;
 }
 
+#headerbar {
+	height: 40px;
+}
+
 #headerbar .dropdown {
 	float: right;
 }
@@ -21,6 +25,10 @@
 
 #nonuser {
 	max-width: 100%;
+}
+
+h5 img {
+	padding-right: 9px;
 }
 
 #cityText {
@@ -36,7 +44,6 @@
 }
 
 .listDiv {
-	border-bottom:1px solid #222;
 	margin-bottom: 7px;
 }
 
@@ -68,12 +75,8 @@
 	margin-top:3px;
 }
 
-select {
-font-size: 50px;
-}
-
 #firstText {
-	margin-top: 3px;
+	margin-top: 13px;
 }
 
 /*Styling for the list of users, in template friend_t*/
@@ -101,9 +104,6 @@ font-size: 50px;
 	text-shadow: none;
 }
 
-.alert-info {
-	background-color: #3498DB;
-}
 /* Fixing responsiveness for windows devices...*/
 @-ms-viewport{
 	width: device-width;

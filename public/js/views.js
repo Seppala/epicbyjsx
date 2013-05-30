@@ -57,7 +57,7 @@ var UpfoButtonView = Backbone.View.extend({
 			upfo = self.model.get('upfo');
 			if (upfo === false) {
 				console.log('changed status');
-				$('#messages').append('<p>Ok, go meet some friends</p><img src="images/stickhairwave.gif">');
+				$('#messages').append('<h3>Ok, go meet some friends</h3><img src="images/stickhairwave.gif">');
 				//var msg = "Ok go meet some friends! <img src='images/stickhairwave.gif'>";
 				//self.alert.set({msg:msg});
 			}
@@ -104,11 +104,11 @@ var UpfoButtonView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('#messages').append('<div class="alert">Changed message saved</div>');
+				$('#messages').append('<div class="panel callout">Changed message saved</div>');
 				console.log("Saved.");
 			},
 			error: function() {
-				$('#save').append('<div class="alert">Error! Please try again and check your connection.</div>');
+				$('#save').append('<div class="panel callout">Error! Please try again and check your connection.</div>');
 				console.log("Error saving.");
 			}
 		});
@@ -284,7 +284,7 @@ var MainView = Backbone.View.extend({
 });
 
 var HeaderbarView = Backbone.View.extend({
-	className: 'navbar',
+	className: 'navbar navbar-fixed-top',
 	template: _.template( $('#headerbarr').html()),
 	render: function() {
 		this.$el.html(this.template());
