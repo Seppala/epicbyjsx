@@ -15,6 +15,9 @@
 #headerbar {
 	height: 40px;
 }
+.navbar-inner {
+	padding-left:5px;
+}
 
 #headerbar .dropdown {
 	float: right;
