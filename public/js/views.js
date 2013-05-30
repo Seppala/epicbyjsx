@@ -275,6 +275,7 @@ var NonuserView = Backbone.View.extend({
 // PAGES
 
 var MainView = Backbone.View.extend({
+	className: 'dynamicContent',
 	template: _.template( $('#active_page').html()),
 	render: function() {
 		this.$el.html(this.template());	

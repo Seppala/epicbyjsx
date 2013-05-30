@@ -1,6 +1,12 @@
 /* apply a natural box layout model to all elements */
 /** { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }*/
 
+.dynamicContent {
+	max-width: 480px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 #nonuser tr td{
 	min-width: 50px;
 }
