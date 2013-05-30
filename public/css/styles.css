@@ -7,6 +7,14 @@
 	margin-left: auto;
 }
 
+#dropdown{
+	padding-left:20px;
+	padding-top:8px;
+}
+
+#headerbar .dropdown {
+	float: right;
+}
 #nonuser tr td{
 	min-width: 50px;
 }
