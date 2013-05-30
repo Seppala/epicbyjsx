@@ -88,12 +88,13 @@
 	<div id="upfoButtonView"><!--UpfoButtonView--></div>
 	<div id="messages" ><!-- messages --></div>
 	<div class="listDiv">
-		<h4 class="subheader">Your friends that are up for something:</p>
+		<h4>Your friends that are up for something:</p>
 	</div>
   	<div id="userView">
 		<!-- Users who are friends --></div>
 	<div id="nonUserView">
-  		<h5 class="subheader">Invite friends that are not on Piazzo yet below or</h5><button class="button primary" href="#" onclick="sendFBRequest();">Invite more people at the same time.</button>
+		<button class="button primary" href="#" onclick="sendFBRequest();">Invite more friends</button>
+  		<h5 class="subheader">Friends you can invite that are not on Piazzo yet:</h5>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
 </script>
@@ -172,24 +173,24 @@
           <img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 "> <% } %>
  		
         </td>
-        <td class="nametd"><%= name %>
-          
-			<br/><small><i class="icon-map-marker"></i><em><%= city %><em></small>
+        <td class="nametd">
+			<h6><%= name %><small></h6> 
+			<h2><small><%= city %></small></h2>
 		<% if(user) { %>
-			<br/><small><%= message %></small>
+			<br/><p class="subheader"><%= message %></p>
 		  <% } %>
 		</td>
 		<% if(user){ %>
 			<td class="nrtd">
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
-            	<a class="btn <%= upfo?'btn-primary':'btn-danger' %> disabled" href="# >">Call</a> 	
+            	<a class="button small<%= upfo?'primary':'warning' %> disabled" href="# >">Call</a> 	
             <% } else { %>
-              <a class="btn <%= upfo?'btn-primary':'btn-danger' %>" href="tel:<%= phoneNumber %>">Call</a> 
+              <a class="button small <%= upfo?'primary':'warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
             <% } %>
 			</td>
           <% } else { %>
 			<td class="nrtd">
-            	<a class="btn" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
+            	<a class="button success" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
  			</td>
           <% } %>
 </script>
@@ -200,11 +201,11 @@
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
-			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends? You can send invites from the list below or</p><a href="#" onclick="sendFBRequest();">Invite more people at the same time.</a></div>
+			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends?</p></div>
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
-	    	<h5 class="subheader">Your friends that are using Piazzo but not up for something right now:</p>	  	
+	    	<h5>Your friends that are using Piazzo but not up for something right now:</p>	  	
 	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
     	<% } %>
 	<% } else { %>
