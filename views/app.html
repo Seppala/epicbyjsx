@@ -93,7 +93,7 @@
   	<div id="userView">
 		<!-- Users who are friends --></div>
 	<div id="nonUserView">
-		<button class="button primary" href="#" onclick="sendFBRequest();">Invite more friends</button>
+		<button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button>
   		<h5 class="subheader">Friends you can invite that are not on Piazzo yet:</h5>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
@@ -191,7 +191,7 @@
 			</td>
           <% } else { %>
 			<td class="nrtd">
-            	<a class="button success" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
+            	<a class="button success" href="#fb-root" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
  			</td>
           <% } %>
 </script>
@@ -202,7 +202,7 @@
 		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
-			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends?</p><button class="button primary" href="#" onclick="sendFBRequest();">Invite more friends</button></div>
+			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends?</p><button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button></div>
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
