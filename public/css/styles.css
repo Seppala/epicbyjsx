@@ -49,11 +49,11 @@ h5 img {
 .listDiv {
 	margin-bottom: 7px;
 }
-/*
+
 .listDiv h4 {
-	margin-top: 5vw;
+	margin-top: 8px;
 }
-*/
+
 .activeDiv {
 	margin-top:9px;
 	margin-bottom:18px;
@@ -84,23 +84,24 @@ h5 img {
 
 #user-message {
 	font-size: 1em;
+	margin-bottom:0px;
 }
-/*
+
 #firstText {
-	margin-top: 5vw;
-	margin-bottom:3vw;
+	margin-top: 35px;
+	margin-bottom:25px;
 }
 
 .activeDiv input {
-	margin-top:1vw;
-	margin-bottom:4vw;
+	margin-top:8px;
+	margin-bottom:6px;
 }
 
 #nonUserView button {
-	margin-top:2vw;
-	margin-bottom:2vw;
+	margin-top:10px;
+	margin-bottom:12px;
 }
-*/
+
 #headerbar {
 	padding:0;
 	
