@@ -166,6 +166,7 @@
 	
 </script>
 
+<!-- USER / FRIENDS TEMPLATE -->
 
 <script type="text/template" id="friend_t">
         <td class="pictd">
@@ -183,7 +184,7 @@
 		<% if(user){ %>
 			<td class="nrtd">
             <% if(typeof phoneNumber === 'undefined' || !phoneNumber) { %>
-            	<a class="button small<%= upfo?'primary':'warning' %> disabled" href="# >">Call</a> 	
+            	<a class="button small <%= upfo?'primary':'warning' %> disabled" href="# >">Call</a> 	
             <% } else { %>
               <a class="button small <%= upfo?'primary':'warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
             <% } %>
