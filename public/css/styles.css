@@ -12,6 +12,8 @@
 	padding-top:8px;
 }
 
+#fb-root { position:fixed; top:10%; }
+
 #headerbar {
 	height: 40px;
 }
