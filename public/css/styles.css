@@ -49,11 +49,11 @@ h5 img {
 .listDiv {
 	margin-bottom: 7px;
 }
-
+/*
 .listDiv h4 {
 	margin-top: 5vw;
 }
-
+*/
 .activeDiv {
 	margin-top:9px;
 	margin-bottom:18px;
@@ -85,7 +85,7 @@ h5 img {
 #user-message {
 	font-size: 1em;
 }
-
+/*
 #firstText {
 	margin-top: 5vw;
 	margin-bottom:3vw;
@@ -100,7 +100,7 @@ h5 img {
 	margin-top:2vw;
 	margin-bottom:2vw;
 }
-
+*/
 #headerbar {
 	padding:0;
 	
