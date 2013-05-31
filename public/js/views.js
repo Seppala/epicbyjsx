@@ -58,8 +58,6 @@ var UpfoButtonView = Backbone.View.extend({
 			if (upfo === false) {
 				console.log('changed status');
 				$('#messages').append('<h3>Ok, go meet some friends</h3><img src="images/stickhairwave.gif">');
-				//var msg = "Ok go meet some friends! <img src='images/stickhairwave.gif'>";
-				//self.alert.set({msg:msg});
 			}
 			else if (upfo === true) {
 
@@ -240,7 +238,7 @@ var NonuserView = Backbone.View.extend({
 	initialize: function() {
 		//this.collection.fetch();
 		this.renderSpin();
-		this.collection.on('reset', this.render, this);
+		this.collection.on('sync', this.render, this);
 		this.collection.on('change', this.renderSpin, this);
 	},
 	

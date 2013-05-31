@@ -51,7 +51,7 @@ h5 img {
 }
 
 .listDiv h4 {
-	margin-top: 10vh;
+	margin-top: 5vw;
 }
 
 .activeDiv {
@@ -87,18 +87,18 @@ h5 img {
 }
 
 #firstText {
-	margin-top: 5vh;
-	margin-bottom:3vh;
+	margin-top: 5vw;
+	margin-bottom:3vw;
 }
 
 .activeDiv input {
-	margin-top:1vh;
-	margin-bottom:4vh;
+	margin-top:1vw;
+	margin-bottom:4vw;
 }
 
 #nonUserView button {
-	margin-top:2vh;
-	margin-bottom:2vh;
+	margin-top:2vw;
+	margin-bottom:2vw;
 }
 
 #headerbar {
