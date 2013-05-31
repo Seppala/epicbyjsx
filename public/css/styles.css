@@ -50,6 +50,10 @@ h5 img {
 	margin-bottom: 7px;
 }
 
+.listDiv h4 {
+	margin-top: 10vh;
+}
+
 .activeDiv {
 	margin-top:9px;
 	margin-bottom:18px;
@@ -78,10 +82,35 @@ h5 img {
 	margin-top:3px;
 }
 
-#firstText {
-	margin-top: 13px;
+#user-message {
+	font-size: 1em;
 }
 
+#firstText {
+	margin-top: 5vh;
+	margin-bottom:3vh;
+}
+
+.activeDiv input {
+	margin-top:1vh;
+	margin-bottom:4vh;
+}
+
+#nonUserView button {
+	margin-top:2vh;
+	margin-bottom:2vh;
+}
+
+#headerbar {
+	padding:0;
+	
+}
+
+.navbar {
+	width:100%;
+	right:0;
+	left:0;
+}
 /*Styling for the list of users, in template friend_t*/
 
 	table {

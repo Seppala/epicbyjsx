@@ -284,7 +284,7 @@ var MainView = Backbone.View.extend({
 });
 
 var HeaderbarView = Backbone.View.extend({
-	className: 'navbar navbar-fixed-top',
+	className: 'navbar',
 	template: _.template( $('#headerbarr').html()),
 	render: function() {
 		this.$el.html(this.template());
