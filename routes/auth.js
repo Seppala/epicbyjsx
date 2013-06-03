@@ -56,6 +56,7 @@ passport.use(new FacebookStrategy({
 					}
 
 				} else {
+					console.log("new user, profile:" + JSON.stringify(profile));
 					var newUser = new UserModel();
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
@@ -73,17 +74,21 @@ passport.use(new FacebookStrategy({
 					// 		console.log('Set lng/lat');
 					// 	})
 					// })
-					geocode.getLatLng(profile._json.location.name, function(err, location) {
-						if (!err) {
-							newUser.city = profile._json.location.name; // Only saving the city from facebook if geocodable
-							newUser.location = location;
-						};
-						newUser.save(function(err){
+						console.log("there is profile._json!");
+					if (profile.hasOwnProperty('location.name')) {
+						geocode.getLatLng(profile._json.location.name, function(err, location) {
+							if (!err) {
+								newUser.city = profile.location.name; // Only saving the city from facebook if geocodable
+								newUser.location = location;
+							};
+						});
+					};
+					newUser.save(function(err){
 							if (err) throw err;
 							console.log('New user created: ' + newUser.name + ' and logged in...');
 							done(null, newUser);
 						});
-					})
+
 					
 				}
 			});

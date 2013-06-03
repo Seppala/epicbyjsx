@@ -35,11 +35,16 @@ var UpfoButtonView = Backbone.View.extend({
 
 	upfoTrue: function(e) {
 		// Set the upfo to true
+		console.log('upfoTrue called in UpfoButtonView');
+		var self = this;
 		e.preventDefault();
 		this.model.set('message', $('#user-message').val());
-		var p = this.model.save({upfo : true});
+		this.model.set({'upfo': true});
+		var p = this.model.save();
 		p.done(function(data, status) {
-			console.log('saved status upfo true');
+			self.upfoTimer();
+			console.log('saved status upfo true in upfoTrue in UpfoButtonView');
+			console.log('and this.model is: ' + JSON.stringify(this.model));
 		});
 		p.fail(function() {
 			console.log('saving upfo true failed');
@@ -60,7 +65,7 @@ var UpfoButtonView = Backbone.View.extend({
 				$('#messages').append('<h3>Ok, go meet some friends</h3><img src="images/stickhairwave.gif">');
 			}
 			else if (upfo === true) {
-
+				$('#cancelUpfo').addClass('disabled');
 				self.upfoTimer();
 				var msg = "Your status will be changed to not up for something when 10 minutes has passed since you turned 'up for something'.";
 				self.alert.set({msg:msg});
@@ -71,7 +76,7 @@ var UpfoButtonView = Backbone.View.extend({
 
 	upfoTimer: function() {
 		var self = this;
-		$('#cancelUpfo').addClass('disabled');
+		
 
 		var showTimeLeft = function() {
 			var msLeft = self.model.get('notUpfoTime') - Date.now();
@@ -189,7 +194,7 @@ var UserView = Backbone.View.extend({
 		
 		var self = this;
 		var users = this.collection.where({user: true});
-		console.log('users' + users)
+		console.log('render in UserView and users' + JSON.stringify(users));
 		
 		this.$el.html("");
 		var $upfoFriends = $("<tbody></tbody>");
@@ -198,6 +203,7 @@ var UserView = Backbone.View.extend({
 		// If the user is upfo
 		
 		if (this.model.get("upfo")) {
+			console.log('in render in userView and user is upfo');
 			_.each(users, function(friend){
 				if(friend.attributes.upfo) {
 					$upfoFriends.append(new FriendView({model:friend}).render().el);					
@@ -206,6 +212,7 @@ var UserView = Backbone.View.extend({
 				}
 			});
 		} else {
+			console.log('in render in userView and user is NOT upfo');
 			_.each(users.slice(0,3), function(friend){
 				seeStatusFriends.push(friend.attributes.name);
 			})
@@ -223,7 +230,7 @@ var UserView = Backbone.View.extend({
 	renderSpin: function() {
 		this.$el.html("<div id='see'>&nbsp;</div>");
 		var target = document.getElementById('see');
-		console.log("Now setting the spinner in UpfoView, renderalert");
+		console.log("Now setting the spinner in UserView, renderSpin");
 		var spinner = new Spinner(opts).spin(target);
 		
 	}
