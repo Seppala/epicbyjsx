@@ -38,6 +38,11 @@ h6 img {
 	margin-top:4px;
 	margin-bottom:7px;
 }
+
+#fbButton {
+	margin-bottom: 1.45em;
+}
+
 .liked {
 	padding-top:10px;
 }
