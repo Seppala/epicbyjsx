@@ -300,7 +300,7 @@ var HeaderbarView = Backbone.View.extend({
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
-		"submit #optionsform": "save",
+		"click #save": "save",
 		"click button#fetchGPS": "getLocation",
 		"change #optionsform": "notsaved"
 	},
@@ -317,7 +317,7 @@ var OptionsView = Backbone.View.extend({
 	},
 	save: function(e) {
 		e.preventDefault();
-
+		console.log('in save in OptionsView..');
 		this.model.set({
 			'phoneNumber': $('#user-phone').val(),
 			'city': $('#user-city').val()

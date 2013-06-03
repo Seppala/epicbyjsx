@@ -95,6 +95,10 @@ module.exports = function(app) {
 		if (req.user.city) {
 			userCity = req.user.city;
 			console.log('req.user.body.city: ' + userCity);
+			var splitUser = req.user.city.split(',');
+			var userCityName = splitUser[0];
+			console.log('userCityName: ' + userCityName);
+			
 		};
 		
 		var countCalls = 0;
@@ -102,13 +106,32 @@ module.exports = function(app) {
 			if(!err) {
 				console.log('Received friends from facebook.')
 				fbFriends.forEach(function(friend) {
+					
+					// if the city name is not the same as for the user, continue.
+				
 					// Change id to fbId
 					friend.fbId = friend.id;
-					delete friend.id
+					delete friend.id;
 					//Make city the city that was fetched (overridden later if it's a user)
 					if (friend.location) {
 						friend.city = friend.location.name;
-					};
+						city = friend.city;
+						var split = city.split(',');
+						var cityName = split[0];
+						console.log(cityName);
+
+						//If the user city is not the same as the friends city, we're not going to suggest it.
+							if (cityName !== userCityName || cityName == '') {
+								console.log('someone had the same city');
+								// return here functions as continue, returning the control to forEach.
+								return true;
+							}
+						
+					}
+					else {
+						// if there's no city for the friend, don't return them
+						return true;
+					}
 					//friend.city = friend.location.name;
 					// Count the number of findOnes used.
 					countCalls++;
