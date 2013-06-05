@@ -266,6 +266,16 @@ module.exports = function(app) {
 		UserModel.findOne({fbId: req.user.fbId }, function(err, user) {
 			console.log('Got user');
 			if(user) {
+				if (typeof user.upfo === 'undefined') {
+					user.upfo = false;
+				}
+				if (typeof user.upfoTime === 'undefined') {
+					user.upfoTime = 0;
+				}
+				if (typeof user.notupfoTime === 'undefined') {
+					user.notupfoTime = 0;
+				}
+				
 				console.log('is user');
 				user.upfo = Date.now() < user.notUpfoTime; // upfo as long as notUpfoTime is later than now
 				console.log("GET: Upfo status is " + user.upfo);
