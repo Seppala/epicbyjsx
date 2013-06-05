@@ -14,11 +14,14 @@ module.exports = function(app) {
 	
 	//Return the list of friends for the current user.
 	app.get('/api/friends', ensureAuthenticated, function (req, res){
+		
+		//Get the users city
 		if (req.user.city) {
 			userCity = req.user.city;
 			console.log('req.user.body.city: ' + userCity);
 		};
 		
+		//set counter for amount of facebook friends
 		var countCalls = 0;
 		var fbFriends = getFriendsFromFacebook(req.user, function(err, fbFriends) {
 			if(!err) {
@@ -90,48 +93,37 @@ module.exports = function(app) {
 		});
 
 	});
-
+	
+	
+	
+	// NEW NONUSERFRIENDS
+	//Return the list of friends for the current user, only sends back the ones with the same city...
+	
 	app.get('/api/nonuserfriends', ensureAuthenticated, function (req, res){
+		
+		//Get the users city
 		if (req.user.city) {
-			userCity = req.user.city;
 			console.log('req.user.body.city: ' + userCity);
 			var splitUser = req.user.city.split(',');
-			var userCityName = splitUser[0];
-			console.log('userCityName: ' + userCityName);
-			
+			var userCity = splitUser[0];
 		};
 		
+		//set counter for amount of facebook friends
 		var countCalls = 0;
+		var sentFriends = [];
 		var fbFriends = getFriendsFromFacebook(req.user, function(err, fbFriends) {
 			if(!err) {
 				console.log('Received friends from facebook.')
 				fbFriends.forEach(function(friend) {
-					
-					// if the city name is not the same as for the user, continue.
-				
 					// Change id to fbId
 					friend.fbId = friend.id;
-					delete friend.id;
+					delete friend.id
 					//Make city the city that was fetched (overridden later if it's a user)
 					if (friend.location) {
 						friend.city = friend.location.name;
-						city = friend.city;
-						var split = city.split(',');
-						var cityName = split[0];
-						console.log(cityName);
-
-						//If the user city is not the same as the friends city, we're not going to suggest it.
-							if (cityName !== userCityName || cityName == '') {
-								console.log('someone had the same city');
-								// return here functions as continue, returning the control to forEach.
-								return true;
-							}
-						
-					}
-					else {
-						// if there's no city for the friend, don't return them
-						return true;
-					}
+						var split = friend.city.split(',');
+						var friendcityName = split[0];
+					};
 					//friend.city = friend.location.name;
 					// Count the number of findOnes used.
 					countCalls++;
@@ -143,54 +135,55 @@ module.exports = function(app) {
 							if(user) {
 								//console.log('Friend found in database: ' + friend.name);
 								friend.user = true;
+								friend.city = user.city
+								friend.phoneNumber = user.phoneNumber;
 								// Specify data that should be transferred to the client
 								// Only give upfo/message info, when user itself is upfo
-								if(user.upfo) {
-									//If the user shouldn't be set to false according to timer
-									if (Date.now() < user.notUpfoTime) {
-										friend.upfo = user.upfo;
-										friend.message = user.message;
-									}
-									else {
-										friend.upfo = false;
-										friend.message = "";
-									}
-									friend.city = user.city;
+								if(Date.now() < user.notUpfoTime) {
+									friend.upfo = true;
+									friend.message = user.message;
 								} else {
 									friend.upfo = false;
 									friend.message = "";
-									friend.city = user.city;
-								}									
-								if(user.phoneNumber) {
-									friend.phoneNumber = user.phoneNumber;
-								}								
+								}							
 							} else {
 								//console.log('Friend not found in database: ' + friend.name);
 								friend.user = false;
 								friend.message = "";
 								//friend.city = friend.location.name;
 							}
+						
+						
+						console.log('friendcity: ' + friendcityName +" userCity: " + userCity);
+						if (friendcityName == userCity) {
+							console.log("pushing to sentFriends");
+							sentFriends.push(friend);
+							
+						}
+							
 						} else {
-							// No Error Handling yet :)
+							console.log("Error: Database error");
 						}
 						// Call finished, set calls one less
 						countCalls--;
 						// If there are no calls left, send to client
 						if(countCalls < 1) {
-							console.log("Sending to client.");
+							console.log("Sending to client in nonuserfriends.");
 							//console.log("fbFriends is" + JSON.stringify(fbFriends));
 							//Check if the city of the friend is same as the users.
 							//fbFriends.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
 							
 							// fbFriends.sort(function(a, b) { if(a.name > b.name) return 1; if(a.name < b.name) return -1; })
 							
-							fbFriends = fbFriends.sort(sort_by('name', true, function(a){
+						
+							
+							sortedFriends = sentFriends.sort(sort_by('name', true, function(a){
 								if (a) {
 									return a.toUpperCase()
 								};
 							}))
 							
-							res.send(JSON.stringify(fbFriends));
+							res.send(JSON.stringify(sortedFriends));
 							
 						}
 					});
@@ -201,18 +194,20 @@ module.exports = function(app) {
 		});
 
 	});
-
 	
+
 	//Put request that makes changes to the user
 	app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
 		// It works now correctly, I think it uses the request cookie.
 		// The think is that the fbId in the url is actually not needed at all.
 	    console.log( 'Updating user with fbid:' + req.user.fbId);
+		console.log( 'This is the request user: ' + req.user);
+		console.log('this is the request body: ' + JSON.stringify(req.body));
 		return UserModel.findOne({ fbId: req.user.fbId }, function( err, user ) {
 	        // Was the user found on the server?
 	        if(user) {
 		
-				console.log(Date.now() + "-"+ user.notUpfoTime);
+				console.log("user found");
 				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
 				// ,user to upfo and upfoTime to now.
 				if (Date.now() > user.notUpfoTime && req.body.upfo === true ) {

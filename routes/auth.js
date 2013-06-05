@@ -61,6 +61,10 @@ passport.use(new FacebookStrategy({
 					newUser.fbId = profile.id;
 					newUser.name = profile.displayName;
 					newUser.fbaccessToken = accessToken;
+					newUser.phoneNumber = "";
+					newUser.upfo = false;
+					newUser.upfoTime = 0;
+					newUser.notUpfoTime = 0;
 
 					// Right now the login does not wait for the geocoding
 					// This way the first response would be faster

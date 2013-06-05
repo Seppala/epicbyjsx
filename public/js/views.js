@@ -6,7 +6,7 @@ var UpfoButtonView = Backbone.View.extend({
 	template: _.template( $('#upfo_button').html()),
 	
 	events: {
-		"submit #upfoForm" : 'upfoTrue',
+		"click #active" : 'upfoTrue',
 		"click #cancelUpfo": 'upfoFalse',
 		"submit #msgForm": "save",
 		"click a#editCity": "chooseCityFetch",
@@ -36,19 +36,22 @@ var UpfoButtonView = Backbone.View.extend({
 	upfoTrue: function(e) {
 		// Set the upfo to true
 		console.log('upfoTrue called in UpfoButtonView');
-		var self = this;
+		//var self = this;
 		e.preventDefault();
+		console.log('in UpfoButtonView, before setting anything on model: ' + JSON.stringify(this.model));
 		this.model.set('message', $('#user-message').val());
-		this.model.set({'upfo': true});
-		var p = this.model.save();
+		this.model.set('upfo', true);
+		console.log('after setting model: ' + JSON.stringify(this.model));
+		this.model.save();
+		/*
 		p.done(function(data, status) {
 			self.upfoTimer();
-			console.log('saved status upfo true in upfoTrue in UpfoButtonView');
+			console.log('How the hell? saved status upfo true in upfoTrue in UpfoButtonView');
 			console.log('and this.model is: ' + JSON.stringify(this.model));
 		});
 		p.fail(function() {
 			console.log('saving upfo true failed');
-		});
+		});*/
 	},
 
 	upfoFalse: function(e) {
@@ -183,10 +186,10 @@ var UserView = Backbone.View.extend({
 	initialize: function() {
 		this.renderSpin();
 		//this.collection.fetch();
-		this.model.on('request', this.renderSpin, this);
+		//this.model.on('request', this.renderSpin, this);
 		this.model.on('change', this.renderSpin, this);
 		this.model.on('sync', this.render, this);
-		this.collection.on('request', this.renderSpin, this);
+		//this.collection.on('request', this.renderSpin, this);
 		this.collection.on('change', this.renderSpin, this);
 		this.collection.on('sync', this.render, this);
 	},
@@ -238,7 +241,7 @@ var UserView = Backbone.View.extend({
 	
 	});
 
-//NonuserView is the view that renders the friends that are users of the app
+//NonuserView is the view that renders the friends that are not users of the app
 var NonuserView = Backbone.View.extend({
 	el: "#nonuser",
 

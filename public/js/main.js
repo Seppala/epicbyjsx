@@ -88,7 +88,7 @@ $(function($){
 			if(this.user.attributes.upfo) {
 				// Only fetch if upfo is set to true
 				//this.fetch();
-				console.log('user is upfo, fetched list:' + this)
+				console.log(' In FriendsList, user is upfo, fetched list:' + this)
 			} else {
 				// Set the status of all friends to "not upfo"
 				// To make sure, that they are not somewhere seen as up
@@ -113,7 +113,7 @@ $(function($){
 			if(this.user.attributes.upfo) {
 				// Only fetch if upfo is set to true
 				this.fetch();
-				console.log('user is upfo, fetched list:' + this)
+				console.log('In NonUserFriendsList, user is upfo, fetched list:' + this)
 			} else {
 				// Set the status of all friends to "not upfo"
 				// To make sure, that they are not somewhere seen as up
@@ -135,23 +135,19 @@ $(function($){
 		},
 		initialize: function(){
 			this.user = new User();
-			console.log('init piazzoapp: user' +  this.user);
 			this.alert = new Alert();
 			var msg = "";
 			this.alert.set({msg:msg});
-			console.log('init piazzoapp: alert' +  this.alert);
 			this.headerbarView = new HeaderbarView();
 			this.mainView = new MainView();
 			
 			
 		},
 		index: function() {
-			console.log("In the index route");
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.mainView.render().el);
 			this.friendsList = new FriendsList({user: this.user});
 			this.nonuserfriendsList = new NonUserFriendsList({user: this.user});
-			console.log('in index: function(): alert' +  this.alert);
 			this.upfoButtonView = new UpfoButtonView( {collection: this.friendsList, model: this.user, alert: this.alert, vent: this.vent} );
 			this.alertView = new AlertView( {model: this.alert, vent: this.vent } );
 			this.userView = new UserView({collection: this.friendsList, model: this.user, vent: this.vent});
