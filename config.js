@@ -15,7 +15,15 @@ if (process.env.NODE_ENV == 'production')
 		upfoTen = 600000;
 		upfoHour = 3600000;
 	}
-else 
+else if (process.env.NODE_ENV == 'productioneu')
+	{
+		appID = '607217585963588';
+		appSecret = 'cbbc35fe7ba759e270c45118e8799d3a';
+		fbURL = 'http://piazzoeu.herokuapp.com';
+		upfoTen = 600000;
+		upfoHour = 3600000;
+	}
+else if (typeof process.env.NODE_ENV == 'undefined')
 	{
 		appId = "217545681715200";
 		appSecret = "713d928ae56d98762a74ea61e096252d";
@@ -25,6 +33,7 @@ else
 		
 	}
 
+console.log('process.env: ' + process.env.NODE_ENV);
 console.log('appId: ' + appId + ' appSecret: ' + appSecret);
 
 module.exports = {
