@@ -35,7 +35,7 @@ else if (typeof process.env.NODE_ENV == 'undefined')
 
 console.log('process.env: ' + process.env.NODE_ENV);
 console.log('appId: ' + appId + ' appSecret: ' + appSecret);
-
+console.log('just adding');
 module.exports = {
 	fb: {
 		appId: appId,
