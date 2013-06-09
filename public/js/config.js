@@ -10,7 +10,7 @@ if (surl[2] === 'localhost:5000') {
 
 else {
 	appID = '607217585963588';
-	link = 'http://piazzo.co';
+	link = 'http://www.piazzo.co';
 	place = 'prod';
 }
 
