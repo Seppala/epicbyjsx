@@ -11,7 +11,7 @@ if (process.env.NODE_ENV == 'production')
 	{
 		appId = '513729218671638';
 		appSecret = '7e5317d985ebb4a9222b21477ffaf9f3';
-		fbUrl = 'http://piazzo.herokuapp.com/';
+		fbUrl = 'http://piazzo.co/';
 		upfoTen = 600000;
 		upfoHour = 3600000;
 	}
@@ -19,7 +19,7 @@ else if (process.env.NODE_ENV == 'productioneu')
 	{
 		appId = '607217585963588';
 		appSecret = 'cbbc35fe7ba759e270c45118e8799d3a';
-		fbUrl = 'http://piazzo.co/';
+		fbUrl = 'http://piazzoeu.herokuapp.com/';
 		upfoTen = 600000;
 		upfoHour = 3600000;
 	}
