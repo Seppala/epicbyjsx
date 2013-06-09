@@ -19,7 +19,7 @@ else if (process.env.NODE_ENV == 'productioneu')
 	{
 		appId = '607217585963588';
 		appSecret = 'cbbc35fe7ba759e270c45118e8799d3a';
-		fbUrl = 'http://www.piazzo.co/';
+		fbUrl = 'http://piazzo.co/';
 		upfoTen = 600000;
 		upfoHour = 3600000;
 	}
