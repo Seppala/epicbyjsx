@@ -8,7 +8,7 @@ if (surl[2] === 'localhost:5000') {
 	place = 'dev';
 }
 
-else if (surl[2] == 'piazzo.herokuapp.com']) {
+else if (surl[2] == 'piazzo.herokuapp.com') {
 	appID = '513729218671638';
 	link = 'http://piazzo.herokuapp.com/';
 	place = 'prod';
