@@ -30,8 +30,7 @@ passport.deserializeUser(function(id, done){
 passport.use(new FacebookStrategy({
 	clientID: config.fb.appId,
 	clientSecret: config.fb.appSecret,
-	callbackURL: config.fb.url + 'fbauthed'
-	console.log('appId: ' + clientID + ' clientSecret: ' + clientSecret + ' callbackURL: ' + callbackURL);
+	callbackURL: config.fb.url + 'fbauthed',
 	},
 	function(accessToken, refreshToken, profile, done) {
 		process.nextTick( function(){
