@@ -10,6 +10,7 @@ var express = require('express')
 var request = require('request');
 var app = express();
 var mongoose = require('mongoose');
+var RedisStore = require('connect-redis')(express);
 var passport = require('passport'),
   	FacebookStrategy = require('passport-facebook').Strategy;
 //Dependencies on our files
@@ -33,7 +34,7 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'asdfkkdkdkdkdasddnng' }));
+  app.use(express.session({ store: new RedisStore, secret: 'asdfkkdkdkdkdasddnng1234553x' }));
   app.use(passport.initialize());
   app.use(passport.session());  
   app.use(express.static(path.join(__dirname, 'public')));
