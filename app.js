@@ -10,13 +10,26 @@ var express = require('express')
 var request = require('request');
 var app = express();
 var mongoose = require('mongoose');
-var RedisStore = require('connect-redis')(express);
 var passport = require('passport'),
   	FacebookStrategy = require('passport-facebook').Strategy;
 //Dependencies on our files
 var config = require('./config');
 var ensureAuthenticated = require('./routes/routehelpers').ensureAuthenticated;
 var sort = require('./helpers/sort').sort_by;
+
+//Require redis 
+//Authenticate with redis to go if we're on Heroku and the REDISTOGO_URL exists.
+var RedisStore = require('connect-redis')(express);
+if (process.env.REDISTOGO_URL) {
+  	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+	var redis = require("redis").createClient(rtg.port, rtg.hostname);
+
+	redis.auth(rtg.auth.split(":")[1]);
+//if we're not in production, no need for that.
+} else {
+  var redis = require("redis").createClient();
+}
+
 
 //DB CONNECTION
 
@@ -34,7 +47,7 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ store: new RedisStore, secret: 'asdfkkdkdkdkdasddnng1234553x' }));
+  app.use(express.session({ store: new RedisStore({client: redis}), secret: 'asdfkkdkdkdkdasddnng1234553x' }));
   app.use(passport.initialize());
   app.use(passport.session());  
   app.use(express.static(path.join(__dirname, 'public')));
