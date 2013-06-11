@@ -107,26 +107,28 @@
 
 <!-- Phone number and city input for Options page -->
 <script type="text/template" id="page_options_t">
-	<div class="container-fluid"
+	<div class="container-fluid">
 	<form id="optionsform" class="form-horizontal">
 		<h2>Options</h2>
 		<fieldset>
-		<div class="control-group">
+		<div id="phone-number" class="control-group">
 			<label class="control-label" for="user-phone">Phone</label>
 			<div class="controls">
 				<input id="user-phone" type="text" value="<%= phoneNumber %>">
+				<small id="message-phone"></small>
 			</div>
 		</div>
-		<div class="control-group">
+		<div id="city" class="control-group">
 			<label class="control-label" for="user-city">City <h6 class="subheader">please use English names for cities! (City, Country)</h6></label>
 			<div class="controls">
 				<input id="user-city" type="text" value="<%= city %>">
-				<button class="btn" id="fetchGPS"><span class="fui-location-24">Fetch from GPS</span></button>
+				<small id="message-city"></small>
+				<a class="button small" id="fetchGPS">Get current location</a>
 			</div>
 		</div>
 		<div class="form-actions">
-            <button type="submit" id="save" class="btn btn-primary btn-large">Save changes</button>
-            <button onClick="parent.location='/'" class="btn btn-large" id="back">Back</button>
+            <a type="submit" id="save" class="button primary">Save changes</a>
+            <a href="#" class="button secondary" id="back">Back</a>
           </div>
 		</fieldset>
 	</form>
