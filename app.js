@@ -21,12 +21,13 @@ var sort = require('./helpers/sort').sort_by;
 //Authenticate with redis to go if we're on Heroku and the REDISTOGO_URL exists.
 var RedisStore = require('connect-redis')(express);
 if (process.env.REDISTOGO_URL) {
-  	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  console.log("Running RedisToGo in production...");
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
-
 	redis.auth(rtg.auth.split(":")[1]);
-//if we're not in production, no need for that.
 } else {
+//if we're not in production, no need for that.
+  console.log("Running Redis in development...");
   var redis = require("redis").createClient();
 }
 
