@@ -335,11 +335,12 @@ var OptionsView = Backbone.View.extend({
 				var error = JSON.parse(err.responseText);
 				if(error.phoneNumber) {
 					$('#phone-number').addClass('error');
+					$('#message-phone').text(error.phoneNumber);
 				}
 				if(error.city) {
 					$('#city').addClass('error');
+					$('#message-city').text(error.city);
 				}
-				$('#optionsform').append('<div data-alert="" class="alert-box alert"></div>');
 				console.log("Error saving.");
 			}
 		});

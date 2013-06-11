@@ -114,12 +114,14 @@
 			<label class="control-label" for="user-phone">Phone</label>
 			<div class="controls">
 				<input id="user-phone" type="text" value="<%= phoneNumber %>">
+				<small id="message-phone"></small>
 			</div>
 		</div>
 		<div id="city" class="control-group">
 			<label class="control-label" for="user-city">City <h6 class="subheader">please use English names for cities! (City, Country)</h6></label>
 			<div class="controls">
 				<input id="user-city" type="text" value="<%= city %>">
+				<small id="message-city"></small>
 				<a class="button small" id="fetchGPS">Get current location</a>
 			</div>
 		</div>
