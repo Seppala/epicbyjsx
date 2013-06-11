@@ -6,8 +6,8 @@ UserVoice.push(['showTab', 'classic_widget', {
   primary_color: '#8e8e8e',
   link_color: '#2795b6',
   forum_id: 210472,
-  tab_label: 'Feedback',
-  tab_color: '#cfd9db',
+  tab_label: 'We love Feedback',
+  tab_color: '#9859b6',
   tab_position: 'bottom-left',
   tab_inverted: false
 }]);
