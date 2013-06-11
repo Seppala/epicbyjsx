@@ -97,7 +97,7 @@
 		<p>You can invite many friends at the same time using the following button:</p>
 		<button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button>
 		<p>or</p>
-		<p>check below to see who of your friends aren't on Piazzo yet and invite them one-by-one.</p>
+		<p>check below to see who of your friends aren&rsquo;t on Piazzo yet and invite them one-by-one.</p>
   		<h5 class="subheader">Friends in your city that are not on Piazzo yet:</h5>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
@@ -108,17 +108,17 @@
 <!-- Phone number and city input for Options page -->
 <script type="text/template" id="page_options_t">
 	<div class="container-fluid">
-	<form id="optionsform" class="form-horizontal">
+	<form id="optionsform" class="custom">
 		<h2>Options</h2>
 		<fieldset>
-		<div id="phone-number" class="control-group">
+		<div id="phone-number" class="row">
 			<label class="control-label" for="user-phone">Phone</label>
 			<div class="controls">
 				<input id="user-phone" type="text" value="<%= phoneNumber %>">
 				<small id="message-phone"></small>
 			</div>
 		</div>
-		<div id="city" class="control-group">
+		<div id="city" class="row">
 			<label class="control-label" for="user-city">City <h6 class="subheader">please use English names for cities! (City, Country)</h6></label>
 			<div class="controls">
 				<input id="user-city" type="text" value="<%= city %>">
@@ -157,7 +157,7 @@
 	
 		</div>
 	<% } else { %>
-	<h4 id="firstText">You're up for something!</h4>
+	<h4 id="firstText">You&rsquo;re up for something!</h4>
 		<form id="msgForm">
 			<div class="row">
 				<div class="large-8 columns">
