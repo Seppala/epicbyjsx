@@ -304,7 +304,7 @@ var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
 		"click #save": "save",
-		"click button#fetchGPS": "getLocation",
+		"click #fetchGPS": "getLocation",
 		"textInput #optionsform": "notsaved"
 	},
 	
