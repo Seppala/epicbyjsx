@@ -305,7 +305,7 @@ var OptionsView = Backbone.View.extend({
 	events: {
 		"click #save": "save",
 		"click button#fetchGPS": "getLocation",
-		"change #optionsform": "notsaved"
+		"textInput #optionsform": "notsaved"
 	},
 	
 	initialize: function() {
@@ -331,8 +331,15 @@ var OptionsView = Backbone.View.extend({
 				$('#save').text('Saved.');
 				console.log("Saved.");
 			},
-			error: function() {
-				$('#optionsbuttons').append('<p>Error! Please try again and check your connection.</p>');
+			error: function(model, err) {
+				var error = JSON.parse(err.responseText);
+				if(error.phoneNumber) {
+					$('#phone-number').addClass('error');
+				}
+				if(error.city) {
+					$('#city').addClass('error');
+				}
+				$('#optionsform').append('<div data-alert="" class="alert-box alert"></div>');
 				console.log("Error saving.");
 			}
 		});

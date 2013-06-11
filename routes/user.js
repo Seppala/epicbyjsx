@@ -205,9 +205,12 @@ module.exports = function(app) {
 		console.log('this is the request body: ' + JSON.stringify(req.body));
 		return UserModel.findOne({ fbId: req.user.fbId }, function( err, user ) {
 	        // Was the user found on the server?
+
 	        if(user) {
 		
 				console.log("user found");
+				var httpStatus = 200; // Now error yet;
+				var error = {}; // Used to save the errors, if they occur
 				// if the user was not upfo and is now being set to upfo, set notUpfoTime to one hour
 				// ,user to upfo and upfoTime to now.
 				if (Date.now() > user.notUpfoTime && req.body.upfo === true ) {
@@ -233,7 +236,10 @@ module.exports = function(app) {
 						// if it fits in the pattern.
 						if(/^(\+)?\d{7,16}$/.test(req.body.phoneNumber)) {
 							user.phoneNumber = req.body.phoneNumber;
-						} // else -> Error notification still missing
+						} else {
+							httpStatus = 406; // "Not acceptable"
+							error.phoneNumber = "Phone number is not valid.";
+						}
 					} else {
 						// phone number was taken out
 						user.phoneNumber = "";
@@ -242,6 +248,10 @@ module.exports = function(app) {
 				}
 				// Look whether a geocode lookup has to be done 
 				geocode.sync(user, req.body, function(err, user) {
+					if(err) {
+						error.city = err;
+				    	httpStatus = 406;
+				    }
 					user.save( function( err ) {
 					    if( !err ) {
 					        console.log( 'user updated' );
@@ -250,7 +260,13 @@ module.exports = function(app) {
 					    }
 					    // Send the upfo status to the client
 					    user.upfo = Date.now() < user.notUpfoTime;
-					    res.send( user ); 
+
+					    // If an error occurred only send back the error
+					    if(httpStatus != 200) {
+					    	res.send(httpStatus, error);
+					    } else {
+					    	res.send(200, user); 
+					    }
 					});
 				});
 	        } else {
