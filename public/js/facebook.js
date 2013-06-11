@@ -1,22 +1,4 @@
-/* SETUP *********/
-/* These were moved to config.js
 
-var surl = document.URL.split('/')
-console.log('document URL:' + surl[2]) */
-//pathArray = window.location.pathname.split( '/' );
-//host = pathArray[2];'
-
-/*
-if (surl[2] === 'localhost:5000') {
-	appID = '217545681715200';
-	link = 'http://localhost:5000';
-}
-
-else {
-	appID = '513729218671638';
-	link = 'http://piazzo.co';
-}
-*/
 FB.init({
         appId  : appID,
         frictionlessRequests: true
@@ -46,14 +28,11 @@ function requestCallback(response) {
 
 /*POSTS****************/
 
-function publishFBStory() {
+function publishFBStory(message) {
   FB.ui({
     method: 'feed',
-	//message: msg,
-    name: 'Piazzo - meet more friends',
-    caption: 'Piazzo is a simple way to figure out who to call when you want to do something',
-    description: 'Ever want to find someone for lunch but dont know who to call? Want to have more people over for a pre-party?',
-    link: link,
+    name: 'Piazzo - Meet your friends. More often. And more of them.',
+    link: "http://piazzo.co",
     picture: 'http://www.facebookmobileweb.com/getting-started/img/facebook_icon_large.png'
   }, 
   function(response) {

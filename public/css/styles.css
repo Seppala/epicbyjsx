@@ -1,6 +1,15 @@
 /* apply a natural box layout model to all elements */
 { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+#mappin {
+	margin-right: 6px;
+}
+
+.smallText {
+	font-weight: 300;
+	font-size: 14px;
+	margin-left: 2px;
+}
 .dynamicContent {
 	max-width: 480px;
 	margin-right: auto;
