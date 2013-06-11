@@ -153,10 +153,7 @@ module.exports = function(app) {
 								//friend.city = friend.location.name;
 							}
 						
-						
-						console.log('friendcity: ' + friendcityName +" userCity: " + userCity);
 						if (friendcityName == userCity) {
-							console.log("pushing to sentFriends");
 							sentFriends.push(friend);
 							
 						}

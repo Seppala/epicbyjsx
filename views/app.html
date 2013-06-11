@@ -92,7 +92,11 @@
   	<div id="userView">
 		<!-- Users who are friends --></div>
 	<div id="nonUserView">
+		<h5 class="subheader">Invite more friends</h5>
+		<p>You can invite many friends at the same time using the following button:</p>
 		<button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button>
+		<p>or</p>
+		<p>check below to see who of your friends aren't on Piazzo yet and invite them one-by-one.</p>
   		<h5 class="subheader">Friends in your city that are not on Piazzo yet:</h5>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
 	</div>
@@ -105,7 +109,6 @@
 	<div class="container-fluid">
 	<form id="optionsform" class="form-horizontal">
 		<h2>Options</h2>
-		<p> please use English names for cities! (City, Country)</p>
 		<fieldset>
 		<div id="phone-number" class="control-group">
 			<label class="control-label" for="user-phone">Phone</label>
@@ -114,7 +117,7 @@
 			</div>
 		</div>
 		<div id="city" class="control-group">
-			<label class="control-label" for="user-city">City</label>
+			<label class="control-label" for="user-city">City <h6 class="subheader">please use English names for cities! (City, Country)</h6></label>
 			<div class="controls">
 				<input id="user-city" type="text" value="<%= city %>">
 				<a class="button small" id="fetchGPS">Get current location</a>
@@ -141,7 +144,14 @@
 			<div class="activeDiv">
 			<input type="submit" class="button success-darker" id="active" value="I&rsquo;m up for something!">
 		</form>
+	<% if (city) { %>
 		<h6 class="subheader"><img src="/images/mappin.svg"><%=city%> <span id="cityText"><a href="#" id="editCity">change location</a></span></h6>
+	<% } else { %>
+		<br>
+		<img id="mappin" src="/images/mappin.svg"><span class="round alert label">No location set!</span><h5><a id="editCity">set location</a><span class="smallText"> (only visible on Piazzo)</span></h5><span id="cityText"></span>
+		
+	<% } %>
+	
 		</div>
 	<% } else { %>
 	<h4 id="firstText">You're up for something!</h4>
@@ -156,7 +166,13 @@
 			</div>
 		</form>
 		
-		<h6 class="subheader"><img src="/images/mappin.svg"><%=city%>   <span id="cityText"><a href="#" id="editCity">change location</a></span></h6>
+		<% if (city) { %>
+			<h6 class="subheader"><img src="/images/mappin.svg"><%=city%> <span id="cityText"><a href="#" id="editCity">change location</a></span></h6>
+		<% } else { %>
+			<br>
+			<img id="mappin" src="/images/mappin.svg"><span class="round alert label">No location set!</span><h5><a id="editCity">set location</a><span class="smallText"> (only visible on Piazzo)</span></h5><span id="cityText"></span>
+
+		<% } %>
 		<div class="activeDiv">
 		<button class="button primary small" onclick="publishFBStory();">Share on Facebook</button>
 	<button class="button alert small" id="cancelUpfo">Cancel</button>
