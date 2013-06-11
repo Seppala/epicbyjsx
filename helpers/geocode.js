@@ -8,7 +8,7 @@ var getLatLng = function(city, next) {
 			if (typeof location === 'object' && 'lat' in location.latLng) {
 				next(null,[location.latLng.lat, location.latLng.lng]); // Form {lat:,lng:} 
 			} else {
-				next({message: "City not found"});
+				next("Sorry, the city was not found.");
 			}
 		} else {
 			next(err); 
@@ -34,7 +34,7 @@ var getCity = function(location, next) { // location = [lat, lng]
 			}
 		})
 	} else {
-		next("Wrong type"); //Error
+		next("Wrong type."); //Error
 	}
 }
 
