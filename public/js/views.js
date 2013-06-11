@@ -303,7 +303,7 @@ var HeaderbarView = Backbone.View.extend({
 var OptionsView = Backbone.View.extend({
 	template: _.template( $('#page_options_t').html()),
 	events: {
-		"click #save": "save",
+		"submit #optionsform": "save",
 		"click #fetchGPS": "getLocation",
 		"textInput #optionsform": "notsaved"
 	},
