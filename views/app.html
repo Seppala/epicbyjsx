@@ -88,18 +88,13 @@
 	<div id="upfoButtonView"><!--UpfoButtonView--></div>
 	<div id="messages" ><!-- messages --></div>
 	<div class="listDiv">
-		<h4>Your friends that are up for something:</p>
 	</div>
   	<div id="userView">
 		<!-- Users who are friends --></div>
 	<div id="nonUserView">
-		<h5 class="subheader">Invite more friends</h5>
-		<p>You can invite many friends at the same time using the following button:</p>
-		<button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button>
-		<p>or</p>
-		<p>check below to see who of your friends aren&rsquo;t on Piazzo yet and invite them one-by-one.</p>
   		<h5 class="subheader">Friends in your city that are not on Piazzo yet:</h5>
   		<table class="table table-condensed" id="nonuser"><tbody></tbody></table>
+		<button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button>
 	</div>
 </script>
 
@@ -218,17 +213,18 @@
 		
 	<% if(upfo) { %>
 		<% if($upfoFriends.html()) { %>
+			<h5 class="subheader">Up for something right now</h5>	
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
 			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends?</p><button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button></div>
 		<% } %>
 		
     	<% if($notupfoFriends.html()) { %>
-	    	<h5>Your friends that are using Piazzo but not up for something right now:</p>	  	
+	    	<h5 class="subheader">Not up for something</h5>	  	
 	    	<table class="table table-condensed" id="notupfo"><%= $notupfoFriends.html() %></table>
     	<% } %>
 	<% } else { %>
-			<div class="panel"><p>Set your status of to "up for something" to see the status of your Facebook friends.</p></div>
+			<!--<div class="panel"><p>Set your status of to "up for something" to see the status of your Facebook friends.</p></div>-->
 	
 	<% } %>
 </script>
