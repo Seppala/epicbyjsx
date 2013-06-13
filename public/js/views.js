@@ -382,7 +382,7 @@ var OptionsView = Backbone.View.extend({
 		});
 		
 		this.model.browserLocation(function() {
-			$('#save-spinner').text('Saved.');
+			$('#options-save-title').text('Saved.');
 		});
 	},
 	
