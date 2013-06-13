@@ -317,10 +317,6 @@ var OptionsView = Backbone.View.extend({
 		console.log('Rendering options view');
 		var attributes = this.model.toJSON();
 		this.$el.html(this.template(attributes));
-
-		$('#save-spinner').hide();
-		var target = document.getElementById('save-spinner');
-		var spinner = new Spinner(opts).spin(target);
 		return this;
 	},
 	save: function(e) {
@@ -329,8 +325,9 @@ var OptionsView = Backbone.View.extend({
 
 		// Spinner for button
 		console.log('Show saving spinner');
+		var target = document.getElementById('save-spinner');
+		var spinner = new Spinner(opts).spin(target);
 
-		$('#save-spinner').show();
 		$('#save').addClass('loading');
 		$('#options-save-title').text('Saving');
 
@@ -343,13 +340,13 @@ var OptionsView = Backbone.View.extend({
 		
 		this.model.save({}, {
 			success: function() {
-				$('#save-spinner').hide();
+				$('#save-spinner').text('');
 				$('#options-save-title').text('Saved.');
 				$('#save').removeClass('loading');
 				console.log("Saved.");
 			},
 			error: function(model, err) {
-				$('#save-spinner').hide();
+				$('#save-spinner').text('');
 				$('#save').removeClass('loading');
 				$('#options-save-title').text('Save');
 				var error = JSON.parse(err.responseText);
