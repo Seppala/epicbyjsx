@@ -314,24 +314,44 @@ var OptionsView = Backbone.View.extend({
 		this.render();
 	},
 	render: function() {
+		console.log('Rendering options view');
 		var attributes = this.model.toJSON();
 		this.$el.html(this.template(attributes));
+
+		$('#save-spinner').hide();
+		var target = document.getElementById('save-spinner');
+		var spinner = new Spinner(opts).spin(target);
 		return this;
 	},
 	save: function(e) {
 		e.preventDefault();
 		console.log('in save in OptionsView..');
+
+		// Spinner for button
+		console.log('Show saving spinner');
+
+		$('#save-spinner').show();
+		$('#save').addClass('loading');
+		$('#options-save-title').text('Saving');
+
 		this.model.set({
 			'phoneNumber': $('#user-phone').val(),
 			'city': $('#user-city').val()
+		}, {
+			silent: true // Don't re-render the form until it is properly saved
 		});
 		
 		this.model.save({}, {
 			success: function() {
-				$('#save').text('Saved.');
+				$('#save-spinner').hide();
+				$('#options-save-title').text('Saved.');
+				$('#save').removeClass('loading');
 				console.log("Saved.");
 			},
 			error: function(model, err) {
+				$('#save-spinner').hide();
+				$('#save').removeClass('loading');
+				$('#options-save-title').text('Save');
 				var error = JSON.parse(err.responseText);
 				if(error.phoneNumber) {
 					$('#phone-number').addClass('error');
@@ -350,7 +370,7 @@ var OptionsView = Backbone.View.extend({
 	notsaved: function() {
 		// Function to reset the "saved" button
 		console.log("Not saved yet.")
-		$('#save').text('Save changes');
+		$('#options-save-title').text('Save');
 	},
 	
 	getLocation: function(e) {
@@ -362,7 +382,7 @@ var OptionsView = Backbone.View.extend({
 		});
 		
 		this.model.browserLocation(function() {
-			$('#save').text('Saved.');
+			$('#save-spinner').text('Saved.');
 		});
 	},
 	
