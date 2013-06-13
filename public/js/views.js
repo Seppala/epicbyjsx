@@ -321,6 +321,12 @@ var OptionsView = Backbone.View.extend({
 	},
 	save: function(e) {
 		e.preventDefault();
+
+		this.model.set({
+			'phoneNumber': $('#user-phone').val(),
+			'city': $('#user-city').val()
+		});
+
 		console.log('in save in OptionsView..');
 
 		// Spinner for button
@@ -331,12 +337,6 @@ var OptionsView = Backbone.View.extend({
 		$('#save').addClass('loading');
 		$('#options-save-title').text('Saving');
 
-		this.model.set({
-			'phoneNumber': $('#user-phone').val(),
-			'city': $('#user-city').val()
-		}, {
-			silent: true // Don't re-render the form until it is properly saved
-		});
 		
 		this.model.save({}, {
 			success: function() {
