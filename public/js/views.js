@@ -36,6 +36,7 @@ var UpfoButtonView = Backbone.View.extend({
 	upfoTrue: function(e) {
 		// Set the upfo to true
 		console.log('upfoTrue called in UpfoButtonView');
+		mixpanel.identify(this.model.fbId);
 		mixpanel.track("Upfo");
 		//var self = this;
 		e.preventDefault();
