@@ -12,6 +12,10 @@ module.exports = function(app) {
 		res.sendfile('views/app.html');
 	});
 	
+	app.get('/tos', function(req, res){
+		res.sendfile('views/tos.html');
+	});
+	
 	//Return the list of friends for the current user.
 	app.get('/api/friends', ensureAuthenticated, function (req, res){
 		
