@@ -26,6 +26,11 @@
 }
 .navbar-inner {
 	padding-left:5px;
+	padding-right:2px;
+}
+
+.navbar-inner .container-fluid {
+	padding-right:0px;
 }
 
 #headerbar .dropdown {
