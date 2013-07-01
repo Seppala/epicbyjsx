@@ -3,73 +3,102 @@
   <head>
     <title>Piazzo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="stylesheet" href="/css/styles.css">
 	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+	
     <link rel='stylesheet' href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css'>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
 	<!-- fix for windows IE10 -->
 	<!-- start google analytics--><script src="js/ga.js"></script><!-- end google analytics -->
 <!-- start Mixpanel --><script src="js/mixpanel.js"></script><!-- end Mixpanel -->
 </head>
-<body>
+<body id="index">
+	<div class="whiteBg">
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span12">
+					<h1 id="logoText"><img src="/images/logo57.png">Piazzo</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="mainContainer">
+		
+		<div class="row-fluid">
+			<div class="span3">
+				<img src="/images/iPhone.png">
+			</div>
+			<div class="span9">
+				<h1 class="headText">Experience more memorable moments with your friends.</h1>
+				<h4 class="mywhite">Piazzo is for the moments when you'd like to do something but you don't who to call.</h4>
+				<h4 class="mywhite">And for when you're doing something but want to invite more friends.</h4>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+			</div>
+			<div class="span6" id="fbButton">
+				<a class="button large primary-dark" href="/fbauth" id="fbLoginButton">Login with Facebook</a>
+				<!--- href="/fbauth">-->
+				<h4 class="subheader">We don't post to your wall or do any nasty stuff without you doing it, we just want to know your city and your FB friends so you can go out and experience more with your friends</h6>
+			</div>
+			<div class="span2">
+			</div>
+		</div>
+</div>
+<div class="whiteBg thirdSection">
 	<div class="container">
 		<div class="row-fluid">
-			<div class="span12">
-				<h1>Piazzo</h1>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span12">
-				<h3 class="subheader">Meet your friends. More often. And more of them.</h3>
-			</div>
-		</div>
-		<div class="row-fluid">
-			
-			<div class="span12" id="fbButton">
-				<a class="button primary-dark" href="/fbauth" id="fbLoginButton">Login with Facebook</a>
-				<!--- href="/fbauth">-->
-				<h6 class="subheader">We don't post to your wall or do any nasty stuff, we just want to know your city and your FB friends so you can go out more often and meet more friends!</h6>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span12">
-				<h4 class="subheader">How the magic happens</h4>
+			<div class="span4">
+				<h2 class="subheader">How to</h2>
 				<ul>
 					<li>Click "I'm up for something".</li>
-					<li>You'll see your friends that are also up for something right now.</li>
-					<li>Call them and go do stuff.</li>
+					<li>You'll see your friends that are also up for something right now within a 20km radius.</li>
+					<li>You can join a chat with anyone on the list or call them directly</li>
+					<li>Chat and decide or call and go do stuff.</li>
 				</ul>
-				<h4 class="subheader">When to use Piazzo</h4>
+			</div>
+			<div class="span4">
+				<h2 class="subheader">When to</h2>
 				<ul>
 					<li>Find more friends for lunch</li>
 					<li>Invite more people for drinks</li>
 					<li>Your date stood you up? Find a friend to complain to.</li>
-					<li>Foreign city? (you can see all of your FB friends who live there)</li>
+					<li>Foreign city? (you can see all of your FB friends who live in the same city where you are now)</li>
 				</ul>
-				<h6>There are two things to know about how Piazzo works:</h6>
+			</div>
+			<div class="span4">
+				<h2 class="subheader">Mechanics of Piazzo</h2>
 					<ol>
 						<li>Your status is automatically cancelled in 1 hour.</li>
 						<li>You can't cancel your status within 10 minutes. </li> 
 					</ol>
 			</div>
-		</div>
-	</div><!-- container-->
-	<footer>
-		<div class="container">
-			<div class="row">
-			      <hr>
-			      <div class="large-5 columns">
-			        <p><a href="/tos">Terms of Service &<br>
-				 		Privacy Policy</a>
-			        </p>
-			      </div>
-			 		<div class="large-7 columns text-right">
-						<p>Contact:<br>
-							+358 40 7636564 (Call the developers!)<br>
-							007 at thisdomain</p>
-					</div>
+		</div><!--- row-fluid -->
+	
+		<footer>
+				<div class="row-fluid">
+					<hr>
+				</div>
+				<div class="row-fluid">
+				      <div class="span5">
+				        <p><a href="/tos">Terms of Service &<br>
+					 		Privacy Policy</a>
+				        </p>
+				      </div>
+				 		<div class="span7 text-right">
+							<p>Contact:<br>
+								+358 40 7636564 (Call the developers!)<br>
+								007 at thisdomain</p>
+						</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
+		</div><!-- container -->
+	</div><!-- whiteBg->
+	
 </body>
 </html>
