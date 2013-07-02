@@ -210,7 +210,7 @@
 <script type="text/template" id="userList">
 		
 	<% if(upfo) { %>
-		<% if(upfo) { %>
+		<% if($upfoFriends.html()) { %>
 	    	<table class="table table-condensed" id="upfo"><%= $upfoFriends.html() %></table>
     	<% } else { %>
 			<div class="panel"><h6>None of your friends are currently up for something!</h6> <p>Maybe you should invite more friends?</p><button class="button primary" href="#fb-root" onclick="sendFBRequest();">Invite more friends</button></div>
