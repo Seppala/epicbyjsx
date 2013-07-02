@@ -5,6 +5,14 @@
 	margin-right: 6px;
 }
 
+#fbButton {
+	text-align: center;
+}
+
+#logoText {
+	padding-left: 7px;
+}
+
 .headText {
 	color: rgb(245,245,245);
 	font-weight: normal;
@@ -12,9 +20,17 @@
 	line-height: 1em;
 }
 
+.headTextMobile {
+	color: rgb(245,245,245);
+	font-weight: normal;
+	font-size: 32px;
+	line-height: 1em;
+}
+
 .mywhite {
 	color: rgb(245,245,245);
 	font-weight: normal;
+	padding: 0px;
 }
 
 .thirdSection {
@@ -31,6 +47,7 @@
 	  height:100%;
 	  background: url(/images/tournoi_rollip_blur.jpg) center center no-repeat;
 	  background-size: cover ;
+	  padding: 0px;
 }
 
 #mainContainer {
