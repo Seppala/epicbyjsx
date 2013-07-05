@@ -386,3 +386,20 @@ var OptionsView = Backbone.View.extend({
 	},
 	
 });
+
+var ChatView = Backbone.View.extend({
+	template: _.template( $('#page_chat_t').html()),
+	events: {
+		"submit #chat-box": "send",
+	},
+	render: function() {
+		this.$el.html(this.template());
+		return this;
+	},
+	send: function(event) {
+		event.preventDefault();
+		var ownname = this.options.user.attributes.name;
+		$('<div>').text($('#chat-field').val()).prepend($('<em>').text(ownname + ": ")).appendTo($('#chat-messages'));
+		$('#chat-field').val('');
+	}
+});

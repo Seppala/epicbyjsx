@@ -131,6 +131,7 @@ $(function($){
 		routes: {
 			"": "index",
 			"options": "options",
+			"chat": "chat",
 			":page": "notfound"
 		},
 		initialize: function(){
@@ -158,6 +159,11 @@ $(function($){
 			this.optionsView = new OptionsView({model: this.user});
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.optionsView.render().el);
+		},
+		chat: function() {
+			this.chatView = new ChatView({user: this.user});
+			$('#headerbar').html(this.headerbarView.render().el);
+			$('#container').html(this.chatView.render().el);
 		},
 		notfound: function(page) {
 			// Right now handle them with the standard app
