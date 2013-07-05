@@ -392,14 +392,28 @@ var ChatView = Backbone.View.extend({
 	events: {
 		"submit #chat-box": "send",
 	},
+	initialize: function() {
+		// this probably shouldn't be in the view (??) 
+		var _this = this;
+		this.chatRef = new Firebase("https://piazzodev.firebaseio.com");
+		this.chatRef.on('child_added', function(data) {
+        	var message = data.val();
+        	_this.displaymessage(message.name, message.message);
+      	});
+	},
 	render: function() {
 		this.$el.html(this.template());
 		return this;
 	},
 	send: function(event) {
 		event.preventDefault();
-		var ownname = this.options.user.attributes.name;
-		$('<div>').text($('#chat-field').val()).prepend($('<em>').text(ownname + ": ")).appendTo($('#chat-messages'));
+		this.chatRef.push({
+			name: this.options.user.attributes.name, 
+			message: $('#chat-field').val()
+		});
 		$('#chat-field').val('');
+	},
+	displaymessage: function(name, message) {
+		$('<div>').text(message).prepend($('<em>').text(name + ": ")).appendTo($('#chat-messages'));
 	}
 });
