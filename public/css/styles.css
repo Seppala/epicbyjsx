@@ -10,7 +10,7 @@
 }
 
 #logoText {
-	font-size:48.5px;
+	font-size:28.5px;
 	  
 }
 
@@ -55,7 +55,7 @@
 }
 .whiteBg {
 	background: rgb(255,255,255);
-	border-bottom: 2px rgb(200,200,200) solid;
+	border-bottom: 1px rgb(200,200,200) solid;
 	padding-top:4px;
 	padding-bottom:4px;
 }
