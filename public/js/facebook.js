@@ -33,7 +33,7 @@ function publishFBStory(message) {
     method: 'feed',
     name: 'Check out Piazzo! Useful when you want to find friends that are up for something right now.',
     link: "http://piazzo.co",
-    picture: '/images/logo512.png'
+    picture: 'http://piazzo.co/images/logo512.png'
   }, 
   function(response) {
     console.log('publishStory response: ', response);
