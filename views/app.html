@@ -43,38 +43,36 @@
 <!-- The Header -->
 <script type="text/template" id="headerbarr">
     <div class="navbar-inner" style="padding-left: 11px;">
-		<div class="container-fluid">
-		<a class="brand" href="#"> Piazzo</a>
-		<ul class="nav" style="float:right;">
-			<li>
-		<% if (place === 'dev') { %>
-    		<div class="fb-like liked" data-href="http://localhost:5000" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
-    	<%} else {%>
-			<div class="fb-like liked" data-href="http://piazzo.co" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
-		<% } %>
-		</li>
-		<li id="dropdown">
-      		<div class="dropdown">
-				<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
-					<img src="/images/menu.svg"> 
-					<b class="caret"></b>
-		  		</a>
-		  		<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
-        		<li>
-        			<a tabindex="-1" href="#options">Options</a>
-    				</li>
-			  	<li>
-					<a tabindex="-1" href="/logout">Logout</a>
-			  	</li>
-        	</ul>
-		</li>
-		</ul>
-		</div>
-      </div>
-	</li>
-	</ul>
-    </div>
-	<br class="clear" />
+			<div class="container-fluid">
+			<img id="navbarLogo" src="/images/logo28.png">
+			<a id="appLogo" href="#"> Piazzo</a>
+			<ul class="nav" style="float:right;">
+				<li>
+			<% if (place === 'dev') { %>
+	 		<div class="fb-like liked" data-href="http://localhost:5000" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
+	 	<%} else {%>
+				<div class="fb-like liked" data-href="http://piazzo.co" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="arial"></div>
+			<% } %>
+			</li>
+			<li id="dropdown">
+	   		<div class="dropdown">
+					<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+						<img src="/images/menu_white_caret24.png">
+			  		</a>
+			  		<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+	     		<li>
+	     			<a tabindex="-1" href="#options">Options</a>
+	 				</li>
+				  	<li>
+						<a tabindex="-1" href="/logout">Logout</a>
+				  	</li>
+	     		</ul>
+			</li>
+			</ul>
+			</div>
+	   </div>
+		<br class="clear" />
+               
 </script>	
 <!-- "Meta" Template that has placeholders for button "UPfoButtonView" and list of friends who are users "userView" and those who are not "nonUserView"-->
 <script type="text/template" id="active_page">

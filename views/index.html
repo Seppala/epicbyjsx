@@ -13,16 +13,34 @@
     <link rel='stylesheet' href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css'>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
 	<!-- fix for windows IE10 -->
+	<script type="text/javascript">
+	var fb_param = {};
+	fb_param.pixel_id = '6010537161435';
+	fb_param.value = '0.00';
+	fb_param.currency = 'USD';
+	(function(){
+	  var fpw = document.createElement('script');
+	  fpw.async = true;
+	  fpw.src = '//connect.facebook.net/en_US/fp.js';
+	  var ref = document.getElementsByTagName('script')[0];
+	  ref.parentNode.insertBefore(fpw, ref);
+	})();
+	</script>
+	<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6010537161435&amp;value=0&amp;currency=USD" /></noscript>
 	<!-- start google analytics--><script src="js/ga.js"></script><!-- end google analytics -->
 <!-- start Mixpanel --><script src="js/mixpanel.js"></script><!-- end Mixpanel -->
 </head>
 <body id="index">
-	<div class="whiteBg">
+	<div class="whiteBg navi">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span12">
+				<div class="span2 hidden-phone"></div>
+				<div class="span6">
 					<div class="visible-phone"><img src="/images/logo28.png"><span class="logoText" id="logoTextMobile">Piazzo</span></div>
 					<div class="hidden-phone"><img src="/images/logo44.png"><span class="logoText" id="logoText">Piazzo</span></div>
+				</div>
+				<div class="span4 hidden-phone">
+				<!-- <a class="navlink" href="http://blog.piazzo.co">Blog</a> -->
 				</div>
 			</div>
 		</div>
@@ -30,23 +48,26 @@
 	<div class="container-fluid" id="mainContainer">
 		
 		<div class="row-fluid">
+			<div class="span2"></div>
 			<div class="span3">
 				<img class="hidden-phone" src="/images/piazzo_iphone.png">
 			</div>
-			<div class="span9">
+			<div class="span5">
 				<h1 class="visible-phone headTextMobile">Experience more memorable moments with your friends.</h1>
 				<h1 class="hidden-phone headText">Experience more memorable moments with your friends.</h1>
-				<h4 class="mywhite">Piazzo let's you connect with friends right now to gather more friends and do more stuff.</h4>
+				<h4 class="mywhite">Piazzo is useful when you want to find friends that are up for something right now. Like for lunch and such. Or Ping-pong.</h4>
+				<div class="span6" id="fbButton">
+					<a class="button large primary-dark" href="/fbauth" id="fbLoginButton">Login with Facebook</a>
+					<!--- href="/fbauth">-->
+					<h4 class="subheader">We don't post to your wall or do any nasty stuff without you doing it, we just want to know your city and your FB friends so you can go out and experience more with your friends</h4>
+				</div>
 			</div>
+			<div class="span2"></div>
 		</div>
 		<div class="row-fluid">
 			<div class="span4">
 			</div>
-			<div class="span6" id="fbButton">
-				<a class="button large primary-dark" href="/fbauth" id="fbLoginButton">Login with Facebook</a>
-				<!--- href="/fbauth">-->
-				<h4 class="subheader">We don't post to your wall or do any nasty stuff without you doing it, we just want to know your city and your FB friends so you can go out and experience more with your friends</h6>
-			</div>
+			
 			<div class="span2">
 			</div>
 		</div>
@@ -59,8 +80,8 @@
 				<ul>
 					<li>Click "I'm up for something".</li>
 					<li>You'll see your friends that are also up for something right now within a 20km radius.</li>
-					<li>You can join a chat with anyone on the list or call them directly</li>
-					<li>Chat and decide or call and go do stuff.</li>
+					<li>You can call them directly if they have added their number in Piazzo.</li>
+					<li>Contact them and go do stuff. #winning.</li>
 				</ul>
 			</div>
 			<div class="span4">
@@ -86,15 +107,29 @@
 					<hr>
 				</div>
 				<div class="row-fluid">
-				      <div class="span5">
-				        <p><a href="/tos">Terms of Service &<br>
+				      <div class="span3">
+				        <ul class="horzon">
+							<li>
+								<a href="/tos">Terms of Service & 
 					 		Privacy Policy</a>
-				        </p>
+							</li>
+				        	<li><a href="/jobs">Jobs</a>
 				      </div>
-				 		<div class="span7 text-right">
-							<p>Contact:<br>
-								+358 40 7636564 (Call the developers!)<br>
-								007 at thisdomain</p>
+					<div class="span2">
+						Made with love in Helsinki & Berlin
+						
+					</div>
+					<div class="span5"></div>
+				 		<div class="span2 text-right">
+								<table>
+									<th colspan=2 style="text-align: left;">Contact</th>
+									<tr>
+										<td>Phone</td><td>+358 40 7636564</td>
+									</tr>
+									<tr>
+										<td>Email</td><td>riku -a- epicby.com</td>
+									</tr>
+								</table>
 						</div>
 			</div>
 		</footer>

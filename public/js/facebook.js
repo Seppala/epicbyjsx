@@ -31,9 +31,9 @@ function requestCallback(response) {
 function publishFBStory(message) {
   FB.ui({
     method: 'feed',
-    name: 'Piazzo - Meet your friends. More often. And more of them.',
+    name: 'Check out Piazzo! Useful when you want to find friends that are up for something right now.',
     link: "http://piazzo.co",
-    picture: 'http://www.facebookmobileweb.com/getting-started/img/facebook_icon_large.png'
+    picture: 'http://piazzo.co/images/logo512.png'
   }, 
   function(response) {
     console.log('publishStory response: ', response);
