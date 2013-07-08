@@ -395,7 +395,9 @@ var ChatView = Backbone.View.extend({
 	initialize: function() {
 		// this probably shouldn't be in the view (??) 
 		var _this = this;
-		this.chatRef = new Firebase("https://piazzodev.firebaseio.com");
+		// The chatid is given through the adress of the route (localhost/chat/(chatid))
+		var chatId = this.options.chatId; 
+		this.chatRef = new Firebase("https://piazzodev.firebaseio.com/" + chatId);
 		this.chatRef.on('child_added', function(data) {
         	var message = data.val();
         	_this.displaymessage(message.name, message.message);

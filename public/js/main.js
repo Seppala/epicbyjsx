@@ -131,7 +131,7 @@ $(function($){
 		routes: {
 			"": "index",
 			"options": "options",
-			"chat": "chat",
+			"chat/:chatid": "chat",
 			":page": "notfound"
 		},
 		initialize: function(){
@@ -160,8 +160,8 @@ $(function($){
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.optionsView.render().el);
 		},
-		chat: function() {
-			this.chatView = new ChatView({user: this.user});
+		chat: function(chatid) {
+			this.chatView = new ChatView({user: this.user, chatid: chatid});
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.chatView.render().el);
 		},
