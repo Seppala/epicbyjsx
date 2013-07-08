@@ -206,6 +206,9 @@
               <a class="button small <%= upfo?'primary':'warning' %>" href="tel:<%= phoneNumber %>">Call</a> 
             <% } %>
 			</td>
+			<td class="nrtd">
+				<a class="button small primary" href="#chat/<%= fbId %>">Chat</a>
+			</td>
           <% } else { %>
 			<td class="nrtd">
             	<a class="button success" href="#fb-root" onclick="sendRequestToRecipients(<%= fbId %>)">Invite</a>
