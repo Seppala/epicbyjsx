@@ -12,6 +12,8 @@ var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport'),
   	FacebookStrategy = require('passport-facebook').Strategy;
+var util = require('util');
+var expressValidator = require('express-validator');
 //Dependencies on our files
 var config = require('./config');
 var ensureAuthenticated = require('./routes/routehelpers').ensureAuthenticated;
@@ -52,6 +54,7 @@ app.configure(function(){
   app.use(passport.initialize());
   app.use(passport.session());  
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(expressValidator());
   app.use(app.router);
 });
 
