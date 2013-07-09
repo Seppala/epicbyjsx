@@ -202,6 +202,10 @@ module.exports = function(app) {
 		
 		req.sanitize('message').xss();
 		req.sanitize('message').escape();
+		req.sanitize('city').xss();
+		req.sanitize('city').escape();
+		req.sanitize('phoneNumber').xss();
+		req.sanitize('phoneNumber').escape();
 		
 		var errors = req.validationErrors();
 		  if (errors) {
