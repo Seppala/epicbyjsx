@@ -394,28 +394,34 @@ var ChatView = Backbone.View.extend({
 	},
 	initialize: function() {
 		// this probably shouldn't be in the view (??) 
-		var _this = this;
 		// The chatid is given through the adress of the route (localhost/chat/(chatid))
-		var chatId = this.options.chatid; 
-		this.chatRef = new Firebase("https://piazzodev.firebaseio.com/" + chatId);
-		this.chatRef.on('child_added', function(data) {
-        	var message = data.val();
-        	_this.displaymessage(message.name, message.message);
-      	});
+		console.log("Initializing the chatview.");
 	},
 	render: function() {
 		this.$el.html(this.template());
+		// Loading only the last 10 messages
+		// TODO: Load more, if requested
+		var _this = this;
+		// The off-Function has to be called to make sure that
+		// the last event listener is not firing too early
+		this.options.chatRef.off('child_added');
+		this.options.chatRef.endAt().limit(10).on('child_added', function(data) {
+        	var message = data.val();
+        	_this.displaymessage(message.name, message.message);
+      	});
+      	console.log("View rendered");
 		return this;
 	},
 	send: function(event) {
 		event.preventDefault();
-		this.chatRef.push({
+		this.options.chatRef.push({
 			name: this.options.user.attributes.name, 
 			message: $('#chat-field').val()
 		});
 		$('#chat-field').val('');
 	},
 	displaymessage: function(name, message) {
+		console.log("Displaying message by" + name);
 		$('<div>').text(message).prepend($('<em>').text(name + ": ")).appendTo($('#chat-messages'));
 	}
 });

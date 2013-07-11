@@ -161,7 +161,11 @@ $(function($){
 			$('#container').html(this.optionsView.render().el);
 		},
 		chat: function(chatid) {
-			this.chatView = new ChatView({user: this.user, chatid: chatid});
+			if(!this.dataRef) {
+				this.dataRef = new Firebase("https://piazzodev.firebaseio.com/");
+			}
+			var chatRef = this.dataRef.child(chatid)
+			this.chatView = new ChatView({user: this.user, chatRef: chatRef});
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.chatView.render().el);
 		},
