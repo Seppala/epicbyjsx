@@ -23,6 +23,7 @@ $(function($){
 			friends: {},
 			phoneNumber: '',
 			fbaccessToken: '',
+			firebaseToken: '',
 			upfoTime: 0, //time when user was set upfo.
 			notUpfoTime: 0, //time when user should be turned not upfo.
 			city: '',
@@ -163,6 +164,14 @@ $(function($){
 		chat: function(chatid) {
 			if(!this.dataRef) {
 				this.dataRef = new Firebase("https://piazzodev.firebaseio.com/");
+				console.log(this.user);
+				this.dataRef.auth(this.user.attributes.firebaseToken, function(error) {
+					if(error) {
+					  console.log("Login Failed!", error);
+					} else {
+					  console.log("Login Succeeded!");
+					}
+				})
 			}
 			var chatRef = this.dataRef.child(chatid)
 			this.chatView = new ChatView({user: this.user, chatRef: chatRef});

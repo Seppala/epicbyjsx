@@ -4,6 +4,7 @@ var config = require('../config');
 var request = require('request');
 var sort_by = require('../helpers/sort').sort_by;
 var geocode = require('../helpers/geocode');
+var firebase = require('../helpers/firebase');
 var upfoFalse = require('./upfo').upfoFalse;
 var expressValidator = require('express-validator');
 
@@ -261,6 +262,7 @@ module.exports = function(app) {
 					}
 
 				}
+
 				// Look whether a geocode lookup has to be done 
 				geocode.sync(user, req.body, function(err, user) {
 					if(err) {
@@ -310,6 +312,12 @@ module.exports = function(app) {
 				console.log('is user');
 				user.upfo = Date.now() < user.notUpfoTime; // upfo as long as notUpfoTime is later than now
 				console.log("GET: Upfo status is " + user.upfo);
+
+				// Sending the firebase auth to the user
+				// Is this also blocking?
+				// I think we have to put this in an extra http request
+				user.firebaseToken = firebase.getToken(user.fbId);
+				console.log("Firebase token: " + user.firebaseToken);
 				res.send( user); // Change: Don't send everything (sensitive stuff)
 			} else {
 				res.send ("{error: true}");
