@@ -12,9 +12,3 @@ var getLocation = function(next) {
 		next('Geolocation is not supported by the browser');
 	}
 }
-
-// Chat Firebase Functions
-var firebaseInit = function() {
-	var dataRef = new Firebase("https://piazzodev.firebaseio.com/chats/" );
-	return dataRef;
-}
