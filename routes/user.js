@@ -5,6 +5,7 @@ var request = require('request');
 var sort_by = require('../helpers/sort').sort_by;
 var geocode = require('../helpers/geocode');
 var upfoFalse = require('./upfo').upfoFalse;
+var expressValidator = require('express-validator');
 
 module.exports = function(app) {
 
@@ -195,10 +196,23 @@ module.exports = function(app) {
 		});
 
 	});
-	
 
 	//Put request that makes changes to the user
 	app.put( '/api/users/:fbId', ensureAuthenticated, function( req, res ) {
+		
+		req.sanitize('message').xss();
+		req.sanitize('message').escape();
+		req.sanitize('city').xss();
+		req.sanitize('city').escape();
+		req.sanitize('phoneNumber').xss();
+		req.sanitize('phoneNumber').escape();
+		
+		var errors = req.validationErrors();
+		  if (errors) {
+		    res.send('There have been validation errors.', 500);
+		    return;
+		  }
+		
 		// It works now correctly, I think it uses the request cookie.
 		// The think is that the fbId in the url is actually not needed at all.
 	    console.log( 'Updating user with fbid:' + req.user.fbId);
