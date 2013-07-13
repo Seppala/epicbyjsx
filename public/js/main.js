@@ -29,7 +29,24 @@ $(function($){
 			city: '',
 		},
 		initialize: function() {
-			this.fetch();
+			var _this = this;
+			this.fetch({
+				success: function() {
+					console.log("Fetching success");
+					if(!_this.dataRef) {
+					_this.dataRef = new Firebase("https://piazzodev.firebaseio.com/");
+					console.log(_this.attributes.firebaseToken);
+					_this.dataRef.auth(_this.attributes.firebaseToken, function(error) {
+						if(error) {
+						  console.log("Login Failed!", error);
+						} else {
+						  console.log("Login Succeeded!");
+						}
+					})	
+					}
+				}
+			});
+			
 			//this.browserLocation();
 		},
 		browserLocation: function(successfun /*optional*/) {
@@ -162,18 +179,8 @@ $(function($){
 			$('#container').html(this.optionsView.render().el);
 		},
 		chat: function(chatid) {
-			if(!this.dataRef) {
-				this.dataRef = new Firebase("https://piazzodev.firebaseio.com/");
-				console.log(this.user);
-				this.dataRef.auth(this.user.attributes.firebaseToken, function(error) {
-					if(error) {
-					  console.log("Login Failed!", error);
-					} else {
-					  console.log("Login Succeeded!");
-					}
-				})
-			}
-			var chatRef = this.dataRef.child(chatid)
+
+			var chatRef = this.user.dataRef.child(chatid);
 			this.chatView = new ChatView({user: this.user, chatRef: chatRef});
 			$('#headerbar').html(this.headerbarView.render().el);
 			$('#container').html(this.chatView.render().el);

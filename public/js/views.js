@@ -404,11 +404,14 @@ var ChatView = Backbone.View.extend({
 		var _this = this;
 		// The off-Function has to be called to make sure that
 		// the last event listener is not firing too early
-		this.options.chatRef.off('child_added');
-		this.options.chatRef.endAt().limit(10).on('child_added', function(data) {
-        	var message = data.val();
-        	_this.displaymessage(message.name, message.message);
-      	});
+
+		if(this.options.chatRef) {
+			this.options.chatRef.off('child_added');
+			this.options.chatRef.endAt().limit(10).on('child_added', function(data) {
+	        	var message = data.val();
+	        	_this.displaymessage(message.name, message.message);
+	      	});
+		}
       	console.log("View rendered");
 		return this;
 	},
