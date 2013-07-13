@@ -6,5 +6,19 @@ var FirebaseTokenGenerator = require("firebase-token-generator");
 var firebaseSecret = "9t3FGyDIizHM9TttNSkVhZfutFqAWZcT3hy37FzY"; 
 var tokenGenerator = new FirebaseTokenGenerator(firebaseSecret);
 exports.getToken = function(fbId) {
-	return tokenGenerator.createToken({fbId: fbId});
+	return tokenGenerator.createToken({fbId: fbId, role: "piazzouser"});
 }
+
+/*
+Firebase rules
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "$roomid": {
+      ".read": "auth.role == 'piazzouser'", 
+      ".write": "auth.role == 'piazzouser'"
+    }
+  }
+}
+*/
