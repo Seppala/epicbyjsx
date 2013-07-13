@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema({
 	upfo: Boolean,
 	message: String,
 	fbaccessToken: String,
+	firebaseToken: String,
 	phoneNumber: String,
 	upfoTime: Number,
 	notUpfoTime: Number,

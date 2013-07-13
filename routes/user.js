@@ -317,7 +317,6 @@ module.exports = function(app) {
 				// Is this also blocking?
 				// I think we have to put this in an extra http request
 				user.firebaseToken = firebase.getToken(user.fbId);
-				console.log("Firebase token: " + user.firebaseToken);
 				res.send( user); // Change: Don't send everything (sensitive stuff)
 			} else {
 				res.send ("{error: true}");
