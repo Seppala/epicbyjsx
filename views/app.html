@@ -158,6 +158,20 @@
 		</div>
 	<% } else { %>
 	<h4 id="firstText">You&rsquo;re up for something!</h4>
+	<table class="table table-condensed" id="upfo">
+	        <td class="pictd">
+		<% if (place !== 'prod') { %>
+          <img src="https://graph.facebook.com/<%= fbId?fbId:'facebook' %>/picture" class="img-rounded " width="50 "> <% } %>
+ 		
+        </td>
+        <td class="nametd">
+			<h6><%=name%>, <span class="subheader"><%=city%></span></h6> 
+			<p class="subheader"><%= message %></p>
+		</td>
+		<td class="nrtd">
+				<a class="button small primary" href="#chat/<%= fbId %>">Chat</a>
+		</td>
+	</table>
 		<form id="msgForm">
 			<div class="row">
 				<div class="large-8 columns">
