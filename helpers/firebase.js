@@ -9,11 +9,10 @@ exports.getToken = function(fbId, fbFriends) {
 	// The fbfriendsStr is a workaround for firebase
 	// It should be an array instead, but firebase does not
 	// seem to have array methods for rule testing
-	var fbFriendsStr = "";
+	var fbFriendsStr = fbId;
 	for(var key in fbFriends) {
 		fbFriendsStr += "." + fbFriends[key].id;
 	}
-	console.log("Fbfriendsstr "+ fbFriendsStr);
 	return tokenGenerator.createToken({fbId: fbId, fbFriends: fbFriendsStr, role: "piazzouser"});
 }
 
