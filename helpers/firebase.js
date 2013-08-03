@@ -5,8 +5,16 @@ var FirebaseTokenGenerator = require("firebase-token-generator");
 // The firebase secret has to be taken from the firebase options..
 var firebaseSecret = "9t3FGyDIizHM9TttNSkVhZfutFqAWZcT3hy37FzY"; 
 var tokenGenerator = new FirebaseTokenGenerator(firebaseSecret);
-exports.getToken = function(fbId) {
-	return tokenGenerator.createToken({fbId: fbId, role: "piazzouser"});
+exports.getToken = function(fbId, fbFriends) {
+	// The fbfriendsStr is a workaround for firebase
+	// It should be an array instead, but firebase does not
+	// seem to have array methods for rule testing
+	var fbFriendsStr = "";
+	for(var key in fbFriends) {
+		fbFriendsStr += "." + fbFriends[key].id;
+	}
+	console.log("Fbfriendsstr "+ fbFriendsStr);
+	return tokenGenerator.createToken({fbId: fbId, fbFriends: fbFriendsStr, role: "piazzouser"});
 }
 
 /*
@@ -16,8 +24,8 @@ Firebase rules
     ".read": false,
     ".write": false,
     "$roomid": {
-      ".read": "auth.role == 'piazzouser'", 
-      ".write": "auth.role == 'piazzouser'"
+      ".read": "auth.fbFriends.contains($roomid)",
+      ".write": "auth.fbFriends.contains($roomid)"
     }
   }
 }

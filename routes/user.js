@@ -316,8 +316,11 @@ module.exports = function(app) {
 				// Sending the firebase auth to the user
 				// Is this also blocking?
 				// I think we have to put this in an extra http request
-				user.firebaseToken = firebase.getToken(user.fbId);
-				res.send( user); // Change: Don't send everything (sensitive stuff)
+				getFriendsFromFacebook(user, function(err, friends) {
+					user.firebaseToken = firebase.getToken(user.fbId, friends);
+					res.send( user); // Change: Don't send everything (sensitive stuff)
+				});
+				
 			} else {
 				res.send ("{error: true}");
 			}
