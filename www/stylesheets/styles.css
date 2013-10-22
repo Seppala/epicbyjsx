@@ -1,0 +1,332 @@
+/* apply a natural box layout model to all elements */
+{ -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+#mappin {
+	margin-right: 6px;
+}
+
+#fbButton {
+	margin-top:22px;
+	text-align: center;
+}
+
+#logoText {
+	font-size:28.5px;
+	  
+}
+
+.horzon {
+	list-style-type:none;
+}
+
+.horzon li {
+	/*display:inline;*/
+}
+
+#navbarLogo {
+	float: left;
+	padding-top: 5px;
+	padding-right: 10px
+}
+
+#logoTextMobile {
+	font-size:26.5px;
+	  
+}
+
+#appLogo {
+	color: white;
+	display: block;
+	float: left;
+	padding: 10px 20px 10px;
+	margin-left: -20px;
+	font-size: 20px;
+	font-weight: 200;
+}
+
+.dropdown-toggle span {
+ display: block; width: 16px; height: 0; -webkit-box-shadow: 0 10px 0 1px white, 0 16px 0 1px white, 0 22px 0 1px white; box-shadow: 0 10px 0 1px white, 0 16px 0 1px white, 0 22px 0 1px white; 
+}
+
+.logoText {
+	margin-left: 3px;
+	vertical-align:middle;
+	font-family: inherit;
+	  font-weight: bold;
+	  color: inherit;
+	  text-rendering: optimizelegibility;
+}
+
+.headText {
+	color: rgb(245,245,245);
+	font-weight: normal;
+	font-size: 66px;
+	line-height: 1em;
+}
+
+.headTextMobile {
+	color: rgb(245,245,245);
+	font-weight: normal;
+	font-size: 32px;
+	line-height: 1em;
+}
+
+.mywhite {
+	color: rgb(245,245,245);
+	font-weight: normal;
+	padding: 0px;
+}
+
+.thirdSection {
+	margin-top: 35px;
+	padding-top:45px;
+	padding: 10px;
+}
+.whiteBg {
+	background: rgb(255,255,255);
+	border-bottom: 1px rgb(200,200,200) solid;
+	padding-top:4px;
+	padding-bottom:4px;
+}
+
+.navi {
+	padding: 15px 0 15px 0;
+}
+
+.navlink {
+	float: right;
+	padding-right: 8%;
+	font-size:28px;
+	vertical-align: middle;
+}
+
+@media (max-width: 1280px) and (min-width: 721px) {
+	body {
+	background: url(http://piazzo.co/images/tournoi_rollip_blur1280.jpg) center center no-repeat;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 720px) {
+	body {
+		background: url(http://piazzo.co/images/tournoi_rollip_blur480.jpg) center center no-repeat;
+	}
+}
+
+@media (max-width: 480px) {
+	body {
+		background: url(http://piazzo.co/images/tournoi_rollip_blur480.jpg) center center no-repeat;
+	}
+}
+
+@media (min-width: 1281px) {
+	body {
+		 background: url(http://piazzo.co/images/tournoi_rollip_blur.jpg) center center no-repeat;
+	}
+}
+
+body {
+	  width:100%;
+	background-position: center;
+	webkit-background-size: cover;
+	-moz-background-size: cover;
+	 -o-background-size: cover;
+	    background-size: cover;
+	padding: 0px;
+}
+
+#mainContainer {
+	padding:10px;
+}
+
+.smallText {
+	font-weight: 300;
+	font-size: 14px;
+	margin-left: 2px;
+}
+.dynamicContent {
+	max-width: 480px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#dropdown{
+	padding-left:20px;
+	padding-top:8px;
+}
+
+#headerbar {
+	height: 40px;
+}
+.navbar-inner {
+	padding-left:5px;
+	padding-right:2px;
+}
+
+.navbar-inner .container-fluid {
+	padding-right:0px;
+}
+
+#headerbar .dropdown {
+	float: right;
+}
+#nonuser tr td{
+	min-width: 50px;
+}
+
+#nonuser {
+	max-width: 100%;
+}
+
+h6 img {
+	padding-right: 9px;
+}
+
+#cityText {
+	margin-top:4px;
+	margin-bottom:7px;
+}
+
+#fbButton {
+	margin-bottom: 1.45em;
+}
+
+.liked {
+	padding-top:10px;
+}
+
+.listText {
+	margin-bottom:2px;
+}
+
+.listDiv {
+	margin-bottom: 7px;
+}
+
+.listDiv h4 {
+	margin-top: 8px;
+}
+
+.activeDiv {
+	margin-top:9px;
+	margin-bottom:18px;
+}
+
+#alerttext {
+  margin-top: 12px;
+}
+
+#well1 {
+  margin-top:12px;
+}
+
+.btn-grey {
+  color: rgb(125,125,125);
+  margin-bottom:5px;
+  margin-top:10px;
+}
+
+.msgset button{
+    height: 30px;
+    margin-top: 3px;
+}
+
+#msgset {
+	margin-top:3px;
+}
+
+#user-message {
+	font-size: 1em;
+	margin-bottom:0px;
+}
+
+#firstText {
+	margin-top: 35px;
+	margin-bottom:25px;
+}
+
+.activeDiv input {
+	margin-top:8px;
+	margin-bottom:6px;
+}
+
+#nonUserView button {
+	margin-top:10px;
+	margin-bottom:12px;
+}
+
+#headerbar {
+	padding:0;
+	
+}
+
+.navbar {
+	width:100%;
+	right:0;
+	left:0;
+}
+/*Styling for the list of users, in template friend_t*/
+
+	table {
+		width:100%;
+	}
+
+	.pictd {
+		width: 60px;
+	}
+
+	.nrtd {
+		width: 60px;
+	}
+
+	
+.optionsbuttons {
+	margin-top: 5px;
+}
+
+/* Fix alerts in flat */
+
+.alert {
+	text-shadow: none;
+}
+
+/* Fixing responsiveness for windows devices...*/
+@-ms-viewport{
+	width: device-width;
+}
+
+/*spin2 is for the spinner that's up on the page..*/
+#spin2 {
+	height: 100px;
+}
+
+
+#save-spinner {
+	position: absolute;
+	z-index: 2;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	top: 5px;
+	opacity: 1;
+	right: 0em;
+}
+
+#options-save-title {
+	position: relative;
+	z-index: 3;
+}
+
+#save {
+	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+
+	-webkit-appearance: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#save.loading {
+	padding-right: 53px;
+}
+

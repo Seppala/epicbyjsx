@@ -1,0 +1,11 @@
+{
+  "name": "myProject",
+  "version": "0.0.1",
+  "dependencies": {
+    "steroids-js": "2.7.x"
+  },
+  "_source": "/Users/finn/code/steroids/config/bower.json",
+  "_target": "*",
+  "_originalSource": "/Users/finn/code/steroids/config/bower.json",
+  "_direct": true
+}
