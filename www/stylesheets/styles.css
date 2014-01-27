@@ -102,31 +102,32 @@
 
 @media (max-width: 1280px) and (min-width: 721px) {
 	body {
-	background: url(http://piazzo.co/images/tournoi_rollip_blur1280.jpg) center center no-repeat;
+	background: url(../images/tournoi_rollip_blur1280.jpg) center center no-repeat;
   }
 }
 
 @media (min-width: 481px) and (max-width: 720px) {
 	body {
-		background: url(http://piazzo.co/images/tournoi_rollip_blur480.jpg) center center no-repeat;
+		background: url(../images/tournoi_rollip_blur480.jpg) center center no-repeat;
 	}
 }
 
 @media (max-width: 480px) {
 	body {
-		background: url(http://piazzo.co/images/tournoi_rollip_blur480.jpg) center center no-repeat;
+		background: url(../images/tournoi_rollip_blur480.jpg) center center no-repeat;
 	}
 }
 
 @media (min-width: 1281px) {
 	body {
-		 background: url(http://piazzo.co/images/tournoi_rollip_blur.jpg) center center no-repeat;
+		 background: url(../images/tournoi_rollip_blur.jpg) center center no-repeat;
 	}
 }
 
+
 body {
 	  width:100%;
-	background-position: center;
+	background-color: black;
 	webkit-background-size: cover;
 	-moz-background-size: cover;
 	 -o-background-size: cover;

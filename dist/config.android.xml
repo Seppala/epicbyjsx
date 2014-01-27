@@ -17,6 +17,7 @@
        specific language governing permissions and limitations
        under the License.
 -->
+<widget id="com.appgyver.helloSteroids" version="2.0.0" xmlns="http://www.w3.org/ns/widgets">
 <cordova>
     <!--
     <access> elements control the Android domain whitelist.
@@ -53,3 +54,4 @@
         <plugin name="SQLitePlugin" value="com.phonegap.plugin.sqlitePlugin.SQLitePlugin"/>
     </plugins>
 </cordova>
+</widget>

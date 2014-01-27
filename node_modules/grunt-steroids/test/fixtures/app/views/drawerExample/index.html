@@ -1,0 +1,40 @@
+<script>
+
+  // Listen for window.postMessage() messages that drawer sends us
+
+  window.addEventListener("message", function(msg) {
+    var elem = document.querySelector("#selectedInDrawer");
+    elem.textContent = msg.data.selection;
+  });
+
+  // Initialize the left drawer
+
+  var leftDrawer = new steroids.views.WebView("/views/drawerExample/drawer.html");
+
+  leftDrawer.preload({},{
+    onSuccess: initGesture  // When the view has loaded, enable finger tracking
+  });
+
+  function initGesture() {
+    steroids.drawers.enableGesture(leftDrawer);
+  }
+
+
+  // Helper functions
+
+  function openDrawer() {
+    steroids.drawers.show(leftDrawer);
+  }
+
+</script>
+
+
+<div class="content-padded">
+
+  <h1>Drawer Example</h1>
+
+  <div class="topcoat-button" ontouchend="openDrawer()">Open drawer</div>
+
+  <p>Selected in drawer: <span id="selectedInDrawer">Nothing, yet</span></p>
+</div>
+

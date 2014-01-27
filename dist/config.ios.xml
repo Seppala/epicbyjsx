@@ -32,39 +32,5 @@
     <preference name="KeyboardShrinksView" value="false" />
     <preference name="SuppressesIncrementalRendering" value="false" />
 
-    <plugins>
-        <plugin name="Device" value="CDVDevice" />
-        <plugin name="Logger" value="CDVLogger" />
-        <plugin name="Compass" value="CDVLocation" />
-        <plugin name="Accelerometer" value="CDVAccelerometer" />
-        <plugin name="Camera" value="CDVCamera" />
-        <plugin name="NetworkStatus" value="CDVConnection" />
-        <plugin name="Contacts" value="CDVContacts" />
-        <plugin name="Echo" value="CDVEcho" />
-        <plugin name="File" value="CDVFile" />
-        <plugin name="FileTransfer" value="CDVFileTransfer" />
-        <plugin name="Geolocation" value="CDVLocation" onload="false"/>
-        <plugin name="Notification" value="CDVNotification" />
-        <plugin name="Media" value="CDVSound" />
-        <plugin name="Capture" value="CDVCapture" />
-        <plugin name="SplashScreen" value="CDVSplashScreen" />
-        <plugin name="Battery" value="CDVBattery" />
-        <plugin name="Globalization" value="CDVGlobalization" />
-        <plugin name="InAppBrowser" value="CDVInAppBrowser" />
-
-        <!-- Built-in AppGyver Scanner plugins -->
-        <plugin name="SQLitePlugin" value="SQLitePlugin" />
-        <plugin name="org.apache.cordova.barcodeScanner" value="CDVBarcodeScanner" />
-        <plugin name="calendarPlugin" value="calendarPlugin" />
-
-        <!-- Built-in AppGyver Scanner experimental plugins -->
-        <plugin name="PushNotificationPlugin" value="PushNotificationPlugin" />
-        <plugin name="PushPlugin" value="PushPlugin" />
-        <plugin name="MapKitView" value="MapKitView" />
-        <plugin name="org.apache.cordova.facebook.Connect" value="FacebookConnectPlugin" />
-        <plugin name="FlurryPlugin" value="FlurryPlugin" />
-        <plugin name="GAPlugin" value="GAPlugin" />
-    </plugins>
-
     <access origin="*" />
 </widget>
